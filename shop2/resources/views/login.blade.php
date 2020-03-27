@@ -14,7 +14,14 @@
 			<text>PassWord: </text>
 			<input type="PassWord" name="passWord" id="passWord"><br />
 
-			<input type="submit" value="Login" />
+			<input type="submit" value="Login" /><br />
+			@if(isset($lerr))
+				@if($lerr == '1')
+					<text style = "color:red;">Username not exist</text>
+				@elseif($lerr == '2')
+					<text style = "color:red;">Password error</text>
+				@endif
+			@endif
 
 		</form>
 

@@ -25,20 +25,23 @@ class UserController extends Controller
     }
 
 
-    public function Login()
+    public function Login(Request $request)
     {
     	$account = DB::table('User')
     					->where('Username', $_POST['userName'])
-    					->get();
+    					->first();
 
     	$ucount = DB::table('User')
     					->where('Username', $_POST['userName'])
     					->count();
 
     	if($ucount != 0){
-    		if(strcmp($account-> passwd, $_POST['passWord']) == 0){
-    			return view('mainPage', ['user' => $account]);
-    		}
+    		if(strcmp($account->Passwd, $_POST['passWord']) == 0){
+                $request->session()->put('userId', $account->id);
+    			return view('mainPage') -> with ('user', $request->session()->get('userId'));
+    		}else{
+                return view('login', ['lerr' => '2']);
+            }
     	}else{
     		return view('login', ['lerr' => '1']);
     	}
@@ -47,3 +50,6 @@ class UserController extends Controller
     }
     
 }
+
+
+//$request->session()->has('user')   session has value?
