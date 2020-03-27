@@ -12,13 +12,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//-------get
 Route::get('/', function () {
-    return view('welcome');
+    return view('mainPage');
 });
 
 Route::get('/register', function(){
 	return view('register');
 });
 
+Route::get('/login', function(){
+	return view('login');
+});
+
+
+
+
+
+//--------post
+
 Route::post('/postReg', 'UserController@Register');
+
+Route::post('/postLogin', 'UserController@Login');
+
