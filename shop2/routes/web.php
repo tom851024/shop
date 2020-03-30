@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //-------get
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('mainPage');
     //return view('welcome');
-});
+});*/
+
+Route::get('/', 'MerchandiseController@ListMerchandise');
 
 Route::get('/register', function(){
 	return view('register');
@@ -24,6 +28,11 @@ Route::get('/register', function(){
 
 Route::get('/login', function(){
 	return view('login');
+});
+
+Route::get('/logout', function(Request $request){
+	$request -> session() -> forget('user');
+	return view('mainPage') -> with ('user', null);
 });
 
 
@@ -34,5 +43,8 @@ Route::get('/login', function(){
 
 Route::post('/postReg', 'UserController@Register');
 
+
 Route::post('/postLogin', 'UserController@Login');
+
+Route::post('/auth', 'UserController@Auth');
 

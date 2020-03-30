@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use DB;
 
 class UserController extends Controller
@@ -48,8 +49,37 @@ class UserController extends Controller
 
 
     }
+
+
+
+    public function Auth(Request $request)
+    {
+        $rules = ['captcha' => 'required|captcha'];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator -> fails()){
+            return view('login', ['lerr' => '3']);
+        }else{
+            header("location: /shop2/public/index.php/postLogin");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 }
+
+
+
 
 
 //$request->session()->has('user')   session has value?
