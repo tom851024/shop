@@ -39,7 +39,8 @@ class UserController extends Controller
     	if($ucount != 0){
     		if(strcmp($account->Passwd, $_POST['passWord']) == 0){
                 $request->session()->put('userId', $account->id);
-    			return view('mainPage') -> with ('user', $request->session()->get('userId'));
+    			$merchandise = DB::table('Merchandise') -> get();
+                return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
     		}else{
                 return view('login', ['lerr' => '2']);
             }
@@ -48,6 +49,13 @@ class UserController extends Controller
     	}
 
 
+    }
+
+    public function Logout(Request $request)
+    {
+        $request -> session() -> forget('user');
+        $merchandise = DB::table('Merchandise') -> get();
+        return view('mainPage') -> with('merchandise', $merchandise);
     }
 
 

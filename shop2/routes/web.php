@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +31,24 @@ Route::get('/login', function(){
 	return view('login');
 });
 
-Route::get('/logout', function(Request $request){
-	$request -> session() -> forget('user');
-	return view('mainPage') -> with ('user', null);
+Route::get('/logout', 'UserController@Logout');
+
+Route::get('/detail', function(Request $request){
+	$merdetail = DB::table('Merchandise')
+		  			->where('id', $_GET['merId'])
+		  			->first();
+	$user = $request->session()->get('userId');
+	return view('detail') -> with('merdetail', $merdetail) -> with('user', $user);
 });
 
+Route::get('/buy', 'MerchandiseController@TmpBuy');
 
+Route::get('/cart', 'MerchandiseController@cartList');
+
+Route::get('mainCart', function(Request $request){
+	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+	return view('cart') -> with('cartTmp', $cartTmp);
+});
 
 
 

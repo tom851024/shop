@@ -19,11 +19,13 @@
 				<tr>
 					<th>Name</th>
 					<th>short Description</th>
+					<th>Price</th>
 				</tr>
 				@foreach($merchandise as $mer)
 					<tr>
-						<td>{{ $mer->Name }}</td>
+						<td><a href="/shop2/public/index.php/detail?merId={{ $mer->id }}"> {{ $mer->Name }} </a></td>
 						<td>{{ $mer->ShortDes }}</td>
+						<td>{{ $mer->Price }}</td>
 					</tr>
 				@endforeach
 			</table>
