@@ -41,7 +41,7 @@ Route::get('/detail', function(Request $request){
 	return view('detail') -> with('merdetail', $merdetail) -> with('user', $user);
 });
 
-Route::get('/buy', 'MerchandiseController@TmpBuy');
+
 
 Route::get('/cart', 'MerchandiseController@cartList');
 
@@ -51,6 +51,12 @@ Route::get('/mainCart', function(Request $request){
 });
 
 Route::get('/editPage', 'UserController@EditSelect');
+
+Route::get('/delTmp', 'MerchandiseController@DelTmp');
+
+Route::get('/cart', 'MerchandiseController@tmpCartView');
+
+Route::get('/commitBuy', 'MerchandiseController@commitToBuy');
 
 
 
@@ -66,4 +72,6 @@ Route::post('/auth', 'UserController@Auth');
 Route::post('/postEdit', 'UserController@Edit');
 
 Route::post('/search', 'MerchandiseController@Search');
+
+Route::post('/buy', 'MerchandiseController@TmpBuy');
 

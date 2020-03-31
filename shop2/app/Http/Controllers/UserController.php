@@ -17,7 +17,7 @@ class UserController extends Controller
     					->count();
     	if($account == 0){
     		if(strcmp($_POST['passWord'], $_POST['repassWord']) == 0){
-    			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address) values (?, ?, ?, ?, ?, ?)', [$_POST['userName'], $_POST['passWord'], 0, $_POST['name'], $_POST['tel'], $_POST['address']]);
+    			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address, Level) values (?, ?, ?, ?, ?, ?, ?)', [$_POST['userName'], $_POST['passWord'], 0, $_POST['name'], $_POST['tel'], $_POST['address'], 1]);
                 return view('login');
             }else   		
     			return view('register', ['err' => '1']);

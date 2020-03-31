@@ -36,7 +36,18 @@
 			</tr>
 			<tr>
 				@if($user>0)
-					<td><a href="/shop2/public/index.php/buy?merId=<?php echo $merdetail->id ?>&merName=<?php echo $merdetail->Name ?>&price=<?php echo $merdetail->Price ?>">Buy!!</a></td>
+					<td>
+					<!--	<a href="/shop2/public/index.php/buy?merId=<?php echo $merdetail->id ?>&merName=<?php echo $merdetail->Name ?>&price=<?php echo $merdetail->Price ?>">Buy!!</a>-->
+					<form action="/shop2/public/index.php/buy" method="POST">
+						{{ csrf_field() }}
+						<input type="hidden" name="merId" id="merId" value="<?php echo $merdetail->id ?>">
+						<input type="hidden" name="merName" id="merName" value="<?php echo $merdetail->Name ?>">
+						<input type="hidden" name="price" id="price" value="<?php echo $merdetail->Price?>">
+						<text>How much you want to buy: </text>
+						<input type="text" name="Qty" id="Qty" required="required" />
+						<input type="submit" value="Buy!!" name="" />
+					</form>
+					</td>
 				@else
 					<td><a href="/shop2/public/index.php/login">Buy!!</a></td>
 				@endif
