@@ -15,6 +15,13 @@
 			<a href="/shop2/public/index.php/login">Login</a>
 			<a href="/shop2/public/index.php/register">Register</a>
 		@endif
+
+		<form method="POST" action="/shop2/public/index.php/search">
+			{{ csrf_field() }}
+			<input type="text" name="search" id="search" />
+			<input type="submit" value="Search" />
+		</form>
+
 		<p>
 			<table width="300" border="1">
 				<tr>

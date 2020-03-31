@@ -15,6 +15,7 @@ class MerchandiseController extends Controller
     	return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
     }
 
+
     public function TmpBuy(Request $request)
     {
     	
@@ -23,6 +24,16 @@ class MerchandiseController extends Controller
     	
     	
     	return view('cart') -> with('cartTmp', $cartTmp);
+    }
+
+
+
+     public function Search(Request $request)
+    {
+        $query = "select * from Merchandise where Name like ? OR ShortDes like ?";
+        $param = '%'.$_POST['search'].'%';
+        $merchandise = DB::select($query, array($param, $param));
+        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
     }
 
 

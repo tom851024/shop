@@ -65,3 +65,5 @@ Route::post('/auth', 'UserController@Auth');
 
 Route::post('/postEdit', 'UserController@Edit');
 
+Route::post('/search', 'MerchandiseController@Search');
+
