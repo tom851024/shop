@@ -45,10 +45,12 @@ Route::get('/buy', 'MerchandiseController@TmpBuy');
 
 Route::get('/cart', 'MerchandiseController@cartList');
 
-Route::get('mainCart', function(Request $request){
+Route::get('/mainCart', function(Request $request){
 	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
 	return view('cart') -> with('cartTmp', $cartTmp);
 });
+
+Route::get('/editPage', 'UserController@EditSelect');
 
 
 
@@ -60,4 +62,6 @@ Route::post('/postReg', 'UserController@Register');
 Route::post('/postLogin', 'UserController@Login');
 
 Route::post('/auth', 'UserController@Auth');
+
+Route::post('/postEdit', 'UserController@Edit');
 

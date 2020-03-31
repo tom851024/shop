@@ -16,9 +16,10 @@ class UserController extends Controller
     					->where('Username', $_POST['userName'])
     					->count();
     	if($account == 0){
-    		if(strcmp($_POST['passWord'], $_POST['repassWord']) == 0)
-    			DB::insert('insert into User (Username, Passwd, vty) values (?, ?, ?)', [$_POST['userName'], $_POST['passWord'], 0]);
-    		else
+    		if(strcmp($_POST['passWord'], $_POST['repassWord']) == 0){
+    			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address) values (?, ?, ?, ?, ?, ?)', [$_POST['userName'], $_POST['passWord'], 0, $_POST['name'], $_POST['tel'], $_POST['address']]);
+                return view('login');
+            }else   		
     			return view('register', ['err' => '1']);
     	}else{
     		return view('register', ['err' => '2', 'account' => $account]);
@@ -60,7 +61,7 @@ class UserController extends Controller
 
 
 
-    public function Auth(Request $request)
+   /* public function Auth(Request $request)
     {
         $rules = ['captcha' => 'required|captcha'];
         $validator = Validator::make($request->all(), $rules);
@@ -69,6 +70,24 @@ class UserController extends Controller
         }else{
             header("location: /shop2/public/index.php/postLogin");
         }
+    }*/
+
+    public function EditSelect(Request $request)
+    {
+        $account = DB::table('User')
+                        ->where('id', $request->session()->get('userId'))
+                        ->first();
+        return view('edit') -> with('account', $account);
+    }
+
+
+
+    public function Edit(Request $request)
+    {
+        DB::update('update User set Name = ?, Phone = ?, Address = ? where id = ?', [$_POST['name'], $_POST['tel'], $_POST['address'], $request->session()->get('userId')]);
+        $merchandise = DB::table('Merchandise') -> get();
+        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
+
     }
 
 

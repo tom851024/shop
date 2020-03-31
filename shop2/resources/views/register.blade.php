@@ -11,6 +11,15 @@
 			<text>Username: </text> <input type="text" name="userName" id="userName"><br />
 			<text>Password: </text> <input type="password" name="passWord" id="passWord"><br />
 			<text>Re Password: </text> <input type="password" name="repassWord" id="repassWord"><br />
+			<text>Name: </text>
+			<input type="text" name="name" id="name" /><br />
+
+			<text>Telephone: </text>
+			<input type="text" name="tel" id="tel"><br />
+
+			<text>Address: </text>
+			<input type="text" name="address" id="address" /><br />
+			
 			<input type="submit" value="submit" /><br />
 			@if(isset($err))
 				@if($err == '1')

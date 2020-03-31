@@ -10,6 +10,7 @@
 			<a href="/shop2/public/index.php/logout">Logout</a>
 			<a href="/shop2/public/index.php/register">Register</a>
 			<text>welcome {{ $user }}</text>
+			<a href="/shop2/public/index.php/editPage">Edit Data</a>
 		@else
 			<a href="/shop2/public/index.php/login">Login</a>
 			<a href="/shop2/public/index.php/register">Register</a>
