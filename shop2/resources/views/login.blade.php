@@ -7,7 +7,7 @@
 
 
 	<body>
-		<form method="POST" action="/shop2/public/index.php/postLogin">
+		<form method="POST" action="/postLogin">
 			{{ csrf_field() }}
 			<text>Username: </text>
 			<input type="text" name="userName" id="userName" /><br />

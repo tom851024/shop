@@ -7,17 +7,17 @@
 
 	<body>
 		@if(isset($user))
-			<a href="/shop2/public/index.php/logout">Logout</a>
-			<a href="/shop2/public/index.php/register">Register</a>
+			<a href="logout">Logout</a>
+			<a href="/register">Register</a>
 			<text>welcome {{ $user }}</text>
-			<a href="/shop2/public/index.php/editPage">Edit Data</a>
-			<a href="/shop2/public/index.php/cart">See cart</a>
+			<a href="/editPage">Edit Data</a>
+			<a href="/cart">See cart</a>
 		@else
-			<a href="/shop2/public/index.php/login">Login</a>
-			<a href="/shop2/public/index.php/register">Register</a>
+			<a href="/login">Login</a>
+			<a href="/register">Register</a>
 		@endif
 
-		<form method="POST" action="/shop2/public/index.php/search">
+		<form method="POST" action="/search">
 			{{ csrf_field() }}
 			<input type="text" name="search" id="search" />
 			<input type="submit" value="Search" />
@@ -32,7 +32,7 @@
 				</tr>
 				@foreach($merchandise as $mer)
 					<tr>
-						<td><a href="/shop2/public/index.php/detail?merId={{ $mer->id }}"> {{ $mer->Name }} </a></td>
+						<td><a href="/detail?merId={{ $mer->id }}"> {{ $mer->Name }} </a></td>
 						<td>{{ $mer->ShortDes }}</td>
 						<td>{{ $mer->Price }}</td>
 					</tr>

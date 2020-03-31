@@ -6,6 +6,6 @@
 
 	<body>
 		Thank you for your buying!!
-		<a href="/shop2/public/">Press here to return to main Page</a>
+		<a href="/">Press here to return to main Page</a>
 	</body>
 </html>

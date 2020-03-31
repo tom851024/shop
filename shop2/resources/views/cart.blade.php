@@ -19,7 +19,7 @@
 					<td>{{ $car->MerName }}</td>
 					<td>{{ $car->Price }}</td>
 					<td>{{ $car->Qty }}</td>
-					<td><a href="/shop2/public/index.php/delTmp?merId=<?php echo $car->id ?>">Delete</a></td>
+					<td><a href="/delTmp?merId=<?php echo $car->id ?>">Delete</a></td>
 				</tr>
 				<?php 
 					$priceSum += ($car->Price * $car->Qty);
@@ -30,10 +30,10 @@
 		</table>
 		<p>
 			Total Price: {{ $priceSum }}
-			<a href="/shop2/public/index.php/commitBuy">Buy!!!</a>
+			<a href="/commitBuy">Buy!!!</a>
 		</p>
 
-		<a href="/shop2/public/">Keep shopping</a>
+		<a href="/">Keep shopping</a>
 
 	</body>
 

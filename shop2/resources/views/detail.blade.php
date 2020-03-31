@@ -7,12 +7,12 @@
 	<script type="text/javascript">
 		function last()
 		{
-			document.location.href = "/shop2/public/";
+			document.location.href = "/";
 		}
 
 		function buy()
 		{
-			document.location.href = "/shop2/public/index.php/buy?merId="+<?php $merdetail->id ?>;
+			document.location.href = "/buy?merId="+<?php $merdetail->id ?>;
 		}
 	</script>
 
@@ -38,7 +38,7 @@
 				@if($user>0)
 					<td>
 					<!--	<a href="/shop2/public/index.php/buy?merId=<?php echo $merdetail->id ?>&merName=<?php echo $merdetail->Name ?>&price=<?php echo $merdetail->Price ?>">Buy!!</a>-->
-					<form action="/shop2/public/index.php/buy" method="POST">
+					<form action="/buy" method="POST">
 						{{ csrf_field() }}
 						<input type="hidden" name="merId" id="merId" value="<?php echo $merdetail->id ?>">
 						<input type="hidden" name="merName" id="merName" value="<?php echo $merdetail->Name ?>">
@@ -49,12 +49,12 @@
 					</form>
 					</td>
 				@else
-					<td><a href="/shop2/public/index.php/login">Buy!!</a></td>
+					<td><a href="/login">Buy!!</a></td>
 				@endif
 			</tr>
 
 		</table>
-			<a href="/shop2/public/">Last Page</a>
+			<a href="/">Last Page</a>
 
 
 	</body>

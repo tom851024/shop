@@ -21,7 +21,7 @@
 			<input type="submit" />
 		</form>
 
-		<a href="/shop2/public/">Last Page</a>
+		<a href="/">Last Page</a>
 
 	</body>
 

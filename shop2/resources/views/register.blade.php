@@ -6,7 +6,7 @@
 	</head>
 
 	<body>
-		<form action="/shop2/public/index.php/postReg" method="POST">
+		<form action="/postReg" method="POST">
 			{{ csrf_field() }}
 			<text>Username: </text> <input type="text" name="userName" id="userName" required="required" /><br />
 			<text>Password: </text> <input type="password" name="passWord" id="passWord" required="required" /><br />
