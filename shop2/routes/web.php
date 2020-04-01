@@ -20,6 +20,7 @@ use DB;
     return view('mainPage');
     //return view('welcome');
 });*/
+//-----------------------前端
 
 Route::get('/', 'MerchandiseController@ListMerchandise');
 
@@ -71,6 +72,12 @@ Route::get('/report', function(){
 });
 
 
+//------------後端
+
+
+Route::get('/ologin', function(){
+	return view('oLogin');
+});
 
 
 //--------post
@@ -90,5 +97,8 @@ Route::post('/buy', 'MerchandiseController@TmpBuy');
 
 Route::post('/edPassPost', 'UserController@EditPasswd');
 
-Route::post('reportPost', 'UserController@Report');
+Route::post('/reportPost', 'UserController@Report');
 
+//------------後端
+
+Route::post('/postOLogin', 'OwnerUserController@login');

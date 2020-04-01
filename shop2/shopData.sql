@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 31, 2020 at 03:33 PM
+-- Generation Time: Apr 01, 2020 at 02:41 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -41,8 +41,8 @@ CREATE TABLE `CartBuy` (
 --
 
 INSERT INTO `CartBuy` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`, `Progress`) VALUES
-(1, 7, 1, 'computer 1', 30000, 2, 0),
-(2, 7, 2, 'Laptop', 40000, 5, 0);
+(9, 8, 1, 'computer 1', 30000, 2, 0),
+(10, 8, 3, 'XBOX1080', 9000, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -55,17 +55,58 @@ CREATE TABLE `Merchandise` (
   `Name` varchar(20) NOT NULL,
   `ShortDes` text NOT NULL,
   `Description` text NOT NULL,
-  `Price` int(30) NOT NULL
+  `Price` int(30) NOT NULL,
+  `Qty` int(10) NOT NULL,
+  `Status` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Merchandise`
 --
 
-INSERT INTO `Merchandise` (`id`, `Name`, `ShortDes`, `Description`, `Price`) VALUES
-(1, 'computer 1', 'this is first one', 'First computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer ', 30000),
-(2, 'Laptop', 'this is a laptop', 'Second laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop ', 40000),
-(3, 'XBOX1080', 'A good video player', '1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 XXXXXX BBBBBBB', 9000);
+INSERT INTO `Merchandise` (`id`, `Name`, `ShortDes`, `Description`, `Price`, `Qty`, `Status`) VALUES
+(1, 'computer 1', 'this is first one', 'First computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer ', 30000, 100, 0),
+(2, 'Laptop', 'this is a laptop', 'Second laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop ', 40000, 150, 0),
+(3, 'XBOX1080', 'A good video player', '1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 XXXXXX BBBBBBB', 9000, 3000, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `O_User`
+--
+
+CREATE TABLE `O_User` (
+  `id` int(11) NOT NULL,
+  `UserName` varchar(20) NOT NULL,
+  `Passwd` int(20) NOT NULL,
+  `Auth` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `O_User`
+--
+
+INSERT INTO `O_User` (`id`, `UserName`, `Passwd`, `Auth`) VALUES
+(1, 'boss', 123456, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Report`
+--
+
+CREATE TABLE `Report` (
+  `id` int(11) NOT NULL,
+  `UserId` int(3) NOT NULL,
+  `Report` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Report`
+--
+
+INSERT INTO `Report` (`id`, `UserId`, `Report`) VALUES
+(1, 1, 'problem problem problem problem problem problem problem problem problem problem problem problem problem problem problem problem ');
 
 -- --------------------------------------------------------
 
@@ -88,8 +129,7 @@ CREATE TABLE `tmpShop` (
 
 INSERT INTO `tmpShop` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`) VALUES
 (21, 2, 3, 'XBOX1080', 9000, 0),
-(31, 7, 1, 'computer 1', 30000, 2),
-(32, 7, 2, 'Laptop', 40000, 5);
+(35, 1, 2, 'Laptop', 40000, 2);
 
 -- --------------------------------------------------------
 
@@ -113,11 +153,11 @@ CREATE TABLE `User` (
 --
 
 INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`) VALUES
-(1, 'abc', '123', 0, 'abcabc', '09456123789', 'Taichung ABC Road 784', 1),
+(1, 'abc', '123', 0, 'abcabc', '09456123789', 'Taichung ABC Road 785', 1),
 (2, 'def', '456', 0, NULL, NULL, NULL, 1),
 (5, 'qwe', '123', 0, NULL, NULL, NULL, 1),
 (7, 'tom', '6605', 0, 'tom', '0926666677', 'Taichung TTT Road 999', 1),
-(8, 'new', '321', 0, 'newone', '09456789321', 'Taichung DFG Road 154', 1);
+(8, 'new', '222', 0, 'newone', '09456789321', 'Taichung DFG Road 154', 1);
 
 --
 -- Indexes for dumped tables
@@ -133,6 +173,18 @@ ALTER TABLE `CartBuy`
 -- Indexes for table `Merchandise`
 --
 ALTER TABLE `Merchandise`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `O_User`
+--
+ALTER TABLE `O_User`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Report`
+--
+ALTER TABLE `Report`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -155,17 +207,27 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `Merchandise`
 --
 ALTER TABLE `Merchandise`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT for table `O_User`
+--
+ALTER TABLE `O_User`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `Report`
+--
+ALTER TABLE `Report`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `User`
 --

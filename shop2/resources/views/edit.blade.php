@@ -7,7 +7,7 @@
 
 	<body>
 		<text>編輯資料</text><br />
-		<form method="POST" action="/shop2/public/index.php/postEdit">
+		<form method="POST" action="/postEdit">
 			{{ csrf_field() }}
 			<text>姓名: </text>
 			<input type="text" name="name" id="name" value="{{ $account->Name }}" required="required" /><br />
