@@ -8,7 +8,6 @@
 	<body>
 		@if(isset($user))
 			<a href="logout">登出</a>
-			<a href="/register">註冊</a>
 			<text>welcome {{ $user }}</text>
 			<a href="/editPage">編輯資料</a>
 			<a href="/cart">購物車</a>

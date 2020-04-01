@@ -71,6 +71,8 @@ Route::get('/report', function(){
 	return view('report');
 });
 
+Route::get('/delAll', 'MerchandiseController@deleteAll');
+
 
 //------------後端
 

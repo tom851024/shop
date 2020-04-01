@@ -19,20 +19,20 @@
 	<body>
 		<table width="80%" border="1">
 			<tr>
-				<th>商品名稱</th>
-				<td>{{ $merdetail -> Name }}</td>
+				<th align="center" width="30%">商品名稱</th>
+				<td align="center" width="70%">{{ $merdetail -> Name }}</td>
 			</tr>
 			<tr>
-				<th>簡介</th>
-				<td>{{ $merdetail -> ShortDes }}</td>
+				<th align="center" width="30%">簡介</th>
+				<td align="center" width="70%">{{ $merdetail -> ShortDes }}</td>
 			</tr>
 			<tr>
-				<th>描述</th>
-				<td>{{ $merdetail -> Description }}</td>
+				<th align="center" width="30%">描述</th>
+				<td align="center" width="70%">{{ $merdetail -> Description }}</td>
 			</tr>
 			<tr>
-				<th>價格</th>
-				<td>{{ $merdetail -> Price }}</td>
+				<th align="center" width="30%">價格</th>
+				<td align="center" width="70%">{{ $merdetail -> Price }}</td>
 			</tr>
 			<tr>
 				@if($user>0)

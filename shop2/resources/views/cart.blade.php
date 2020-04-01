@@ -20,6 +20,7 @@
 					<td>{{ $car->Price }}</td>
 					<td>{{ $car->Qty }}</td>
 					<td><a href="/delTmp?merId=<?php echo $car->id ?>">刪除</a></td>
+					<!-- <button type="button" id="del">刪除</button> -->
 				</tr>
 				<?php 
 					$priceSum += ($car->Price * $car->Qty);
@@ -32,9 +33,11 @@
 			總價錢: {{ $priceSum }}
 			<a href="/commitBuy">確定購買</a>
 		</p>
-
+		<a href="/delAll">全部刪除</a>
 		<a href="/">繼續購買</a>
 
 	</body>
+
+	
 
 </html>

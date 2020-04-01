@@ -12,7 +12,7 @@ class MerchandiseController extends Controller
     public function ListMerchandise(Request $request)
     {
     	$merchandise = DB::table('Merchandise') -> get();
-    	return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
+    	return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
     }
 
 
@@ -33,7 +33,7 @@ class MerchandiseController extends Controller
         $query = "select * from Merchandise where Name like ? OR ShortDes like ?";
         $param = '%'.$_POST['search'].'%';
         $merchandise = DB::select($query, array($param, $param));
-        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
+        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
     }
 
 
@@ -73,11 +73,20 @@ class MerchandiseController extends Controller
     	return view('orderView') -> with('cart', $cart) -> with('cartCou', $cartCou);
     }
 
-    public function orderOk(Request $request){
+    public function orderOk(Request $request)
+    {
     	DB::update('update CartBuy set Progress = ? where id = ?', [2, $_GET['id']]);
     	$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
     	$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
     	return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
+    }
+
+
+    public function deleteAll(Request $request)
+    {
+        DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
+        $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        return view('cart') -> with('cartTmp', $cartTmp);
     }
 
 

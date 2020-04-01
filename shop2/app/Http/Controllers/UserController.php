@@ -39,9 +39,10 @@ class UserController extends Controller
 
     	if($ucount != 0){
     		if(strcmp($account->Passwd, $_POST['passWord']) == 0){
-                $request->session()->put('userId', $account->id);
+                $request->session()->put('userId',  $account->id);
+                $request->session()->put('userName',  $account->UserName);
     			$merchandise = DB::table('Merchandise') -> get();
-                return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
+                return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
     		}else{
                 return view('login', ['lerr' => '2']);
             }
@@ -86,7 +87,7 @@ class UserController extends Controller
     {
         DB::update('update User set Name = ?, Phone = ?, Address = ? where id = ?', [$_POST['name'], $_POST['tel'], $_POST['address'], $request->session()->get('userId')]);
         $merchandise = DB::table('Merchandise') -> get();
-        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userId'));
+        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
 
     }
 

@@ -10,14 +10,16 @@
 		<text>修改密碼</text><br />
 		<form method="POST" action="/edPassPost">
 			{{ csrf_field() }}
-			<text>新密碼:</text> 
+			<text>舊密碼</text>
+			<input type="Password" name="passwd" required="required" /><br />
+			
+			<text>新密碼</text> 
 			<input type="Password" name="newPasswd" required="required" /><br />
 
 			<text>確認密碼</text>
 			<input type="Password" name="reNewPasswd" required="required" /><br />
 
-			<text>舊密碼</text>
-			<input type="Password" name="passwd" required="required" /><br />
+			
 
 			<input type="submit" value="確定">
 		</form>
