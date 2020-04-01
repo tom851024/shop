@@ -7,14 +7,14 @@
 
 	<body>
 		@if(isset($user))
-			<a href="logout">Logout</a>
-			<a href="/register">Register</a>
+			<a href="logout">登出</a>
+			<a href="/register">註冊</a>
 			<text>welcome {{ $user }}</text>
-			<a href="/editPage">Edit Data</a>
-			<a href="/cart">See cart</a>
+			<a href="/editPage">編輯資料</a>
+			<a href="/cart">購物車</a>
 		@else
-			<a href="/login">Login</a>
-			<a href="/register">Register</a>
+			<a href="/login">登入</a>
+			<a href="/register">註冊</a>
 		@endif
 
 		<form method="POST" action="/search">
@@ -26,9 +26,9 @@
 		<p>
 			<table width="300" border="1">
 				<tr>
-					<th>Name</th>
-					<th>short Description</th>
-					<th>Price</th>
+					<th>商品名稱</th>
+					<th>簡介</th>
+					<th>價格</th>
 				</tr>
 				@foreach($merchandise as $mer)
 					<tr>
@@ -39,6 +39,8 @@
 				@endforeach
 			</table>
 		</p>
+
+		<a href="/">回到首頁</a>
 
 		
 	</body>

@@ -9,9 +9,9 @@
 	<body>
 		<form method="POST" action="/postLogin">
 			{{ csrf_field() }}
-			<text>Username: </text>
+			<text>帳號: </text>
 			<input type="text" name="userName" id="userName" /><br />
-			<text>PassWord: </text>
+			<text>密碼: </text>
 			<input type="Password" name="passWord" id="passWord"><br />
 
 			<!--
@@ -19,18 +19,18 @@
 			{!! captcha_img() !!}
 			<br />
 			-->
-			<input type="submit" value="Login" /><br />
+			<input type="submit" value="登入" /><br />
 
 			@if(isset($lerr))
 				@if($lerr == '1')
-					<text style = "color:red;">Username not exist</text>
+					<text style = "color:red;">帳號不存在</text>
 				@elseif($lerr == '2')
-					<text style = "color:red;">Password error</text>
+					<text style = "color:red;">密碼錯誤！！</text>
 				@endif
 			@endif
 
 		</form>
-
+		<a href="/">回到首頁</a>
 
 	</body>
 

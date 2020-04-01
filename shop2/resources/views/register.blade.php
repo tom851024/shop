@@ -8,29 +8,30 @@
 	<body>
 		<form action="/postReg" method="POST">
 			{{ csrf_field() }}
-			<text>Username: </text> <input type="text" name="userName" id="userName" required="required" /><br />
-			<text>Password: </text> <input type="password" name="passWord" id="passWord" required="required" /><br />
-			<text>Re Password: </text> <input type="password" name="repassWord" id="repassWord" required="required" /><br />
-			<text>Name: </text>
+			<text>帳號: </text> <input type="text" name="userName" id="userName" required="required" /><br />
+			<text>密碼: </text> <input type="password" name="passWord" id="passWord" required="required" /><br />
+			<text>驗證密碼: </text> <input type="password" name="repassWord" id="repassWord" required="required" /><br />
+			<text>姓名: </text>
 			<input type="text" name="name" id="name" required="required" /><br />
-
-			<text>Telephone: </text>
+			<text>電話: </text>
 			<input type="text" name="tel" id="tel" required="required" /><br />
 
-			<text>Address: </text>
+			<text>住址: </text>
 			<input type="text" name="address" id="address" required="required" /><br />
 			
-			<input type="submit" value="submit" /><br />
+			<input type="submit"  value="送出" /><br />
 			@if(isset($err))
 				@if($err == '1')
-					<text style = "color:red;">Your rePassword is not common with password!</text>
+					<text style = "color:red;">驗證密碼不符</text>
 				@elseif($err == '2')
-					<text style = "color:red;">Your username is existed</text>
+					<text style = "color:red;">帳號已存在</text>
 				@endif
 
 			
 			@endif
 		</form>	
+
+		<a href="/">上一頁</a>
 	</body>
 
 

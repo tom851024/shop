@@ -8,10 +8,10 @@
 	<body>
 		<table width="80%" border="1">
 			<tr>
-				<th>Name</th>
-				<th>Price</th>
-				<th>Quantity</th>
-				<th>Action</th>
+				<th>商品名稱</th>
+				<th>價錢</th>
+				<th>數量</th>
+				<th>動作</th>
 			</tr>
 			<?php $priceSum=0; ?>
 			@foreach($cartTmp as $car)
@@ -19,7 +19,7 @@
 					<td>{{ $car->MerName }}</td>
 					<td>{{ $car->Price }}</td>
 					<td>{{ $car->Qty }}</td>
-					<td><a href="/delTmp?merId=<?php echo $car->id ?>">Delete</a></td>
+					<td><a href="/delTmp?merId=<?php echo $car->id ?>">刪除</a></td>
 				</tr>
 				<?php 
 					$priceSum += ($car->Price * $car->Qty);
@@ -29,11 +29,11 @@
 
 		</table>
 		<p>
-			Total Price: {{ $priceSum }}
-			<a href="/commitBuy">Buy!!!</a>
+			總價錢: {{ $priceSum }}
+			<a href="/commitBuy">確定購買</a>
 		</p>
 
-		<a href="/">Keep shopping</a>
+		<a href="/">繼續購買</a>
 
 	</body>
 

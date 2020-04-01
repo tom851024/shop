@@ -19,19 +19,19 @@
 	<body>
 		<table width="80%" border="1">
 			<tr>
-				<th>Name</th>
+				<th>商品名稱</th>
 				<td>{{ $merdetail -> Name }}</td>
 			</tr>
 			<tr>
-				<th>Short Description</th>
+				<th>簡介</th>
 				<td>{{ $merdetail -> ShortDes }}</td>
 			</tr>
 			<tr>
-				<th>Description</th>
+				<th>描述</th>
 				<td>{{ $merdetail -> Description }}</td>
 			</tr>
 			<tr>
-				<th>Price</th>
+				<th>價格</th>
 				<td>{{ $merdetail -> Price }}</td>
 			</tr>
 			<tr>
@@ -43,18 +43,18 @@
 						<input type="hidden" name="merId" id="merId" value="<?php echo $merdetail->id ?>">
 						<input type="hidden" name="merName" id="merName" value="<?php echo $merdetail->Name ?>">
 						<input type="hidden" name="price" id="price" value="<?php echo $merdetail->Price?>">
-						<text>How much you want to buy: </text>
+						<text>數量: </text>
 						<input type="text" name="Qty" id="Qty" required="required" />
 						<input type="submit" value="Buy!!" name="" />
 					</form>
 					</td>
 				@else
-					<td><a href="/login">Buy!!</a></td>
+					<td><a href="/login">購買!!</a></td>
 				@endif
 			</tr>
 
 		</table>
-			<a href="/">Last Page</a>
+			<a href="/">上一頁</a>
 
 
 	</body>

@@ -6,6 +6,6 @@
 
 	<body>
 		Thank you for your buying!!
-		<a href="/">Press here to return to main Page</a>
+		<a href="/">回到首頁</a>
 	</body>
 </html>
