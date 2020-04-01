@@ -92,9 +92,38 @@ class UserController extends Controller
 
 
 
+    public function EditPasswd(Request $request){
+        $account = DB::table('User')
+                        ->where('id', $request->session()->get('userId'))
+                        ->first();
+        if(strcmp($_POST['passwd'], $account->Passwd) == 0){
+            
+            if(strcmp($_POST['newPasswd'], $_POST['reNewPasswd']) == 0){
+
+                DB::update('update User set Passwd = ? where id = ?', [$_POST['newPasswd'], $request->session()->get('userId')]);
+                $request -> session() -> forget('user');
+                return view('edPasOk') -> with('user', 0);
+
+            }else{
+                return view('editPasswd') -> with('err', 2);
+            }
+
+        }else{
+            return view('editPasswd') -> with('err', 1);
+        }
+    }
+
+
+
+    public function Report(Request $request)
+    {
+        DB::insert('insert into Report (UserId, Report) values (?, ?)', [$request->session()->get('userId'), $_POST['report']]);
+        return view('reportOk');
+    }
+
+
+
    
-
-
 
 
 

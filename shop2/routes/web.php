@@ -58,6 +58,19 @@ Route::get('/cart', 'MerchandiseController@tmpCartView');
 
 Route::get('/commitBuy', 'MerchandiseController@commitToBuy');
 
+Route::get('/editPasswd', function(){
+	return view('editPasswd');
+});
+
+Route::get('/orderView', 'MerchandiseController@OrderList');
+
+Route::get('/orderOk', 'MerchandiseController@orderOk');
+
+Route::get('/report', function(){
+	return view('report');
+});
+
+
 
 
 //--------post
@@ -74,4 +87,8 @@ Route::post('/postEdit', 'UserController@Edit');
 Route::post('/search', 'MerchandiseController@Search');
 
 Route::post('/buy', 'MerchandiseController@TmpBuy');
+
+Route::post('/edPassPost', 'UserController@EditPasswd');
+
+Route::post('reportPost', 'UserController@Report');
 

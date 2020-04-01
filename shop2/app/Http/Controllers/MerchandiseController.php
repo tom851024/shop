@@ -60,7 +60,24 @@ class MerchandiseController extends Controller
     		DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
     	}
 
+    	DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
+
     	return view('Thanks');
+    }
+
+
+    public function OrderList(Request $request)
+    {
+    	$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
+    	$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
+    	return view('orderView') -> with('cart', $cart) -> with('cartCou', $cartCou);
+    }
+
+    public function orderOk(Request $request){
+    	DB::update('update CartBuy set Progress = ? where id = ?', [2, $_GET['id']]);
+    	$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
+    	$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
+    	return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
     }
 
 

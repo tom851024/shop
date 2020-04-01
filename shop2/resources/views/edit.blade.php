@@ -20,7 +20,7 @@
 
 			<input type="submit" value="更改" />
 		</form>
-
+		<a href="/editPasswd">修改密碼</a>
 		<a href="/">上一頁</a>
 
 	</body>

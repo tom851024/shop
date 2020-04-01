@@ -12,6 +12,8 @@
 			<text>welcome {{ $user }}</text>
 			<a href="/editPage">編輯資料</a>
 			<a href="/cart">購物車</a>
+			<a href="/orderView">瀏覽訂單</a>
+			<a href="/report">回報問題</a>
 		@else
 			<a href="/login">登入</a>
 			<a href="/register">註冊</a>
