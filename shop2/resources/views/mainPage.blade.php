@@ -7,16 +7,20 @@
 
 	<body>
 		@if(isset($user))
-			<a href="logout">登出</a>
+			<a href="logout">{{ trans('messages.logout') }}</a>
 			<text>welcome {{ $user }}</text>
-			<a href="/editPage">編輯資料</a>
-			<a href="/cart">購物車</a>
-			<a href="/orderView">瀏覽訂單</a>
-			<a href="/report">回報問題</a>
+			<a href="/editPage">{{ trans('messages.editdata') }}</a>
+			<a href="/cart">{{ trans('messages.cart') }}</a>
+			<a href="/orderView">{{ trans('messages.orderview') }}</a>
+			<a href="/report">{{ trans('messages.report') }}</a>
 		@else
-			<a href="/login">登入</a>
-			<a href="/register">註冊</a>
+			<a href="/login">{{ trans('messages.login') }}</a>
+			<a href="/register">{{ trans('messages.register') }}</a>
 		@endif
+
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/chinese">中文</a>&nbsp;
+		<a href="/english">English</a>
 
 		<form method="POST" action="/search">
 			{{ csrf_field() }}
@@ -27,9 +31,9 @@
 		<p>
 			<table width="300" border="1">
 				<tr>
-					<th>商品名稱</th>
-					<th>簡介</th>
-					<th>價格</th>
+					<th>{{ trans('messages.mername') }}</th>
+					<th>{{ trans('messages.shortdes') }}</th>
+					<th>{{ trans('messages.price') }}</th>
 				</tr>
 				@foreach($merchandise as $mer)
 					<tr>
@@ -41,7 +45,7 @@
 			</table>
 		</p>
 
-		<a href="/">回到首頁</a>
+		<a href="/">{{ trans('messages.home') }}</a>
 
 		
 	</body>

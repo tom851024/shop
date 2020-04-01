@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\App;
 use DB;
 
 class UserController extends Controller
@@ -125,11 +126,23 @@ class UserController extends Controller
 
 
    
+    public function ChgCh(Request $request)
+    {
+        $request->session()->put('locale', 'ch');
+        App::setLocale($request->session()->get('locale'));
+        $merchandise = DB::table('Merchandise') -> get();
+        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
+    }
 
 
+    public function ChgEn(Request $request)
+    {
+        $request->session()->put('locale', 'en');
+        App::setLocale($request->session()->get('locale'));
+        $merchandise = DB::table('Merchandise') -> get();
+        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
 
-
-
+    }
 
 
     

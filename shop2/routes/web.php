@@ -74,6 +74,11 @@ Route::get('/report', function(){
 Route::get('/delAll', 'MerchandiseController@deleteAll');
 
 
+Route::get('/chinese', 'UserController@ChgCh');
+
+Route::get('/english', 'UserController@ChgEn');
+
+
 //------------後端
 
 
