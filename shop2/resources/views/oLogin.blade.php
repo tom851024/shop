@@ -10,7 +10,7 @@
 			<text>帳號</text>
 			<input type="text" name="userName" id="userName" required="required" /><br />
 			<text>密碼</text>
-			<input type="text" name="passWd" id="passWd" required="required" /><br />
+			<input type="password" name="passWd" id="passWd" required="required" /><br />
 			<input type="submit" value="登入" />
 
 		</form>

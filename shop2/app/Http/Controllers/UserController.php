@@ -18,7 +18,7 @@ class UserController extends Controller
     					->count();
     	if($account == 0){
     		if(strcmp($_POST['passWord'], $_POST['repassWord']) == 0){
-    			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address, Level) values (?, ?, ?, ?, ?, ?, ?)', [$_POST['userName'], $_POST['passWord'], 0, $_POST['name'], $_POST['tel'], $_POST['address'], 1]);
+    			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address, Level, Gold) values (?, ?, ?, ?, ?, ?, ?, ?)', [$_POST['userName'], $_POST['passWord'], 0, $_POST['name'], $_POST['tel'], $_POST['address'], 1, 0]);
                 return view('login');
             }else   		
     			return view('register', ['err' => '1']);
@@ -57,6 +57,7 @@ class UserController extends Controller
     public function Logout(Request $request)
     {
         $request -> session() -> forget('user');
+        $request -> session() -> forget('userName');
         $merchandise = DB::table('Merchandise') -> get();
         return view('mainPage') -> with('merchandise', $merchandise);
     }

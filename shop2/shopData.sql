@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 01, 2020 at 02:41 PM
+-- Generation Time: Apr 06, 2020 at 06:01 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -129,7 +129,9 @@ CREATE TABLE `tmpShop` (
 
 INSERT INTO `tmpShop` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`) VALUES
 (21, 2, 3, 'XBOX1080', 9000, 0),
-(35, 1, 2, 'Laptop', 40000, 2);
+(35, 1, 2, 'Laptop', 40000, 2),
+(43, 8, 1, 'computer 1', 30000, 6),
+(44, 8, 3, 'XBOX1080', 9000, 5);
 
 -- --------------------------------------------------------
 
@@ -145,19 +147,19 @@ CREATE TABLE `User` (
   `Name` varchar(20) DEFAULT NULL,
   `Phone` text,
   `Address` text,
-  `Level` int(2) NOT NULL
+  `Level` int(2) NOT NULL,
+  `Gold` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`) VALUES
-(1, 'abc', '123', 0, 'abcabc', '09456123789', 'Taichung ABC Road 785', 1),
-(2, 'def', '456', 0, NULL, NULL, NULL, 1),
-(5, 'qwe', '123', 0, NULL, NULL, NULL, 1),
-(7, 'tom', '6605', 0, 'tom', '0926666677', 'Taichung TTT Road 999', 1),
-(8, 'new', '222', 0, 'newone', '09456789321', 'Taichung DFG Road 154', 1);
+INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`, `Gold`) VALUES
+(1, 'abc', '123', 0, 'abcabc', '09456123789', 'Taichung ABC Road 785', 1, 0),
+(7, 'tom', '6605', 0, 'tom', '0926666677', 'Taichung TTT Road 999', 1, 0),
+(8, 'new', '222', 0, 'newone', '09456789321', 'Taichung DFG Road 154', 1, 0),
+(9, 'super', '9876', 0, 'Sssuper1', '09456123798', 'Taichung DFG Road 667', 2, 500);
 
 --
 -- Indexes for dumped tables
@@ -227,12 +229,12 @@ ALTER TABLE `Report`
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

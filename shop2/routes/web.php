@@ -20,7 +20,7 @@ use DB;
     return view('mainPage');
     //return view('welcome');
 });*/
-//-----------------------前端
+//-----------------------前台
 
 Route::get('/', 'MerchandiseController@ListMerchandise');
 
@@ -79,12 +79,22 @@ Route::get('/chinese', 'UserController@ChgCh');
 Route::get('/english', 'UserController@ChgEn');
 
 
-//------------後端
+//------------後台
 
 
 Route::get('/ologin', function(){
 	return view('oLogin');
 });
+
+Route::get('/ologout', 'OwnerUserController@logout');
+
+Route::get('omain', function(Request $request){
+	return view('ownerMain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
+});
+
+
+Route::get('/memberEdit', 'OwnerUserController@memberView');
+
 
 
 //--------post
@@ -106,6 +116,10 @@ Route::post('/edPassPost', 'UserController@EditPasswd');
 
 Route::post('/reportPost', 'UserController@Report');
 
-//------------後端
+//------------後台
 
 Route::post('/postOLogin', 'OwnerUserController@login');
+
+Route::post('/memberDetailPost', 'OwnerUserController@memberDetailView');
+
+Route::post('/memberEditPost', 'OwnerUserController@memberEdit');
