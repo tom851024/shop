@@ -12,6 +12,17 @@
 		'mername' => '商品名稱',
 		'shortdes' => '簡介',
 		'price' => '價格',
+		'qty' => '數量',
+		'action' => '動作',
+		'delete' => '刪除',
+		'commitbuy' => '確定購買',
+		'delall' => '全部刪除',
+		'keepbuy' => '繼續購買',
+		'totalprice' => '總價錢',
+		'description' => '描述',
+		"buy" => '購買',
+
+
 		
 
 	];

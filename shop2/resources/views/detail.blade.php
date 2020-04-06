@@ -19,19 +19,19 @@
 	<body>
 		<table width="80%" border="1">
 			<tr>
-				<th align="center" width="30%">商品名稱</th>
+				<th align="center" width="30%">{{ trans('messages.mername') }}</th>
 				<td align="center" width="70%">{{ $merdetail -> Name }}</td>
 			</tr>
 			<tr>
-				<th align="center" width="30%">簡介</th>
+				<th align="center" width="30%">{{ trans('messages.shortdes') }}</th>
 				<td align="center" width="70%">{{ $merdetail -> ShortDes }}</td>
 			</tr>
 			<tr>
-				<th align="center" width="30%">描述</th>
+				<th align="center" width="30%">{{ trans('messages.description') }}</th>
 				<td align="center" width="70%">{{ $merdetail -> Description }}</td>
 			</tr>
 			<tr>
-				<th align="center" width="30%">價格</th>
+				<th align="center" width="30%">{{ trans('messages.price') }}</th>
 				<td align="center" width="70%">{{ $merdetail -> Price }}</td>
 			</tr>
 			<tr>
@@ -43,18 +43,18 @@
 						<input type="hidden" name="merId" id="merId" value="<?php echo $merdetail->id ?>">
 						<input type="hidden" name="merName" id="merName" value="<?php echo $merdetail->Name ?>">
 						<input type="hidden" name="price" id="price" value="<?php echo $merdetail->Price?>">
-						<text>數量: </text>
+						<text>{{ trans('messages.qty') }}: </text>
 						<input type="text" name="Qty" id="Qty" required="required" />
-						<input type="submit" value="Buy!!" name="" />
+						<input type="submit" value="{{ trans('messages.buy') }}!!" name="" />
 					</form>
 					</td>
 				@else
-					<td><a href="/login">購買!!</a></td>
+					<td><a href="/login">{{ trans('messages.commitbuy') }}!!</a></td>
 				@endif
 			</tr>
 
 		</table>
-			<a href="/">上一頁</a>
+			<a href="/">{{ trans('messages.home') }}</a>
 
 
 	</body>

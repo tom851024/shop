@@ -8,10 +8,10 @@
 	<body>
 		<table width="80%" border="1">
 			<tr>
-				<th>商品名稱</th>
-				<th>價錢</th>
-				<th>數量</th>
-				<th>動作</th>
+				<th>{{ trans('messages.mername') }}</th>
+				<th>{{ trans('messages.price') }}</th>
+				<th>{{ trans('messages.qty') }}</th>
+				<th>{{ trans('messages.action') }}</th>
 			</tr>
 			<?php $priceSum=0; ?>
 			@foreach($cartTmp as $car)
@@ -19,7 +19,7 @@
 					<td>{{ $car->MerName }}</td>
 					<td>{{ $car->Price }}</td>
 					<td>{{ $car->Qty }}</td>
-					<td><a href="/delTmp?merId=<?php echo $car->id ?>">刪除</a></td>
+					<td><a href="/delTmp?merId=<?php echo $car->id ?>">{{ trans('messages.delete') }}</a></td>
 					<!-- <button type="button" id="del">刪除</button> -->
 				</tr>
 				<?php 
@@ -30,11 +30,11 @@
 
 		</table>
 		<p>
-			總價錢: {{ $priceSum }}
-			<a href="/commitBuy">確定購買</a>
+			{{ trans('messages.totalprice') }}: {{ $priceSum }}
+			<a href="/commitBuy">{{ trans('messages.commitbuy') }}</a>
 		</p>
-		<a href="/delAll">全部刪除</a>
-		<a href="/">繼續購買</a>
+		<a href="/delAll">{{ trans('messages.delall') }}</a>
+		<a href="/">{{ trans('messages.keepbuy') }}</a>
 
 	</body>
 
