@@ -8,13 +8,13 @@
 	<body>
 		<form action="/postReg" method="POST">
 			{{ csrf_field() }}
-			<text>帳號: </text> <input type="text" name="userName" id="userName" required="required" /><br />
-			<text>密碼: </text> <input type="password" name="passWord" id="passWord" required="required" /><br />
-			<text>驗證密碼: </text> <input type="password" name="repassWord" id="repassWord" required="required" /><br />
+			<text>帳號: </text> <input type="text" name="userName" id="userName" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<text>密碼: </text> <input type="password" name="passWord" id="passWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<text>驗證密碼: </text> <input type="password" name="repassWord" id="repassWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 			<text>姓名: </text>
 			<input type="text" name="name" id="name" required="required" /><br />
 			<text>電話: </text>
-			<input type="text" name="tel" id="tel" required="required" /><br />
+			<input type="text" name="tel" id="tel" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 
 			<text>住址: </text>
 			<input type="text" name="address" id="address" required="required" /><br />
