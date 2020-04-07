@@ -53,7 +53,7 @@ Route::get('/mainCart', function(Request $request){
 
 Route::get('/editPage', 'UserController@EditSelect');
 
-Route::get('/delTmp', 'MerchandiseController@DelTmp');
+
 
 Route::get('/cart', 'MerchandiseController@tmpCartView');
 
@@ -120,6 +120,9 @@ Route::post('/orderCancel', 'MerchandiseController@orderCancel');
 Route::post('/edPassPost', 'UserController@EditPasswd');
 
 Route::post('/reportPost', 'UserController@Report');
+
+
+Route::post('/delTmp', 'MerchandiseController@DelTmp');
 
 //------------後台
 

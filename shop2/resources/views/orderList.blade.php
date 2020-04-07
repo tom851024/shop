@@ -3,19 +3,23 @@
 	<head>
 		<title>Order Page</title>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script type="text/javascript">
-			function sendForm(){
 
-				//var id = $('ordId').val();
-				//var url = getForm.prop('action');
-				
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<meta name="_token" content="{{ csrf_token() }}" />
+		<script type="text/javascript">
+			function sendForm(id){
+
 				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+					},
 					url: "/merGo",
-					//data: id,
-					data: $('#form').serialize(),
+					//data: $('#form').serialize(),
+					data:{
+						ordId: id
+					},
 					type: "POST",
-					dataType: 'json',
+					dataType: "text",
 					error: function(){
 					
 					},
@@ -23,7 +27,7 @@
 					cache: true
 				});
 
-				window.location.href = 'http://localhost/orderView';
+				window.location.href = 'http://localhost/ownerOrderView';
 			}
 
 	</script>
@@ -79,8 +83,8 @@
 							@if($ord->Progress == '0')
 								<form id="form" action="/merGo" method="POST">
 									{{ csrf_field() }}
-									<input type="hidden" name="ordId" id="ordId" value="<?php echo $ord->id ?>" />
-									<input type="submit" name="pos" id="pos" value="出貨"  />
+									<input type="hidden" name="ordId" id="ordId" value="" />
+									<input type="button" name="pos" id="pos" value="出貨" onclick="sendForm(<?php echo $ord->id ?>)" />
 								</form>
 							@endif
 						</td>

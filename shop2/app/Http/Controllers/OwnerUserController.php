@@ -89,14 +89,16 @@ class OwnerUserController extends Controller
 
 
 
-    public function merchandiseGo(){
-        DB::update('update CartBuy set Progress = ? where id = ?', [1, $_POST['ordId']]);
+    public function merchandiseGo(Request $request){
+        DB::update('update CartBuy set Progress = ? where id = ?', [1, $request->input('ordId')]);
+        //DB::update('update CartBuy set Progress = ? where id = ?', [1, 13]);
          $order = DB::table('CartBuy')
                  -> join('User', 'User.id', '=', 'CartBuy.UserId')
                  -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
                  -> get();
  
-        return view('orderList') -> with('order', $order);
+        //return view('orderList') -> with('order', $order);
+        return $request->input('ordId');
     }
 
 }

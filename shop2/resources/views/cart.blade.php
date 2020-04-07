@@ -4,17 +4,22 @@
 		<title>Cart Page</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<meta name="_token" content="{{ csrf_token() }}" />
 		<script type="text/javascript">
-			function sendForm(){
+			function sendForm(id){
 
-				var id = $('id').val();
-				//var url = getForm.prop('action');
+				
 				
 				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+					},
 					url: "/delTmp",
-					//data: id,
-					data: $('#getForm').serialize(),
-					type: "GET",
+					data: {
+						id: id
+					},
+					//data: $('#getForm').serialize(),
+					type: "POST",
 					dataType: 'json',
 					error: function(){
 					
@@ -47,8 +52,8 @@
 					<!--<td><a href="/delTmp?merId=<?php echo $car->id ?>">{{ trans('messages.delete') }}</a></td>-->
 					<td>
 						<form id="getForm" method="GET" action="/delTmp">
-							<input type="hidden" name="merId" id="merId" value="<?php echo $car->id ?>" />
-							<input type="button" name="del" id="del" value="刪除" onclick="sendForm()" />
+						
+							<input type="button" name="del" id="del" value="刪除" onclick="sendForm(<?php echo $car->id ?>)" />
 						</form>
 					</td>
 					 
@@ -61,8 +66,10 @@
 
 		</table>
 		<p>
-			{{ trans('messages.totalprice') }}: {{ $priceSum }}
-			<a href="/commitBuy">{{ trans('messages.commitbuy') }}</a>
+			@if($count > 0)
+				{{ trans('messages.totalprice') }}: {{ $priceSum }}
+				<a href="/commitBuy">{{ trans('messages.commitbuy') }}</a>
+			@endif
 		</p>
 		<a href="/delAll">{{ trans('messages.delall') }}</a>
 		<a href="/">{{ trans('messages.keepbuy') }}</a>

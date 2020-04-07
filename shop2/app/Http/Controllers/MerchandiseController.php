@@ -22,8 +22,8 @@ class MerchandiseController extends Controller
     	DB::insert('insert into tmpShop (UserId, MerId, MerName, Price, Qty) values (?, ?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['merId'], $_POST['merName'], $_POST['price'], $_POST['Qty']]);
     	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
     	
-    	
-    	return view('cart') -> with('cartTmp', $cartTmp);
+    	$cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+    	return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
     }
 
 
@@ -39,30 +39,35 @@ class MerchandiseController extends Controller
 
     public function DelTmp(Request $request)
     {
-    	DB::table('tmpShop') -> where('id', $_GET['merId'])->delete();
-    	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-    	return view('cart') -> with('cartTmp', $cartTmp);
+    	DB::table('tmpShop') -> where('id', $request->input('id'))->delete();
+    	//$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        //$cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+    	//return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
     }
 
 
     public function tmpCartView(Request $request)
     {
     	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-    	return view('cart') -> with('cartTmp', $cartTmp);
+        $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+    	return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
     }
 
 
 
     public function commitToBuy(Request $request)
     {
-    	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-    	foreach ($cartTmp as $car) {
-    		DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
-    	}
+        $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+        
+        	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        	foreach ($cartTmp as $car) {
+        		DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+        	}
 
-    	DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
+        	DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
 
-    	return view('Thanks');
+        	return view('Thanks');
+
     }
 
 
