@@ -61,4 +61,42 @@ class OwnerUserController extends Controller
          return view('OEditOk');
     }
 
+
+
+    public function orderView(){
+        $order = DB::table('CartBuy')
+                 -> join('User', 'User.id', '=', 'CartBuy.UserId')
+                 -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
+                 -> get();
+ 
+        return view('orderList') -> with('order', $order);
+    }
+
+
+    public function orderViewSearch(){
+        $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where Name like ? OR MerName like ?";
+        $param = '%'.$_POST['search'].'%';
+        $order = DB::select($query, array($param, $param));
+        return view('orderList') -> with('order', $order);
+    }
+
+
+
+    public function userDetail(){
+        $member = DB::table('User') -> where('id', $_GET['UId']) -> first();
+        return view('memberDetail') -> with('member', $member);
+    }
+
+
+
+    public function merchandiseGo(){
+        DB::update('update CartBuy set Progress = ? where id = ?', [1, $_POST['ordId']]);
+         $order = DB::table('CartBuy')
+                 -> join('User', 'User.id', '=', 'CartBuy.UserId')
+                 -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
+                 -> get();
+ 
+        return view('orderList') -> with('order', $order);
+    }
+
 }

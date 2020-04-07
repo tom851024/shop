@@ -75,7 +75,7 @@ class MerchandiseController extends Controller
 
     public function orderOk(Request $request)
     {
-    	DB::update('update CartBuy set Progress = ? where id = ?', [2, $_GET['id']]);
+    	DB::update('update CartBuy set Progress = ? where id = ?', [2, $_POST['id']]);
     	$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
     	$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
     	return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
@@ -87,6 +87,14 @@ class MerchandiseController extends Controller
         DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
         $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         return view('cart') -> with('cartTmp', $cartTmp);
+    }
+
+
+    public function orderCancel(Request $request){
+        DB::update('update CartBuy set Progress = ? where id = ?', [4, $_POST['id']]);
+        $cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
+        $cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
+        return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
     }
 
 

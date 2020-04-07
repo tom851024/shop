@@ -9,9 +9,10 @@
 	<body>
 		@if(isset($oUId))
 			<a href="/ologout">登出</a>
-			<a href="/">訂單查詢</a>
+			<a href="/ownerOrderView">訂單查詢</a>
 			<a href="/">庫存管理</a>
 			<a href="/">退貨管理</a>
+			<a href="/">客戶回報</a>
 			@if($oUserAuth == '1')
 				<a href="/memberEdit">會員帳號管理</a>
 				<a href="/">優惠管理</a>

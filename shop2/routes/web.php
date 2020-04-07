@@ -65,7 +65,6 @@ Route::get('/editPasswd', function(){
 
 Route::get('/orderView', 'MerchandiseController@OrderList');
 
-Route::get('/orderOk', 'MerchandiseController@orderOk');
 
 Route::get('/report', function(){
 	return view('report');
@@ -88,14 +87,16 @@ Route::get('/ologin', function(){
 
 Route::get('/ologout', 'OwnerUserController@logout');
 
-Route::get('omain', function(Request $request){
+Route::get('/omain', function(Request $request){
 	return view('ownerMain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
 });
 
 
 Route::get('/memberEdit', 'OwnerUserController@memberView');
 
+Route::get('/ownerOrderView', 'OwnerUserController@orderView');
 
+Route::get('/userDetail', 'OwnerUserController@userDetail');
 
 //--------post
 
@@ -112,6 +113,10 @@ Route::post('/search', 'MerchandiseController@Search');
 
 Route::post('/buy', 'MerchandiseController@TmpBuy');
 
+Route::post('/orderOk', 'MerchandiseController@orderOk');
+
+Route::post('/orderCancel', 'MerchandiseController@orderCancel');
+
 Route::post('/edPassPost', 'UserController@EditPasswd');
 
 Route::post('/reportPost', 'UserController@Report');
@@ -123,3 +128,7 @@ Route::post('/postOLogin', 'OwnerUserController@login');
 Route::post('/memberDetailPost', 'OwnerUserController@memberDetailView');
 
 Route::post('/memberEditPost', 'OwnerUserController@memberEdit');
+
+Route::post('/orderSearch', 'OwnerUserController@orderViewSearch');
+
+Route::post('/merGo', 'OwnerUserController@merchandiseGo');

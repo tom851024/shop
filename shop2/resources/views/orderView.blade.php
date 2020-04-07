@@ -29,12 +29,27 @@
 									echo '已出貨';
 								}else if($c->Progress == 2){
 									echo '已領貨';
+								}else if($c->Progress == 3){
+									echo '缺貨';
+								}else if($c->Progress == 4){
+									echo '已退貨';
 								}
 							 ?>
 						</td>
 						<td>
 						@if($c->Progress == '1')
-							<a href="/orderOk?id=<?php echo $c->id ?>">已領貨</a>
+							<!--<a href="/orderOk?id=<?php echo $c->id ?>">已領貨</a>-->
+							<form action="/orderOk" method="POST">
+								{{ csrf_field() }}
+								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
+								<input type="submit" value="已領貨" />
+							</form>
+						@elseif($c->Progress == '0')
+							<form action="/orderCancel" method="POST">
+								{{ csrf_field() }}
+								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
+								<input type="submit" value="退貨" />
+							</form>
 						@endif
 						</td>
 					</tr>
