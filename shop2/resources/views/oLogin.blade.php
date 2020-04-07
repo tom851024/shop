@@ -15,6 +15,9 @@
 
 		</form>
 
+		<a href="/chinese">中文</a>&nbsp;
+		<a href="/english">English</a>
+
 		@if(isset($lerr))
 
 			@if($lerr == '1')

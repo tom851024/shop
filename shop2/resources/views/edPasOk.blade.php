@@ -6,7 +6,7 @@
 
 
 	<body>
-		密碼修改完成!!
+		{{ trans('messages.editPassOk') }}
 
 		<a href="/">回到首頁</a>
 	</body>

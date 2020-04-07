@@ -9,9 +9,9 @@
 	<body>
 		<form method="POST" action="/postLogin">
 			{{ csrf_field() }}
-			<text>帳號: </text>
+			<text>{{ trans('messages.userName') }}: </text>
 			<input type="text" name="userName" id="userName" /><br />
-			<text>密碼: </text>
+			<text>{{ trans('messages.password') }}: </text>
 			<input type="Password" name="passWord" id="passWord"><br />
 
 			<!--
@@ -23,14 +23,14 @@
 
 			@if(isset($lerr))
 				@if($lerr == '1')
-					<text style = "color:red;">帳號不存在</text>
+					<text style = "color:red;">{{ trans('messages.userNex') }}</text>
 				@elseif($lerr == '2')
-					<text style = "color:red;">密碼錯誤！！</text>
+					<text style = "color:red;">{{ trans('messages.passErr') }}</text>
 				@endif
 			@endif
 
 		</form>
-		<a href="/">回到首頁</a>
+		<a href="/">{{ trans('messages.home') }}</a>
 
 	</body>
 

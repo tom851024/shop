@@ -9,10 +9,12 @@
 	<body>
 		<form action="/reportPost" method="POST">
 			{{ csrf_field() }}
-			<text>回報問題：</text>
+			<text>{{ trans('messages.report') }}：</text>
 			<textarea cols="50" rows="5" name="report" id="report" required="required"></textarea>
-			<input type="submit" value="回報">
+			<input type="submit" value="{{ trans('messages.reporting') }}">
 		</form>
+
+		<a href="/">{{ trans('messages.lastPage') }}</a>
 	</body>
 
 </html>

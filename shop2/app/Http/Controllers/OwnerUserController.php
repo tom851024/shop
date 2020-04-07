@@ -81,6 +81,16 @@ class OwnerUserController extends Controller
     }
 
 
+    public function orderViewSearchNum(){
+        //$order = DB::table('CartBuy') -> where('id', $_POST['search']) -> first();
+        $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where CartBuy.id = ?";
+        $param = $_POST['search'];
+        $order = DB::select($query, array($param));
+        return view('orderList') -> with('order', $order);
+
+    }
+
+
 
     public function userDetail(){
         $member = DB::table('User') -> where('id', $_GET['UId']) -> first();

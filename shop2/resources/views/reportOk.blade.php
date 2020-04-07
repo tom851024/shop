@@ -5,7 +5,7 @@
 	</head>
 
 	<body>
-		你的回報已經送出!!
-		<a href="/">回到首頁</a>
+		{{ trans('messages.reportOk') }}
+		<a href="/">{{ trans('messages.home') }}</a>
 	</body>
 </html>

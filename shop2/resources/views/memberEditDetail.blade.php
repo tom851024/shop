@@ -5,8 +5,8 @@
 	</head>
 
 	<body>
-		<text>資料修改</text><br />
-		<text>帳號： {{ $member->UserName }}</text><br />
+		<text>{{ trans('messages.editData') }}</text><br />
+		<text>{{ trans('messages.userName') }}： {{ $member->UserName }}</text><br />
 		
 		<form action="/memberEditPost" method="POST">
 			{{ csrf_field() }}

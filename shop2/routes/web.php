@@ -134,4 +134,6 @@ Route::post('/memberEditPost', 'OwnerUserController@memberEdit');
 
 Route::post('/orderSearch', 'OwnerUserController@orderViewSearch');
 
+Route::post('/orderSearchNum', 'OwnerUserController@orderViewSearchNum');
+
 Route::post('/merGo', 'OwnerUserController@merchandiseGo');

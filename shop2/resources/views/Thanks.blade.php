@@ -5,7 +5,7 @@
 	</head>
 
 	<body>
-		Thank you for your buying!!
+		{{ trans('messages.thank') }}
 		<a href="/">回到首頁</a>
 	</body>
 </html>

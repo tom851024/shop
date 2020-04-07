@@ -9,11 +9,11 @@
 		@if($cartCou > 0)
 			<table width="80%" border="1">
 				<tr>
-					<th>商品名稱</th>
-					<th>價錢</th>
-					<th>數量</th>
-					<th>進度</th>
-					<th>收貨簽到</th>
+					<th>{{ trans('messages.merName') }}</th>
+					<th>{{ trans('messages.price') }}</th>
+					<th>{{ trans('messages.qty') }}</th>
+					<th>{{ trans('messages.progress') }}</th>
+					<th>{{ trans('messages.check') }}</th>
 				</tr>
 
 				@foreach($cart as $c)
@@ -24,15 +24,15 @@
 						<td>
 							<?php
 								if($c->Progress == 0){
-									echo '出貨中';
+									echo trans('messages.prepare');
 								}else if($c->Progress == 1){
-									echo '已出貨';
+									echo trans('messages.send');
 								}else if($c->Progress == 2){
-									echo '已領貨';
+									echo trans('messages.checkout');
 								}else if($c->Progress == 3){
-									echo '缺貨';
+									echo trans('messages.noMer');
 								}else if($c->Progress == 4){
-									echo '已退貨';
+									echo trans('messages.back');
 								}
 							 ?>
 						</td>
@@ -42,22 +42,22 @@
 							<form action="/orderOk" method="POST">
 								{{ csrf_field() }}
 								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
-								<input type="submit" value="已領貨" />
+								<input type="submit" value="{{ trans('messages.checkout') }}" />
 							</form>
 						@elseif($c->Progress == '0')
 							<form action="/orderCancel" method="POST">
 								{{ csrf_field() }}
 								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
-								<input type="submit" value="退貨" />
+								<input type="submit" value="{{ trans('messages.back') }}" />
 							</form>
 						@endif
 						</td>
 					</tr>
 				@endforeach
 		@else
-			<text>你還沒有買過任何東西</text>
+			<text>{{ trans('messages.noBuy') }}</text>
 		@endif
-		<a href="/">回到首頁</a>
+		<a href="/">{{ trans('messages.home') }}</a>
 		</table>
 	</body>
 

@@ -7,16 +7,16 @@
 
 	<body>
 
-		<text>修改密碼</text><br />
+		<text>{{ trans('messages.editPass') }}</text><br />
 		<form method="POST" action="/edPassPost">
 			{{ csrf_field() }}
-			<text>舊密碼</text>
+			<text>{{ trans('messages.oldPass') }}</text>
 			<input type="Password" name="passwd" required="required" /><br />
 			
-			<text>新密碼</text> 
+			<text>{{ trans('messages.newPass') }}</text> 
 			<input type="Password" name="newPasswd" required="required" /><br />
 
-			<text>確認密碼</text>
+			<text>{{ trans('messages.confirmPass') }}</text>
 			<input type="Password" name="reNewPasswd" required="required" /><br />
 
 			
@@ -25,13 +25,13 @@
 		</form>
 		@if(isset($err))
 			@if($err == '1')
-				<text>密碼錯誤</text>
+				<text>{{ trans('messages.passErr') }}</text>
 			@elseif($err == '2')
-				<text>驗證密碼錯誤</text>
+				<text>{{ trans('messages.conPassErr') }}</text>
 			@endif
 		@endif
 	</body>
 
-	<a href="/">回到首頁</a>
+	<a href="/">{{ trans('messages.home') }}</a>
 
 </html>

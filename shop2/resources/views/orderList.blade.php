@@ -38,7 +38,15 @@
 		<p>
 			<form action="/orderSearch" method="POST">
 				{{ csrf_field() }}
+				<text>從會員名字和商品名稱搜尋</text>
 				<input type="text" name="search" id="search" required="required" />
+				<input type="submit" value="搜尋" />
+			</form>
+
+			<form action="/orderSearchNum" method="POST">
+				{{ csrf_field() }}
+				<text>從訂單號搜尋</text>
+				<input type="text" name="search" id="search" required="required" onkeyup="value=value.replace(/[^\d]/g, '')" />
 				<input type="submit" value="搜尋" />
 			</form>
 
