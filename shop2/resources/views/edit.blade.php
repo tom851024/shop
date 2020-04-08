@@ -6,7 +6,7 @@
 
 
 	<body>
-		<text>{{ trans('messages.editData') }}</text><br />
+		<text>{{ trans('messages.editdata') }}</text><br />
 		<form method="POST" action="/postEdit">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.name') }}: </text>
@@ -18,7 +18,7 @@
 			<text>{{ trans('messages.address') }}: </text>
 			<input type="text" name="address" id="address" value="{{ $account->Address }}" required="required" /><br />
 
-			<input type="submit" value="更改" />
+			<input type="submit" value="{{ trans('messages.edit') }}" />
 		</form>
 		<a href="/editPasswd">{{ trans('messages.editPass') }}</a>
 		<a href="/">{{ trans('messages.lastPage') }}</a>

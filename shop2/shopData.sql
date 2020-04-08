@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 06, 2020 at 06:01 PM
+-- Generation Time: Apr 08, 2020 at 01:45 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -41,8 +41,15 @@ CREATE TABLE `CartBuy` (
 --
 
 INSERT INTO `CartBuy` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`, `Progress`) VALUES
-(9, 8, 1, 'computer 1', 30000, 2, 0),
-(10, 8, 3, 'XBOX1080', 9000, 5, 2);
+(9, 8, 1, 'computer 1', 30000, 2, 1),
+(10, 8, 3, 'XBOX1080', 9000, 5, 2),
+(11, 7, 3, 'XBOX1080', 9000, 5, 4),
+(12, 7, 1, 'computer 1', 30000, 6, 1),
+(13, 7, 2, 'Laptop', 40000, 3, 1),
+(14, 7, 3, 'XBOX1080', 9000, 5, 4),
+(15, 7, 1, 'computer 1', 30000, 2, 0),
+(16, 7, 1, 'computer 1', 30000, 6, 0),
+(17, 7, 3, 'XBOX1080', 9000, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -67,7 +74,8 @@ CREATE TABLE `Merchandise` (
 INSERT INTO `Merchandise` (`id`, `Name`, `ShortDes`, `Description`, `Price`, `Qty`, `Status`) VALUES
 (1, 'computer 1', 'this is first one', 'First computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer ', 30000, 100, 0),
 (2, 'Laptop', 'this is a laptop', 'Second laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop laptop ', 40000, 150, 0),
-(3, 'XBOX1080', 'A good video player', '1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 XXXXXX BBBBBBB', 9000, 3000, 0);
+(3, 'XBOX1080', 'A video player', '1080 1080  1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 1080 XXXXXX BBBBBBB', 9000, 300, 1),
+(4, '電腦螢幕', '這是一個電腦螢幕', '這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕這是一個電腦螢幕', 5000, 200, 0);
 
 -- --------------------------------------------------------
 
@@ -87,7 +95,8 @@ CREATE TABLE `O_User` (
 --
 
 INSERT INTO `O_User` (`id`, `UserName`, `Passwd`, `Auth`) VALUES
-(1, 'boss', 123456, 1);
+(1, 'boss', 123456, 1),
+(2, 'hello', 654321, 2);
 
 -- --------------------------------------------------------
 
@@ -106,7 +115,8 @@ CREATE TABLE `Report` (
 --
 
 INSERT INTO `Report` (`id`, `UserId`, `Report`) VALUES
-(1, 1, 'problem problem problem problem problem problem problem problem problem problem problem problem problem problem problem problem ');
+(1, 1, 'problem problem problem problem problem problem problem problem problem problem problem problem problem problem problem problem '),
+(2, 7, '123456');
 
 -- --------------------------------------------------------
 
@@ -158,7 +168,7 @@ CREATE TABLE `User` (
 INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`, `Gold`) VALUES
 (1, 'abc', '123', 0, 'abcabc', '09456123789', 'Taichung ABC Road 785', 1, 0),
 (7, 'tom', '6605', 0, 'tom', '0926666677', 'Taichung TTT Road 999', 1, 0),
-(8, 'new', '222', 0, 'newone', '09456789321', 'Taichung DFG Road 154', 1, 0),
+(8, 'new', '222', 0, 'newone', '09456789321', '台中 DFG Road 154', 1, 0),
 (9, 'super', '9876', 0, 'Sssuper1', '09456123798', 'Taichung DFG Road 667', 2, 500);
 
 --
@@ -209,27 +219,27 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `Merchandise`
 --
 ALTER TABLE `Merchandise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `O_User`
 --
 ALTER TABLE `O_User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Report`
 --
 ALTER TABLE `Report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `User`
 --

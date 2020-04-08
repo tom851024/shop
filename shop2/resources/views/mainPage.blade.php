@@ -25,7 +25,7 @@
 		<form method="POST" action="/search">
 			{{ csrf_field() }}
 			<input type="text" name="search" id="search" />
-			<input type="submit" value="Search" />
+			<input type="submit" value="{{ trans('messages.search') }}" />
 		</form>
 
 		<p>

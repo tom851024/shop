@@ -21,7 +21,7 @@
 
 			
 
-			<input type="submit" value="確定">
+			<input type="submit" value="{{ trans('messages.confirm') }}">
 		</form>
 		@if(isset($err))
 			@if($err == '1')
