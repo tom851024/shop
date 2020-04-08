@@ -88,9 +88,7 @@ class UserController extends Controller
     public function Edit(Request $request)
     {
         DB::update('update User set Name = ?, Phone = ?, Address = ? where id = ?', [$_POST['name'], $_POST['tel'], $_POST['address'], $request->session()->get('userId')]);
-        $merchandise = DB::table('Merchandise') -> get();
-        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
-
+        return redirect('/');
     }
 
 
@@ -131,8 +129,7 @@ class UserController extends Controller
     {
         $request->session()->put('locale', 'ch');
         App::setLocale($request->session()->get('locale'));
-        $merchandise = DB::table('Merchandise') -> get();
-        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
+        return redirect('/');
     }
 
 
@@ -140,9 +137,7 @@ class UserController extends Controller
     {
         $request->session()->put('locale', 'en');
         App::setLocale($request->session()->get('locale'));
-        $merchandise = DB::table('Merchandise') -> get();
-        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
-
+        return redirect('/');
     }
 
 
