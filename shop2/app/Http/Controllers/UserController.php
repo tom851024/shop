@@ -13,18 +13,22 @@ class UserController extends Controller
 
     public function Register()
     {
-    	$account = DB::table('User')
-    					->where('Username', $_POST['userName'])
-    					->count();
-    	if($account == 0){
-    		if(strcmp($_POST['passWord'], $_POST['repassWord']) == 0){
-    			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address, Level, Gold) values (?, ?, ?, ?, ?, ?, ?, ?)', [$_POST['userName'], $_POST['passWord'], 0, $_POST['name'], $_POST['tel'], $_POST['address'], 1, 0]);
-                return view('login');
-            }else   		
-    			return view('register', ['err' => '1']);
-    	}else{
-    		return view('register', ['err' => '2', 'account' => $account]);
-    	}
+        if(preg_match("/^\w/", $_POST['userName']) && preg_match("/^\w/", $_POST['userName']) && preg_match("/^\d/", $_POST['tel'])){
+        	$account = DB::table('User')
+        					->where('Username', $_POST['userName'])
+        					->count();
+        	if($account == 0){
+        		if(strcmp($_POST['passWord'], $_POST['repassWord']) == 0){
+        			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address, Level, Gold) values (?, ?, ?, ?, ?, ?, ?, ?)', [$_POST['userName'], md5($_POST['passWord']), 0, $_POST['name'], $_POST['tel'], $_POST['address'], 1, 0]);
+                    return view('login');
+                }else   		
+        			return view('register', ['err' => '1']);
+        	}else{
+        		return view('register', ['err' => '2', 'account' => $account]);
+        	}
+        }else{
+            return redirect('/register');
+        }
     }
 
 
@@ -39,7 +43,7 @@ class UserController extends Controller
     					->count();
 
     	if($ucount != 0){
-    		if(strcmp($account->Passwd, $_POST['passWord']) == 0){
+    		if(strcmp($account->Passwd, md5($_POST['passWord'])) == 0){
                 $request->session()->put('userId',  $account->id);
                 $request->session()->put('userName',  $account->UserName);
     			$merchandise = DB::table('Merchandise') -> get();
