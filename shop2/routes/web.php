@@ -150,6 +150,8 @@ Route::prefix('admin') -> group(function(){
 		return view('createMer');
 	});
 
+	Route::get('/viewReport', 'OwnerUserController@reportView');
+
 
 
 	//--------post

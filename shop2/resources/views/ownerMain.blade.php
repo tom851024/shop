@@ -11,7 +11,7 @@
 			<a href="/admin/ologout">{{ trans('messages.logout') }}</a>
 			<a href="/admin/ownerOrderView">{{ trans('messages.orderSearch') }}</a>
 			<a href="/admin/warehouse">{{ trans('messages.warehouse') }}</a>
-			<a href="/admin/omain">{{ trans('messages.cusReport') }}</a>
+			<a href="/admin/viewReport">{{ trans('messages.cusReport') }}</a>
 			@if($oUserAuth == '1')
 				<a href="/admin/memberEdit">{{ trans('messages.memberOEdit') }}</a>
 				<a href="/admin/omain">{{ trans('messages.discount') }}</a>

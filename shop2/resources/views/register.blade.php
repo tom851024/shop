@@ -19,7 +19,7 @@
 			<text>{{ trans('messages.address') }}: </text>
 			<input type="text" name="address" id="address" required="required" /><br />
 			
-			<input type="submit"  value="送出" /><br />
+			<input type="submit"  value="{{ trans('messages.confirm') }}" /><br />
 			@if(isset($err))
 				@if($err == '1')
 					<text style = "color:red;">{{ trans('messages.conPassErr') }}</text>

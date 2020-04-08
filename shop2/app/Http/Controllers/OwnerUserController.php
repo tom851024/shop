@@ -159,4 +159,15 @@ class OwnerUserController extends Controller
         return redirect('/admin/warehouse');
     }
 
+
+    public function reportView(){
+        $report = DB::table('Report')
+                ->join('User', 'User.id', '=', 'Report.UserId')
+                ->select('Report.*', 'User.Name', 'User.UserName')
+                ->orderBy('id', 'desc')
+                ->get();
+
+        return view('cusReport') -> with('report', $report);
+    }
+
 }
