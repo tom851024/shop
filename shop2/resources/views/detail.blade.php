@@ -44,7 +44,7 @@
 						<input type="hidden" name="merName" id="merName" value="<?php echo $merdetail->Name ?>">
 						<input type="hidden" name="price" id="price" value="<?php echo $merdetail->Price?>">
 						<text>{{ trans('messages.qty') }}: </text>
-						<input type="text" name="Qty" id="Qty" required="required" />
+						<input type="text" name="Qty" id="Qty" required="required" onkeyup="value=value.replace(/[^\d]/g, '')" />
 						<input type="submit" value="{{ trans('messages.buy') }}!!" name="" />
 					</form>
 					</td>

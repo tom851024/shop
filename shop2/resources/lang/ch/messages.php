@@ -69,10 +69,11 @@
 		'orderNo' => '訂單編號',
 		'sending' => '出貨',
 		'search' => '搜尋',
-		
-
-
-
+		'postOrNot' => '上架狀態',
+		'enable' => '上架',
+		'disable' => '下架',
+		'createMer' => '加入商品',
+		'confirm' => '確認',
 
 		
 

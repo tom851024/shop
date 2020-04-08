@@ -144,6 +144,13 @@ Route::prefix('admin') -> group(function(){
 	Route::get('/english', 'OwnerUserController@ChgEn');
 
 
+	Route::get('/warehouse', 'OwnerUserController@listMerchandise');
+
+	Route::get('/warehouseCreate', function(){
+		return view('createMer');
+	});
+
+
 
 	//--------post
 
@@ -159,5 +166,11 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/orderSearchNum', 'OwnerUserController@orderViewSearchNum');
 
 	Route::post('/merGo', 'OwnerUserController@merchandiseGo');
+
+	Route::post('/warehouseDetail', 'OwnerUserController@listMerchandiseDetail');
+
+	Route::post('/warehouseUpdate', 'OwnerUserController@updateMerchandise');
+
+	Route::post('/warehouseInsert', 'OwnerUserController@insertMerchandise');
 
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\App;
 use DB;
@@ -109,7 +110,8 @@ class OwnerUserController extends Controller
                  -> get();
  
         //return view('orderList') -> with('order', $order);
-        return $request->input('ordId');
+        //return $order -> toArray();
+        return Response::json($order);
     }
 
 
@@ -128,6 +130,33 @@ class OwnerUserController extends Controller
         App::setLocale($request->session()->get('locale'));
         return redirect('admin/ologin');
 
+    }
+
+
+
+    public function listMerchandise(){
+        $merchandise = DB::table('Merchandise') -> get();
+        return view('warehouse') -> with('merchandise', $merchandise);
+    }
+
+
+
+    public function listMerchandiseDetail(){
+        $merchandise = DB::table('Merchandise') -> where('id', $_POST['merId']) -> first();
+        return view('warehouseDetail') -> with('mer', $merchandise);
+    }
+
+
+
+    public function updateMerchandise(){
+         DB::update('update Merchandise set Name = ?, ShortDes = ?,Description = ?, Price = ?, Qty = ?, Status = ?  where id = ?', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['id']]);
+         return redirect('/admin/warehouse');
+    }
+
+
+    public function insertMerchandise(){
+        DB::insert('insert into Merchandise (Name, ShortDes, Description, Price, Qty, Status) values (?, ?, ?, ?, ?, ?)', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status']]);
+        return redirect('/admin/warehouse');
     }
 
 }

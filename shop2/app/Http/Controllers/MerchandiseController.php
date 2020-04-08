@@ -11,7 +11,7 @@ class MerchandiseController extends Controller
 
     public function ListMerchandise(Request $request)
     {
-    	$merchandise = DB::table('Merchandise') -> get();
+    	$merchandise = DB::table('Merchandise') -> where('status', '0') -> get();
     	return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
     }
 
@@ -30,7 +30,7 @@ class MerchandiseController extends Controller
 
      public function Search(Request $request)
     {
-        $query = "select * from Merchandise where Name like ? OR ShortDes like ?";
+        $query = "select * from Merchandise where status = 0 AND Name like ? OR ShortDes like ?";
         $param = '%'.$_POST['search'].'%';
         $merchandise = DB::select($query, array($param, $param));
         return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));

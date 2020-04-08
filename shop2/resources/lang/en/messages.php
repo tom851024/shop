@@ -70,6 +70,11 @@
 		'orderNo' => 'Order Number',
 		'sending' => 'sending',
 		'search' => 'search',
+		'postOrNot' => 'Sales or not',
+		'enable' => 'on Sales',
+		'disable' => 'not Sales',
+		'createMer' => 'Add new Merchandise',
+		'confirm' => 'post',
 
 		
 	];
