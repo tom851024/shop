@@ -43,7 +43,7 @@ class UserController extends Controller
                 $request->session()->put('userId',  $account->id);
                 $request->session()->put('userName',  $account->UserName);
     			$merchandise = DB::table('Merchandise') -> get();
-                return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
+                return redirect('/') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
     		}else{
                 return view('login', ['lerr' => '2']);
             }
@@ -59,7 +59,7 @@ class UserController extends Controller
         $request -> session() -> forget('user');
         $request -> session() -> forget('userName');
         $merchandise = DB::table('Merchandise') -> get();
-        return view('mainPage') -> with('merchandise', $merchandise);
+        return redirect('/');
     }
 
 

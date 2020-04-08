@@ -8,8 +8,8 @@
 	<body>
 		<table width="80%" border="1">
 			<tr>
-				<th>使用者帳號</th>
-				<th>使用者名稱</th>
+				<th>{{ trans('messages.oUsername') }}</th>
+				<th>{{ trans('messages.oName') }}</th>
 				<th></th>
 			</tr>
 			@foreach($member as $mem)
@@ -17,10 +17,10 @@
 					<td>{{ $mem->UserName }}</td>
 					<td>{{ $mem->Name }}</td>
 					<td>
-						<form action="/memberDetailPost" method="POST">
+						<form action="/admin/memberDetailPost" method="POST">
 							{{ csrf_field() }}
 							<input type="hidden" name="UId" id="UId" value="<?php echo $mem->id ?>" />
-							<input type="submit" value="修改">
+							<input type="submit" value="{{ trans('messages.edit') }}">
 						</form>
 					</td>
 				</tr>
@@ -29,7 +29,7 @@
 
 		</table>
 
-		<a href="/omain">回上一頁</a>
+		<a href="/admin/omain">{{ trans('messages.lastPage') }}</a>
 			
 
 	</body>

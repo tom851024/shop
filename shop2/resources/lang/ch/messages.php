@@ -21,7 +21,6 @@
 		'totalprice' => '總價錢',
 		'description' => '描述',
 		'buy' => '購買',
-		'editData' => '編輯資料',
 		'name' => '姓名',
 		'phone' => '電話',
 		'address' => '住址',
@@ -51,6 +50,28 @@
 		'reporting' => '回報',
 		'reportOk' => '你的回報已經送出!!',
 		'thank' => '感謝你的購買!!',
+		'orderMan' => '訂貨人姓名',
+		'orderSearch' => '訂單查詢',
+		'warehouse' => '庫存管理',
+		'cusReport' => '客戶回報',
+		'memberOEdit' => '會員帳號管理',
+		'discount' => '優惠管理',
+		'welcome' => '歡迎',
+		'loginFirst' => '請先登入',
+		'oUsername' => '使用者帳號',
+		'oName' => '使用者名稱',
+		'edit' => '修改',
+		'level' => '等級',
+		'plate' => '盤子幣',
+		'editOk' => '修改成功!!',
+		'searchFromName' => '從會員名字和商品名稱搜尋',
+		'searchFromOrder' => '從訂單號搜尋',
+		'orderNo' => '訂單編號',
+		'sending' => '出貨',
+		'search' => '搜尋',
+		
+
+
 
 
 		

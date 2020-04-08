@@ -8,18 +8,17 @@
 
 	<body>
 		@if(isset($oUId))
-			<a href="/ologout">登出</a>
-			<a href="/ownerOrderView">訂單查詢</a>
-			<a href="/">庫存管理</a>
-			<a href="/">退貨管理</a>
-			<a href="/">客戶回報</a>
+			<a href="/admin/ologout">{{ trans('messages.logout') }}</a>
+			<a href="/admin/ownerOrderView">{{ trans('messages.orderSearch') }}</a>
+			<a href="/">{{ trans('messages.warehouse') }}</a>
+			<a href="/">{{ trans('messages.cusReport') }}</a>
 			@if($oUserAuth == '1')
-				<a href="/memberEdit">會員帳號管理</a>
-				<a href="/">優惠管理</a>
+				<a href="/admin/memberEdit">{{ trans('messages.memberOEdit') }}</a>
+				<a href="/">{{ trans('messages.discount') }}</a>
 			@endif
-			<text>歡迎{{ $oUName }}</text>
+			<text>{{ trans('messages.welcome') }} {{ $oUName }}</text>
 		@else
-			<a href="/ologin">請先登入</a>
+			<a href="/admin/ologin">{{ trans('messages.loginFirst') }}</a>
 		@endif
 
 	</body>

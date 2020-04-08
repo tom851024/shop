@@ -5,8 +5,8 @@
 	</head>
 
 	<body>
-		<text>修改成功!!</text>
-		<a href="/ologin">回首頁</a>
+		<text>{{ trans('messages.editOk') }}</text>
+		<a href="/admin/omain">{{ trans('messages.home') }}</a>
 	</body>
 
 </html>

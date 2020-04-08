@@ -78,25 +78,6 @@ Route::get('/chinese', 'UserController@ChgCh');
 Route::get('/english', 'UserController@ChgEn');
 
 
-//------------後台
-
-
-Route::get('/ologin', function(){
-	return view('oLogin');
-});
-
-Route::get('/ologout', 'OwnerUserController@logout');
-
-Route::get('/omain', function(Request $request){
-	return view('ownerMain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
-});
-
-
-Route::get('/memberEdit', 'OwnerUserController@memberView');
-
-Route::get('/ownerOrderView', 'OwnerUserController@orderView');
-
-Route::get('/userDetail', 'OwnerUserController@userDetail');
 
 //--------post
 
@@ -124,16 +105,59 @@ Route::post('/reportPost', 'UserController@Report');
 
 Route::post('/delTmp', 'MerchandiseController@DelTmp');
 
+
+
+
 //------------後台
 
-Route::post('/postOLogin', 'OwnerUserController@login');
+Route::prefix('admin') -> group(function(){
 
-Route::post('/memberDetailPost', 'OwnerUserController@memberDetailView');
+	Route::get('/ologin', function(){
+		return view('oLogin');
+	});
 
-Route::post('/memberEditPost', 'OwnerUserController@memberEdit');
+	Route::get('/ologout', 'OwnerUserController@logout');
 
-Route::post('/orderSearch', 'OwnerUserController@orderViewSearch');
+	Route::get('/omain', function(Request $request){
+		if(null !== $request->session()->get('oUserId')){
+			$account = DB::table('O_User')
+	    				->where('id', $request->session()->get('oUserId'))
+	   					->first();
 
-Route::post('/orderSearchNum', 'OwnerUserController@orderViewSearchNum');
+	   		$request->session()->put('oUserAuth', $account->Auth);
+   		}
 
-Route::post('/merGo', 'OwnerUserController@merchandiseGo');
+		return view('ownerMain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
+
+	});
+
+
+	Route::get('/memberEdit', 'OwnerUserController@memberView');
+
+	Route::get('/ownerOrderView', 'OwnerUserController@orderView');
+
+	Route::get('/userDetail', 'OwnerUserController@userDetail');
+
+
+	Route::get('/chinese', 'OwnerUserController@ChgCh');
+
+	Route::get('/english', 'OwnerUserController@ChgEn');
+
+
+
+	//--------post
+
+
+	Route::post('/postOLogin', 'OwnerUserController@login');
+
+	Route::post('/memberDetailPost', 'OwnerUserController@memberDetailView');
+
+	Route::post('/memberEditPost', 'OwnerUserController@memberEdit');
+
+	Route::post('/orderSearch', 'OwnerUserController@orderViewSearch');
+
+	Route::post('/orderSearchNum', 'OwnerUserController@orderViewSearchNum');
+
+	Route::post('/merGo', 'OwnerUserController@merchandiseGo');
+
+});

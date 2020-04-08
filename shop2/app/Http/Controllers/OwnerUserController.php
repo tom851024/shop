@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\App;
 use DB;
 
 class OwnerUserController extends Controller
@@ -23,7 +24,7 @@ class OwnerUserController extends Controller
                 $request->session()->put('oUserId', $account->id);
                 $request->session()->put('oUserName', $account->UserName);
                 $request->session()->put('oUserAuth', $account->Auth);
-    			return view('ownerMain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
+    			return redirect('admin/omain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
                 
     		}else{
                 return view('oLogin', ['lerr' => '2']);
@@ -38,7 +39,7 @@ class OwnerUserController extends Controller
     public function logout(Request $request){
         $request -> session() -> forget('oUserId');
         $request -> session() -> forget('oUserName');
-        return view('oLogin');
+        return redirect('admin/ologin');
     }
 
 
@@ -109,6 +110,24 @@ class OwnerUserController extends Controller
  
         //return view('orderList') -> with('order', $order);
         return $request->input('ordId');
+    }
+
+
+
+     public function ChgCh(Request $request)
+    {
+        $request->session()->put('locale', 'ch');
+        App::setLocale($request->session()->get('locale'));
+        return redirect('admin/ologin');
+    }
+
+
+    public function ChgEn(Request $request)
+    {
+        $request->session()->put('locale', 'en');
+        App::setLocale($request->session()->get('locale'));
+        return redirect('admin/ologin');
+
     }
 
 }

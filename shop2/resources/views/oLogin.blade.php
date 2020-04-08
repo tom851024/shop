@@ -5,25 +5,25 @@
 	</head>
 
 	<body>
-		<form action="/postOLogin" method="POST">
+		<form action="/admin/postOLogin" method="POST">
 			{{ csrf_field() }}
-			<text>帳號</text>
+			<text>{{ trans('messages.userName') }}</text>
 			<input type="text" name="userName" id="userName" required="required" /><br />
-			<text>密碼</text>
+			<text>{{ trans('messages.password') }}</text>
 			<input type="password" name="passWd" id="passWd" required="required" /><br />
-			<input type="submit" value="登入" />
+			<input type="submit" value="{{ trans('messages.login') }}" />
 
 		</form>
 
-		<a href="/chinese">中文</a>&nbsp;
-		<a href="/english">English</a>
+		<a href="/admin/chinese">中文</a>&nbsp;
+		<a href="/admin/english">English</a>
 
 		@if(isset($lerr))
 
 			@if($lerr == '1')
-				<text style = "color:red;">帳號不存在</text>
+				<text style = "color:red;">{{ trans('messages.userNex') }}</text>
 			@elseif($lerr == '2')
-				<text style = "color:red;">密碼錯誤</text>
+				<text style = "color:red;">{{ trans('messages.passErr') }}</text>
 			@endif
 
 
