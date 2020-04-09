@@ -88,7 +88,7 @@ class OwnerUserController extends Controller
         $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where Name like ? OR MerName like ?";
         $param = '%'.$_POST['search'].'%';
         $order = DB::select($query, array($param, $param));
-        return view('orderList') -> with('order', $order);
+        return view('orderList') -> with('order', $order) -> with('search', '1');
     }
 
 
@@ -98,9 +98,9 @@ class OwnerUserController extends Controller
             $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where CartBuy.id = ?";
             $param = $_POST['search'];
             $order = DB::select($query, array($param));
-            return view('orderList') -> with('order', $order);
+            return view('orderList') -> with('order', $order) -> with('search', '1');
         }else{
-            return redirect('/admin/ownerOrderView');
+            return redirect('/admin/ownerOrderView') -> with('mes', '1');
         }
 
     }
@@ -124,7 +124,7 @@ class OwnerUserController extends Controller
  
         //return view('orderList') -> with('order', $order);
         //return $order -> toArray();
-        return Response::json($order);
+        //return Response::json($order);
     }
 
 
@@ -185,8 +185,12 @@ class OwnerUserController extends Controller
 
 
     public function insertMerchandise(){
-        DB::insert('insert into Merchandise (Name, ShortDes, Description, Price, Qty, Status) values (?, ?, ?, ?, ?, ?)', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status']]);
-        return redirect('/admin/warehouse');
+        if(preg_match("/^[0-9]*$/", $_POST['price']) && preg_match("/^[0-9]*$/", $_POST['qty'])){
+            DB::insert('insert into Merchandise (Name, ShortDes, Description, Price, Qty, Status) values (?, ?, ?, ?, ?, ?)', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status']]);
+            return redirect('/admin/warehouse');
+        }else{
+            return redirect('/admin/warehouseCreate') -> with('mes', '1');
+        }
     }
 
 

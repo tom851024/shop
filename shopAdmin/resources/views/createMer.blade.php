@@ -49,6 +49,13 @@
 
 		</form>
 
+		@if(session() -> has('mes'))
+			@if(session()->get('mes') == '1')
+					{{ trans('messages.illegel') }}
+			@endif
+		@endif
+		<br />
+
 
 		<a href="/admin/omain">{{ trans('messages.home') }}</a>
 	</body>

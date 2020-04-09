@@ -48,6 +48,11 @@
 				<text>{{ trans('messages.searchFromOrder') }}</text>
 				<input type="text" name="search" id="search" required="required" onkeyup="value=value.replace(/[^\d]/g, '')" />
 				<input type="submit" value="{{ trans('messages.search') }}" />
+				@if(session() -> has('mes'))
+					@if(session()->get('mes') == '1')
+						{{ trans('messages.illegel') }}
+					@endif
+				@endif
 			</form>
 
 		</p>
@@ -109,6 +114,10 @@
 		</p>
 
 		<a href="/admin/omain">{{ trans('messages.home') }}</a>
+		@if(isset($search))
+			<a href="/admin/ownerOrderView">{{ trans('messages.lastPage') }}</a>
+		@endif
+
 		
 
 	</body>
