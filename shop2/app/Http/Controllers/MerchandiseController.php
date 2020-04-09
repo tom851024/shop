@@ -18,7 +18,7 @@ class MerchandiseController extends Controller
 
     public function TmpBuy(Request $request)
     {
-    	if(preg_match("/^[0-9]*/", $_POST['Qty'])){
+    	if(preg_match("/^[0-9]*$/", $_POST['Qty'])){
         	DB::insert('insert into tmpShop (UserId, MerId, MerName, Price, Qty) values (?, ?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['merId'], $_POST['merName'], $_POST['price'], $_POST['Qty']]);
         	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         	

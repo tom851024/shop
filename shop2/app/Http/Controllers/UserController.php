@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function Register()
     {
-        if(preg_match("/^\w{n}/", $_POST['userName']) && preg_match("/^\w{n}/", $_POST['passWord']) && preg_match("/^\d{n}/", $_POST['tel'])){
+        if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWord']) && preg_match("/^[0-9]*$/", $_POST['tel'])){
         	$account = DB::table('User')
         					->where('Username', $_POST['userName'])
         					->count();
@@ -22,38 +22,50 @@ class UserController extends Controller
         			DB::insert('insert into User (Username, Passwd, vty, Name, Phone, Address, Level, Gold) values (?, ?, ?, ?, ?, ?, ?, ?)', [$_POST['userName'], md5($_POST['passWord']), 0, $_POST['name'], $_POST['tel'], $_POST['address'], 1, 0]);
                     return view('login');
                 }else   		
-        			return view('register', ['err' => '1']);
+        			//return redirect('register', ['err' => '1']);
+                    return redirect('/register') -> with('err', '1');
         	}else{
-        		return view('register', ['err' => '2', 'account' => $account]);
+        		//return redirect('register', ['err' => '2', 'account' => $account]);
+                return redirect('/register') -> with('err', '2');
         	}
         }else{
-            return redirect('/register');
+            return redirect('/register') -> with('err', '3');
         }
     }
 
 
     public function Login(Request $request)
     {
-    	$account = DB::table('User')
-    					->where('Username', $_POST['userName'])
-    					->first();
+        if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWord'])){
+            $account = DB::table('User')
+                        ->where('Username', $_POST['userName'])
+                        ->first();
 
-    	$ucount = DB::table('User')
-    					->where('Username', $_POST['userName'])
-    					->count();
+            $ucount = DB::table('User')
+                            ->where('Username', $_POST['userName'])
+                            ->count();
 
-    	if($ucount != 0){
-    		if(strcmp($account->Passwd, md5($_POST['passWord'])) == 0){
-                $request->session()->put('userId',  $account->id);
-                $request->session()->put('userName',  $account->UserName);
-    			$merchandise = DB::table('Merchandise') -> get();
-                return redirect('/') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
-    		}else{
-                return view('login', ['lerr' => '2']);
+            if($ucount != 0){
+                if(strcmp($account->Passwd, md5($_POST['passWord'])) == 0){
+                    $request->session()->put('userId',  $account->id);
+                    $request->session()->put('userName',  $account->UserName);
+                    $merchandise = DB::table('Merchandise') -> get();
+                    return redirect('/') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
+                }else{
+                    //return view('login', ['lerr' => '2']);
+                    return redirect('/login') -> with('err', '2');
+                }
+            }else{
+                //return view('login', ['lerr' => '1']);
+                return redirect('/login') -> with('err', '1');
             }
-    	}else{
-    		return view('login', ['lerr' => '1']);
-    	}
+
+
+
+        }else{
+            return redirect('/login') -> with('err', '3');
+        }
+    	
 
 
     }

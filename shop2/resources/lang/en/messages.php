@@ -75,6 +75,7 @@
 		'disable' => 'not Sales',
 		'createMer' => 'Add new Merchandise',
 		'confirm' => 'post',
+		'illegel' => 'Have Illegel word in input',
 
 		
 	];

@@ -12,27 +12,32 @@ class OwnerUserController extends Controller
 {
 	public function login(Request $request){
 
-		$account = DB::table('O_User')
-    					->where('Username', $_POST['userName'])
-    					->first();
+        if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWd'])){
 
-    	$ucount = DB::table('O_User')
-    					->where('Username', $_POST['userName'])
-    					->count();
+    		$account = DB::table('O_User')
+        					->where('Username', $_POST['userName'])
+        					->first();
 
-		if($ucount != 0){
-    		if(strcmp($account->Passwd, md5($_POST['passWd'])) == 0){
-                $request->session()->put('oUserId', $account->id);
-                $request->session()->put('oUserName', $account->UserName);
-                $request->session()->put('oUserAuth', $account->Auth);
-    			return redirect('admin/omain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
-                
-    		}else{           
-                return redirect('/admin/ologin') -> with('lerr', '2');
-            }
-    	}else{
-            return redirect('/admin/ologin') -> with('lerr', '1');
-    	}
+        	$ucount = DB::table('O_User')
+        					->where('Username', $_POST['userName'])
+        					->count();
+
+    		if($ucount != 0){
+        		if(strcmp($account->Passwd, md5($_POST['passWd'])) == 0){
+                    $request->session()->put('oUserId', $account->id);
+                    $request->session()->put('oUserName', $account->UserName);
+                    $request->session()->put('oUserAuth', $account->Auth);
+        			return redirect('admin/omain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
+                    
+        		}else{           
+                    return redirect('/admin/ologin') -> with('lerr', '2');
+                }
+        	}else{
+                return redirect('/admin/ologin') -> with('lerr', '1');
+        	}
+        }else{
+            return redirect('/admin/ologin') -> with('lerr', '3');
+        }
 	}
 
 
@@ -85,7 +90,7 @@ class OwnerUserController extends Controller
 
     public function orderViewSearchNum(){
         //$order = DB::table('CartBuy') -> where('id', $_POST['search']) -> first();
-        if(preg_match("/^\d/", $_POST['search'])){
+        if(preg_match("/^[0-9]*$/", $_POST['search'])){
             $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where CartBuy.id = ?";
             $param = $_POST['search'];
             $order = DB::select($query, array($param));
@@ -207,7 +212,7 @@ class OwnerUserController extends Controller
 
 
     public function disCreate(){
-        if(preg_match("/^\d{n}/", $_POST['reachMon']) && preg_match("/^\d{n}/", $_POST['discount']) && preg_match("/^\d{n}/", $_POST['level']) && $_POST['level'] < 6){
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] < 6){
 
             DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
             return redirect('/admin/discountMan');
@@ -225,7 +230,7 @@ class OwnerUserController extends Controller
 
 
     public function disCountEditPost(){
-        if(preg_match("/^\d{n}/", $_POST['reachMon']) && preg_match("/^\d{n}/", $_POST['discount']) && preg_match("/^\d{n}/", $_POST['level']) && $_POST['level'] < 6){
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] < 6){
             DB::update('update Discount set Level = ?, ReachGold = ?, Discount = ?  where id = ?', [$_POST['level'], $_POST['reachMon'], $_POST['discount'], $_POST['id']]);
             return redirect('/admin/discountMan');
         }else{

@@ -24,6 +24,8 @@
 				<text style = "color:red;">{{ trans('messages.userNex') }}</text>
 			@elseif(session()->get('lerr') == '2')
 				<text style = "color:red;">{{ trans('messages.passErr') }}</text>
+			@elseif(session()->get('lerr') == '3')
+				<text style = "color:red;">{{ trans('messages.illegel') }}</text>
 			@endif
 
 

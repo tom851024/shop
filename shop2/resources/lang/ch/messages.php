@@ -74,6 +74,7 @@
 		'disable' => '下架',
 		'createMer' => '加入商品',
 		'confirm' => '確認',
+		'illegel' => '輸入欄位含有非法字元',
 
 		
 

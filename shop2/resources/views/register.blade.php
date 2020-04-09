@@ -20,15 +20,20 @@
 			<input type="text" name="address" id="address" required="required" /><br />
 			
 			<input type="submit"  value="{{ trans('messages.confirm') }}" /><br />
-			@if(isset($err))
-				@if($err == '1')
+		
+			@if(session() -> has('err'))
+
+				@if(session()->get('err') == '1')
 					<text style = "color:red;">{{ trans('messages.conPassErr') }}</text>
-				@elseif($err == '2')
+				@elseif(session()->get('err') == '2')
 					<text style = "color:red;">{{ trans('messages.userEx') }}</text>
+				@elseif(session()->get('err') == '3')
+					<text style = "color:red;">{{ trans('messages.illegel') }}</text>
 				@endif
+			@endif
 
 			
-			@endif
+		
 		</form>	
 
 		<a href="/">{{ trans('messages.lastPage') }}</a>

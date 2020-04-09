@@ -21,11 +21,17 @@
 			-->
 			<input type="submit" value="登入" /><br />
 
-			@if(isset($lerr))
-				@if($lerr == '1')
+			
+
+
+			@if(session() -> has('err'))
+
+				@if(session()->get('err') == '1')
 					<text style = "color:red;">{{ trans('messages.userNex') }}</text>
-				@elseif($lerr == '2')
+				@elseif(session()->get('err') == '2')
 					<text style = "color:red;">{{ trans('messages.passErr') }}</text>
+				@elseif(session()->get('err') == '3')
+					<text style = "color:red;">{{ trans('messages.illegel') }}</text>
 				@endif
 			@endif
 
