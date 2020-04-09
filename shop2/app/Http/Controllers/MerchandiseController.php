@@ -23,7 +23,8 @@ class MerchandiseController extends Controller
         	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         	
         	$cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
-        	return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
+        	//return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
+            return redirect('/cart');
         }else{
             return redirect('/cart');
         }
@@ -42,10 +43,18 @@ class MerchandiseController extends Controller
 
     public function DelTmp(Request $request)
     {
-    	DB::table('tmpShop') -> where('id', $request->input('id'))->delete();
+    	//* DB::table('tmpShop') -> where('id', $request->input('id'))->delete();
     	//$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         //$cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
     	//return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
+
+
+        $del = $_POST['del'];
+        for($i=0; $i < count($del); $i++){
+            DB::table('tmpShop') -> where('id',$del[$i])->delete();
+        }
+        return redirect('/cart');
+
     }
 
 
@@ -106,5 +115,10 @@ class MerchandiseController extends Controller
     }
 
 
+    public function merDetail(Request $request, $merId){
+        $merdetail = DB::table('Merchandise') -> where('id', $merId) -> first();               
+        $user = $request->session()->get('userId');
+        return view('detail') -> with('merdetail', $merdetail) -> with('user', $user);
+    }
 
 }

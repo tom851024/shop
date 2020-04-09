@@ -21,17 +21,17 @@ class OwnerUserController extends Controller
     					->count();
 
 		if($ucount != 0){
-    		if(strcmp($account->Passwd, $_POST['passWd']) == 0){
+    		if(strcmp($account->Passwd, md5($_POST['passWd'])) == 0){
                 $request->session()->put('oUserId', $account->id);
                 $request->session()->put('oUserName', $account->UserName);
                 $request->session()->put('oUserAuth', $account->Auth);
     			return redirect('admin/omain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
                 
-    		}else{
-                return view('oLogin', ['lerr' => '2']);
+    		}else{           
+                return redirect('/admin/ologin') -> with('lerr', '2');
             }
     	}else{
-    		return view('oLogin', ['lerr' => '1']);
+            return redirect('/admin/ologin') -> with('lerr', '1');
     	}
 	}
 
@@ -85,10 +85,14 @@ class OwnerUserController extends Controller
 
     public function orderViewSearchNum(){
         //$order = DB::table('CartBuy') -> where('id', $_POST['search']) -> first();
-        $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where CartBuy.id = ?";
-        $param = $_POST['search'];
-        $order = DB::select($query, array($param));
-        return view('orderList') -> with('order', $order);
+        if(preg_match("/^\d/", $_POST['search'])){
+            $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where CartBuy.id = ?";
+            $param = $_POST['search'];
+            $order = DB::select($query, array($param));
+            return view('orderList') -> with('order', $order);
+        }else{
+            return redirect('/admin/ownerOrderView');
+        }
 
     }
 
@@ -168,6 +172,54 @@ class OwnerUserController extends Controller
                 ->get();
 
         return view('cusReport') -> with('report', $report);
+    }
+
+
+
+    public function register(){
+        if(preg_match("/^\w/", $_POST['userName']) && preg_match("/^\w/", $_POST['password'])){
+            $account = DB::table('O_User')
+                            ->where('UserName', $_POST['userName'])
+                            ->count();
+
+            if($account == 0){
+                if(strcmp($_POST['password'], $_POST['repassword']) == 0){
+                    DB::insert('insert into O_User (UserName, Passwd, Auth) values(?, ?, ?)', [$_POST['userName'], md5($_POST['password']), $_POST['auth']]);
+                    return redirect('/admin/oRegister') -> with('mes', '3');
+                }else{
+                    return redirect('/admin/oRegister') -> with('mes', '2');
+                }
+            }else{
+                return redirect('/admin/oRegister') -> with('mes', '4');
+            }
+        }else{
+            return redirect('/admin/oRegister') -> with('mes', '1');
+        }
+    }
+
+
+
+
+    public function discountView(){
+        $discount = DB::table('Discount') -> get();
+        return view('discountView') -> with('discount', $discount);
+    }
+
+
+    public function disCreate(){
+        if(preg_match("/^\d/", $_POST['reachMon']) && preg_match("/^\d/", $_POST['discount']) && preg_match("/^\d/", $_POST['level']) && $_POST['level'] < 6){
+
+            DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
+            return redirect('/admin/discountMan');
+
+        }else{
+            return redirect('/admin/discountCre') -> with('mes', '1');
+        }
+    }
+
+
+    public function disCountEdit(){
+        $discount = DB::table('Discount') -> where('id', $_POST['id']) -> first();
     }
 
 }

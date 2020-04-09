@@ -74,6 +74,18 @@
 		'disable' => '下架',
 		'createMer' => '加入商品',
 		'confirm' => '確認',
+		'auth' => '權限',
+		'boss' => '老闆',
+		'employee' => '員工',
+		'regOk' => '註冊成功',
+		'oregister' => '後台註冊',
+		'illegel' => '輸入欄位含有非法字元',
+		'reachMoney' => '達成金額',
+		'discountMon' => '回饋金額',
+		'needLevel' => '需要等級',
+		'disCreate' => '新增折扣',
+
+		
 
 		
 

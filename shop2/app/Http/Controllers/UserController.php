@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function Register()
     {
-        if(preg_match("/^\w/", $_POST['userName']) && preg_match("/^\w/", $_POST['userName']) && preg_match("/^\d/", $_POST['tel'])){
+        if(preg_match("/^\w/", $_POST['userName']) && preg_match("/^\w/", $_POST['passWord']) && preg_match("/^\d/", $_POST['tel'])){
         	$account = DB::table('User')
         					->where('Username', $_POST['userName'])
         					->count();

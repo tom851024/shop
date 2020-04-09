@@ -14,7 +14,8 @@
 			<a href="/admin/viewReport">{{ trans('messages.cusReport') }}</a>
 			@if($oUserAuth == '1')
 				<a href="/admin/memberEdit">{{ trans('messages.memberOEdit') }}</a>
-				<a href="/admin/omain">{{ trans('messages.discount') }}</a>
+				<a href="/admin/discountMan">{{ trans('messages.discount') }}</a>
+				<a href="/admin/oRegister">{{ trans('messages.oregister') }}</a>
 			@endif
 			<text>{{ trans('messages.welcome') }} {{ $oUName }}</text>
 		@else

@@ -34,13 +34,15 @@ Route::get('/login', function(){
 
 Route::get('/logout', 'UserController@Logout');
 
-Route::get('/detail', function(Request $request){
+/*Route::get('/detail/{merId}', function(Request $request){
 	$merdetail = DB::table('Merchandise')
 		  			->where('id', $_GET['merId'])
 		  			->first();
 	$user = $request->session()->get('userId');
 	return view('detail') -> with('merdetail', $merdetail) -> with('user', $user);
-});
+});*/
+
+Route::get('/detail/{merId}', 'MerchandiseController@merDetail');
 
 
 

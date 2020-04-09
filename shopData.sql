@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 08, 2020 at 01:45 PM
+-- Generation Time: Apr 09, 2020 at 11:11 AM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -41,15 +41,31 @@ CREATE TABLE `CartBuy` (
 --
 
 INSERT INTO `CartBuy` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`, `Progress`) VALUES
-(9, 8, 1, 'computer 1', 30000, 2, 1),
-(10, 8, 3, 'XBOX1080', 9000, 5, 2),
-(11, 7, 3, 'XBOX1080', 9000, 5, 4),
-(12, 7, 1, 'computer 1', 30000, 6, 1),
-(13, 7, 2, 'Laptop', 40000, 3, 1),
-(14, 7, 3, 'XBOX1080', 9000, 5, 4),
-(15, 7, 1, 'computer 1', 30000, 2, 0),
-(16, 7, 1, 'computer 1', 30000, 6, 0),
-(17, 7, 3, 'XBOX1080', 9000, 5, 0);
+(18, 11, 2, 'Laptop', 40000, 2, 0),
+(19, 11, 1, 'computer 1', 30000, 2, 0),
+(20, 11, 2, 'Laptop', 40000, 5, 0),
+(21, 11, 4, '電腦螢幕', 5000, 5, 0),
+(22, 11, 4, '電腦螢幕', 5000, 6, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Discount`
+--
+
+CREATE TABLE `Discount` (
+  `id` int(11) NOT NULL,
+  `Level` int(3) NOT NULL,
+  `ReachGold` int(20) NOT NULL,
+  `Discount` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Discount`
+--
+
+INSERT INTO `Discount` (`id`, `Level`, `ReachGold`, `Discount`) VALUES
+(1, 1, 5000, 100);
 
 -- --------------------------------------------------------
 
@@ -86,7 +102,7 @@ INSERT INTO `Merchandise` (`id`, `Name`, `ShortDes`, `Description`, `Price`, `Qt
 CREATE TABLE `O_User` (
   `id` int(11) NOT NULL,
   `UserName` varchar(20) NOT NULL,
-  `Passwd` int(20) NOT NULL,
+  `Passwd` varchar(100) NOT NULL,
   `Auth` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -95,8 +111,9 @@ CREATE TABLE `O_User` (
 --
 
 INSERT INTO `O_User` (`id`, `UserName`, `Passwd`, `Auth`) VALUES
-(1, 'boss', 123456, 1),
-(2, 'hello', 654321, 2);
+(1, 'boss', '123456', 1),
+(2, 'hello', '654321', 2),
+(3, 'god', 'e10adc3949ba59abbe56e057f20f883e', 1);
 
 -- --------------------------------------------------------
 
@@ -141,7 +158,8 @@ INSERT INTO `tmpShop` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`) VALUE
 (21, 2, 3, 'XBOX1080', 9000, 0),
 (35, 1, 2, 'Laptop', 40000, 2),
 (43, 8, 1, 'computer 1', 30000, 6),
-(44, 8, 3, 'XBOX1080', 9000, 5);
+(44, 8, 3, 'XBOX1080', 9000, 5),
+(55, 11, 1, 'computer 1', 30000, 2);
 
 -- --------------------------------------------------------
 
@@ -152,7 +170,7 @@ INSERT INTO `tmpShop` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`) VALUE
 CREATE TABLE `User` (
   `id` int(11) NOT NULL,
   `UserName` varchar(20) NOT NULL,
-  `Passwd` varchar(20) NOT NULL,
+  `Passwd` varchar(100) NOT NULL,
   `vty` int(1) NOT NULL,
   `Name` varchar(20) DEFAULT NULL,
   `Phone` text,
@@ -166,10 +184,8 @@ CREATE TABLE `User` (
 --
 
 INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`, `Gold`) VALUES
-(1, 'abc', '123', 0, 'abcabc', '09456123789', 'Taichung ABC Road 785', 1, 0),
-(7, 'tom', '6605', 0, 'tom', '0926666677', 'Taichung TTT Road 999', 1, 0),
-(8, 'new', '222', 0, 'newone', '09456789321', '台中 DFG Road 154', 1, 0),
-(9, 'super', '9876', 0, 'Sssuper1', '09456123798', 'Taichung DFG Road 667', 2, 500);
+(10, 'md5', '202cb962ac59075b964b07152d234b70', 0, 'md5', '09456123222', 'Taichung AC Road 456', 1, 0),
+(11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789321', 'Taichung DFG Road 666', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -179,6 +195,12 @@ INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address
 -- Indexes for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Discount`
+--
+ALTER TABLE `Discount`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -219,7 +241,12 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `Discount`
+--
+ALTER TABLE `Discount`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `Merchandise`
 --
@@ -229,7 +256,7 @@ ALTER TABLE `Merchandise`
 -- AUTO_INCREMENT for table `O_User`
 --
 ALTER TABLE `O_User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `Report`
 --
@@ -239,12 +266,12 @@ ALTER TABLE `Report`
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

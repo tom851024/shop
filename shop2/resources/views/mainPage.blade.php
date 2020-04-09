@@ -37,7 +37,7 @@
 				</tr>
 				@foreach($merchandise as $mer)
 					<tr>
-						<td><a href="/detail?merId={{ $mer->id }}"> {{ $mer->Name }} </a></td>
+						<td><a href="/detail/{{ $mer->id }}"> {{ $mer->Name }} </a></td>
 						<td>{{ $mer->ShortDes }}</td>
 						<td>{{ $mer->Price }}</td>
 					</tr>

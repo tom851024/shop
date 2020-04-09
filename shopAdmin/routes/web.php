@@ -67,6 +67,16 @@ Route::prefix('admin') -> group(function(){
 	Route::get('/viewReport', 'OwnerUserController@reportView');
 
 
+	Route::get('/oRegister', function(){
+		return view('oRegister');
+	});
+
+	Route::get('/discountCre', function(){
+		return view('discount');
+	});
+
+	Route::get('/discountMan', 'OwnerUserController@discountView');
+
 
 	//--------post
 
@@ -88,5 +98,9 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/warehouseUpdate', 'OwnerUserController@updateMerchandise');
 
 	Route::post('/warehouseInsert', 'OwnerUserController@insertMerchandise');
+
+	Route::post('/oRegisterPost', 'OwnerUserController@register');
+
+	Route::post('/discountPost', 'OwnerUserController@disCreate');
 
 });

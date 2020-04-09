@@ -36,35 +36,44 @@
 
 
 	<body>
-		<table width="80%" border="1">
-			<tr>
-				<th>{{ trans('messages.mername') }}</th>
-				<th>{{ trans('messages.price') }}</th>
-				<th>{{ trans('messages.qty') }}</th>
-				<th>{{ trans('messages.action') }}</th>
-			</tr>
-			<?php $priceSum=0; ?>
-			@foreach($cartTmp as $car)
+		<form id="getForm" method="POST" action="/delTmp">
+			<table width="80%" border="1">
 				<tr>
-					<td>{{ $car->MerName }}</td>
-					<td>{{ $car->Price }}</td>
-					<td>{{ $car->Qty }}</td>
-					<!--<td><a href="/delTmp?merId=<?php echo $car->id ?>">{{ trans('messages.delete') }}</a></td>-->
-					<td>
-						<form id="getForm" method="GET" action="/delTmp">
-						
-							<input type="button" name="del" id="del" value="刪除" onclick="sendForm(<?php echo $car->id ?>)" />
-						</form>
-					</td>
-					 
+					<th>{{ trans('messages.mername') }}</th>
+					<th>{{ trans('messages.price') }}</th>
+					<th>{{ trans('messages.qty') }}</th>
+					<th>{{ trans('messages.delete') }}</th>
 				</tr>
-				<?php 
-					$priceSum += ($car->Price * $car->Qty);
-				?>
-			@endforeach
-			
+				<?php $priceSum=0; ?>
+				
+					{{ csrf_field() }}
+					@foreach($cartTmp as $car)
+						<tr>
+							<td>{{ $car->MerName }}</td>
+							<td>{{ $car->Price }}</td>
+							<td>{{ $car->Qty }}</td>
+							<!--<td><a href="/delTmp?merId=<?php echo $car->id ?>">{{ trans('messages.delete') }}</a></td>-->
+							<td>
+								
+								
+									<!--<input type="button" name="del" id="del" value="{{ trans('messages.delete') }}" onclick="sendForm(<?php echo $car->id ?>)" />-->
+									<input type="checkbox" name="del[]" value="<?php echo $car->id ?>">
+								
+							</td>
+							 
+						</tr>
+						<?php 
+							$priceSum += ($car->Price * $car->Qty);
+						?>
+					@endforeach
 
-		</table>
+					
+				
+
+			</table>
+
+		<input type="submit" value="{{ trans('messages.delete') }}" />
+		</form>
 		<p>
 			@if($count > 0)
 				{{ trans('messages.totalprice') }}: {{ $priceSum }}

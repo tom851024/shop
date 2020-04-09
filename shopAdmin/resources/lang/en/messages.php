@@ -75,6 +75,16 @@
 		'disable' => 'not Sales',
 		'createMer' => 'Add new Merchandise',
 		'confirm' => 'post',
+		'auth' => 'Auth',
+		'boss' => 'Boss',
+		'employee' => 'Employee',
+		'regOk' => 'Register Success',
+		'oregister' => 'Admin Register',
+		'illegel' => 'Have Illegel word in input',
+		'reachMoney' => 'Reached Money',
+		'discountMon' => 'Discount',
+		'needLevel' => 'Need Level',
+		'disCreate' => 'Create Discount',
 
 		
 	];

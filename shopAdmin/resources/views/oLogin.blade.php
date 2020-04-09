@@ -18,11 +18,11 @@
 		<a href="/admin/chinese">中文</a>&nbsp;
 		<a href="/admin/english">English</a>
 
-		@if(isset($lerr))
+		@if(session() -> has('lerr'))
 
-			@if($lerr == '1')
+			@if(session()->get('lerr') == '1')
 				<text style = "color:red;">{{ trans('messages.userNex') }}</text>
-			@elseif($lerr == '2')
+			@elseif(session()->get('lerr') == '2')
 				<text style = "color:red;">{{ trans('messages.passErr') }}</text>
 			@endif
 
