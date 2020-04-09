@@ -207,7 +207,7 @@ class OwnerUserController extends Controller
 
 
     public function disCreate(){
-        if(preg_match("/^\d/", $_POST['reachMon']) && preg_match("/^\d/", $_POST['discount']) && preg_match("/^\d/", $_POST['level']) && $_POST['level'] < 6){
+        if(preg_match("/^\d{n}/", $_POST['reachMon']) && preg_match("/^\d{n}/", $_POST['discount']) && preg_match("/^\d{n}/", $_POST['level']) && $_POST['level'] < 6){
 
             DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
             return redirect('/admin/discountMan');
@@ -220,6 +220,17 @@ class OwnerUserController extends Controller
 
     public function disCountEdit(){
         $discount = DB::table('Discount') -> where('id', $_POST['id']) -> first();
+        return view('discountEdit') ->with('discount', $discount);
+    }
+
+
+    public function disCountEditPost(){
+        if(preg_match("/^\d{n}/", $_POST['reachMon']) && preg_match("/^\d{n}/", $_POST['discount']) && preg_match("/^\d{n}/", $_POST['level']) && $_POST['level'] < 6){
+            DB::update('update Discount set Level = ?, ReachGold = ?, Discount = ?  where id = ?', [$_POST['level'], $_POST['reachMon'], $_POST['discount'], $_POST['id']]);
+            return redirect('/admin/discountMan');
+        }else{
+            return redirect('/admin/discountMan') -> with('mes', '1');
+        }
     }
 
 }

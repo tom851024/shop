@@ -27,11 +27,13 @@
 					<td>{{ $dis->Discount }}</td>
 					<td>{{ $dis->Level }}</td>
 					<td>
-						<form>
+						<form action="/admin/discountEdit" method="POST">
+							{{ csrf_field() }}
 							<input type="hidden" name="id" value="<?php echo $dis->id ?>">
 							<input type="submit" value="{{ trans('messages.edit') }}" />
 						</form>
 						<form>
+							{{ csrf_field() }}
 							<input type="hidden" name="id" value="<?php echo $dis->id ?>">
 							<input type="submit" value="{{ trans('messages.delete') }}" />
 						</form>

@@ -77,6 +77,8 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/discountMan', 'OwnerUserController@discountView');
 
+	
+
 
 	//--------post
 
@@ -102,5 +104,9 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/oRegisterPost', 'OwnerUserController@register');
 
 	Route::post('/discountPost', 'OwnerUserController@disCreate');
+
+	Route::post('/disCountEditPost', 'OwnerUserController@disCountEditPost');
+
+	Route::post('/discountEdit', 'OwnerUserController@disCountEdit');
 
 });

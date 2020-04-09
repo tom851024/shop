@@ -6,14 +6,15 @@
 
 
 	<body>
-		<form action="/admin/" method="POST">
+		<form action="/admin/disCountEditPost" method="POST">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.reachMoney') }}</text>
-			<input type="text" name="reachMon" required="required" /><br />
+			<input type="text" name="reachMon" required="required" value="{{ $discount -> ReachGold }}" /><br />
 			<text>{{ trans('messages.discountMon') }}</text>
-			<input type="text" name="discount" required="required" /><br />
+			<input type="text" name="discount" required="required" value="{{ $discount -> Discount }}" /><br />
 			<text>{{ trans('messages.needLevel') }}</text>
-			<input type="text" name="level" required="required" /><br />
+			<input type="text" name="level" required="required" value="{{ $discount -> Level }}" /><br />
+			<input type="hidden" name="id" value="{{ $discount -> id }}" />
 
 
 			<input type="submit" value="{{ trans('messages.confirm') }}" />
