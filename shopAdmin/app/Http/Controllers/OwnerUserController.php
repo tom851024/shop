@@ -63,9 +63,13 @@ class OwnerUserController extends Controller
 
 
     public function memberEdit(){
-         DB::update('update User set Passwd = ?, Name = ?, Phone = ?, Address = ?, Level = ?, Gold = ? where id = ?', [$_POST['passWd'], $_POST['name'], $_POST['phone'], $_POST['address'], $_POST['level'], $_POST['gold'], $_POST['id']]);
+        if(preg_match("/^\w+$/", $_POST['passWd']) && preg_match("/^[0-9]*$/", $_POST['phone']) && preg_match("/^[0-9]*$/", $_POST['level']) && preg_match("/^[0-9]*$/", $_POST['gold']) && $_POST['level'] < 6){
+             DB::update('update User set Passwd = ?, Name = ?, Phone = ?, Address = ?, Level = ?, Gold = ? where id = ?', [md5($_POST['passWd']), $_POST['name'], $_POST['phone'], $_POST['address'], $_POST['level'], $_POST['gold'], $_POST['id']]);
 
-         return view('OEditOk');
+             return view('OEditOk');
+        }else{
+            return view('OEditOk') -> with('err', '1');
+        }
     }
 
 
@@ -182,7 +186,7 @@ class OwnerUserController extends Controller
 
 
     public function register(){
-        if(preg_match("/^\w/", $_POST['userName']) && preg_match("/^\w/", $_POST['password'])){
+        if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['password'])){
             $account = DB::table('O_User')
                             ->where('UserName', $_POST['userName'])
                             ->count();

@@ -9,7 +9,8 @@
 		@if(isset($user))
 			<a href="logout">{{ trans('messages.logout') }}</a>
 			<text>welcome {{ $user }}</text>
-			<a href="/editPage">{{ trans('messages.editdata') }}</a>
+			<text>{{ trans('messages.level') }} {{ $level }}</text>
+			<a href="/editPage">{{ trans('messages.memberData') }}</a>
 			<a href="/cart">{{ trans('messages.cart') }}</a>
 			<a href="/orderView">{{ trans('messages.orderview') }}</a>
 			<a href="/report">{{ trans('messages.report') }}</a>

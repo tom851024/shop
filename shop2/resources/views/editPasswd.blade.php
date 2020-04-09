@@ -30,6 +30,19 @@
 				<text>{{ trans('messages.conPassErr') }}</text>
 			@endif
 		@endif
+
+
+
+		@if(session() -> has('err'))
+
+			@if(session()->get('err') == '1')
+				<text style = "color:red;">{{ trans('messages.passErr') }}</text>
+			@elseif(session()->get('err') == '2')
+				<text style = "color:red;">{{ trans('messages.conPassErr') }}</text>
+			@elseif(session()->get('err') == '3')
+				<text style = "color:red;">{{ trans('messages.illegel') }}</text>
+			@endif
+		@endif
 	</body>
 
 	<a href="/">{{ trans('messages.home') }}</a>

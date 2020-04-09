@@ -76,6 +76,7 @@
 		'createMer' => 'Add new Merchandise',
 		'confirm' => 'post',
 		'illegel' => 'Have Illegel word in input',
+		'memberData' => 'Member Data',
 
 		
 	];

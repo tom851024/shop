@@ -49,6 +49,7 @@ class UserController extends Controller
                 if(strcmp($account->Passwd, md5($_POST['passWord'])) == 0){
                     $request->session()->put('userId',  $account->id);
                     $request->session()->put('userName',  $account->UserName);
+                    $request->session()->put('level', $account->Level);
                     $merchandise = DB::table('Merchandise') -> get();
                     return redirect('/') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
                 }else{
@@ -103,31 +104,44 @@ class UserController extends Controller
 
     public function Edit(Request $request)
     {
-        DB::update('update User set Name = ?, Phone = ?, Address = ? where id = ?', [$_POST['name'], $_POST['tel'], $_POST['address'], $request->session()->get('userId')]);
-        return redirect('/');
+        if(preg_match("/^[0-9]*$/", $_POST['tel'])){
+            DB::update('update User set Name = ?, Phone = ?, Address = ? where id = ?', [$_POST['name'], $_POST['tel'], $_POST['address'], $request->session()->get('userId')]);
+            return redirect('/');
+        }else{
+            return redirect('/editPage') -> with('err', '1');
+        }
+        
     }
 
 
 
     public function EditPasswd(Request $request){
-        $account = DB::table('User')
+        if(preg_match("/^\w+$/", $_POST['passwd']) && preg_match("/^\w+$/", $_POST['newPasswd'])){
+            $account = DB::table('User')
                         ->where('id', $request->session()->get('userId'))
                         ->first();
-        if(strcmp($_POST['passwd'], $account->Passwd) == 0){
-            
-            if(strcmp($_POST['newPasswd'], $_POST['reNewPasswd']) == 0){
+            if(strcmp(md5($_POST['passwd']), $account->Passwd) == 0){
+                
+                if(strcmp($_POST['newPasswd'], $_POST['reNewPasswd']) == 0){
 
-                DB::update('update User set Passwd = ? where id = ?', [$_POST['newPasswd'], $request->session()->get('userId')]);
-                $request -> session() -> forget('user');
-                return view('edPasOk') -> with('user', 0);
+                    DB::update('update User set Passwd = ? where id = ?', [md5($_POST['newPasswd']), $request->session()->get('userId')]);
+                    $request -> session() -> forget('user');
+                    return view('edPasOk') -> with('user', 0);
+
+                }else{
+                    //return view('editPasswd') -> with('err', 2);
+                    return redirect('/editPasswd') -> with('err', 2);
+                }
 
             }else{
-                return view('editPasswd') -> with('err', 2);
+                //return view('editPasswd') -> with('err', 1);
+                return redirect('/editPasswd') -> with('err', 1);
             }
 
         }else{
-            return view('editPasswd') -> with('err', 1);
+            return redirect('/editPasswd') -> with('err', 3);
         }
+       
     }
 
 

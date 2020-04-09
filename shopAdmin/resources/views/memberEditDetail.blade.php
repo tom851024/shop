@@ -11,7 +11,7 @@
 		<form action="/admin/memberEditPost" method="POST">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.password') }}: </text>
-			<input type="text" name="passWd" id="passWd" value="{{ $member->Passwd }}" required="required" /><br />
+			<input type="text" name="passWd" id="passWd" value="" required="required" /><br />
 			<text>{{ trans('messages.name') }}: </text>
 			<input type="text" name="name" id="name" value="{{ $member->Name }}" required="required" /><br />
 			<text>{{ trans('messages.phone') }}: </text>

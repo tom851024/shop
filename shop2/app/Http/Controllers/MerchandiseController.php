@@ -12,7 +12,7 @@ class MerchandiseController extends Controller
     public function ListMerchandise(Request $request)
     {
     	$merchandise = DB::table('Merchandise') -> where('status', '0') -> get();
-    	return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
+    	return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'))->with('level', $request->session()->get('level'));
     }
 
 
@@ -69,16 +69,27 @@ class MerchandiseController extends Controller
 
     public function commitToBuy(Request $request)
     {
+        $total = 0;
         $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
         
-        	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-        	foreach ($cartTmp as $car) {
-        		DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
-        	}
+        $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        foreach ($cartTmp as $car) {
+        	DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+        }
 
-        	DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
+        DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
 
-        	return view('Thanks');
+         foreach($cartTmp as $tmp){
+            $total += $tmp->Price * $tmp->Qty;
+        }
+
+        if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
+            $lv = $request->session()->get('level') + 1;
+            DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+            $request->session()->put('level', $lv);
+        }
+
+        return view('Thanks');
 
     }
 

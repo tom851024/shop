@@ -84,6 +84,9 @@
 		'discountMon' => '回饋金額',
 		'needLevel' => '需要等級',
 		'disCreate' => '新增折扣',
+		'memberData' => '會員資料',
+		'editFail' => '編輯失敗',
+		
 
 		
 

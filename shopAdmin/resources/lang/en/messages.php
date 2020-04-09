@@ -85,6 +85,8 @@
 		'discountMon' => 'Discount',
 		'needLevel' => 'Need Level',
 		'disCreate' => 'Create Discount',
+		'memberData' => 'Member Data',
+		'editFail' => 'Edit Fail',
 
 		
 	];
