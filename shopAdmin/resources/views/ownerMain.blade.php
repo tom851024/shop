@@ -18,6 +18,8 @@
 				<a href="/admin/oRegister">{{ trans('messages.oregister') }}</a>
 			@endif
 			<text>{{ trans('messages.welcome') }} {{ $oUName }}</text>
+			<a href="/admin/ochinese">中文</a>&nbsp;
+			<a href="/admin/oenglish">English</a>
 		@else
 			<a href="/admin/ologin">{{ trans('messages.loginFirst') }}</a>
 		@endif

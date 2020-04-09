@@ -87,6 +87,7 @@
 		'memberData' => '會員資料',
 		'editFail' => '編輯失敗',
 		'merId' => '商品編號',
+		'realPay' => '實付金額',
 		
 
 		

@@ -11,6 +11,7 @@
 				<tr>
 					<th>{{ trans('messages.merName') }}</th>
 					<th>{{ trans('messages.price') }}</th>
+					<th>{{ trans('messages.realPay') }}</th>
 					<th>{{ trans('messages.qty') }}</th>
 					<th>{{ trans('messages.progress') }}</th>
 					<th>{{ trans('messages.check') }}</th>
@@ -20,6 +21,7 @@
 					<tr>
 						<td>{{ $c->MerName }}</td>
 						<td>{{ $c->Price }}</td>
+						<td>{{ $c->RealPay }}</td>
 						<td>{{ $c->Qty }}</td>
 						<td>
 							<?php

@@ -146,6 +146,23 @@ class OwnerUserController extends Controller
     }
 
 
+     public function OChgCh(Request $request)
+    {
+        $request->session()->put('locale', 'ch');
+        App::setLocale($request->session()->get('locale'));
+        return redirect('admin/omain');
+    }
+
+
+    public function OChgEn(Request $request)
+    {
+        $request->session()->put('locale', 'en');
+        App::setLocale($request->session()->get('locale'));
+        return redirect('admin/omain');
+
+    }
+
+
 
     public function listMerchandise(){
         $merchandise = DB::table('Merchandise') -> get();

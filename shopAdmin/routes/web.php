@@ -57,6 +57,10 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/english', 'OwnerUserController@ChgEn');
 
+	Route::get('/ochinese', 'OwnerUserController@OChgCh');
+
+	Route::get('/oenglish', 'OwnerUserController@OChgEn');
+
 
 	Route::get('/warehouse', 'OwnerUserController@listMerchandise');
 

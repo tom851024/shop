@@ -79,6 +79,8 @@
 		'memberData' => 'Member Data',
 		'merId' => 'Merchandise ID',
 		'backMoney' => 'You get plate',
+		'realPay' => 'Needed Pay',
+		'commitbuyPlate' => 'Use Plate Coin First',
 
 		
 	];

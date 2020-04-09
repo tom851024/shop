@@ -27,7 +27,7 @@
 					cache: true
 				});
 
-				window.location.href = 'http://localhost/admin/ownerOrderView';
+				window.location.href = 'http://localhostadmin/admin/ownerOrderView';
 			}
 
 	</script>
@@ -61,6 +61,7 @@
 					<th>{{ trans('messages.orderNo') }}</th>
 					<th>{{ trans('messages.merName') }}</th>
 					<th>{{ trans('messages.price') }}</th>
+					<th>{{ trans('messages.realPay') }}</th>
 					<th>{{ trans('messages.qty') }}</th>
 					<th>{{ trans('messages.progress') }}</th>
 					<th>{{ trans('messages.orderMan') }}</th>
@@ -72,6 +73,7 @@
 						<td>{{ $ord->id }}</td>
 						<td>{{ $ord->MerName }}</td>
 						<td>{{ $ord->Price }}</td>
+						<td>{{ $ord->RealPay }}</td>
 						<td>{{ $ord->Qty }}</td>
 						<td>
 							@if($ord->Progress == '0')

@@ -88,6 +88,7 @@
 		'memberData' => 'Member Data',
 		'editFail' => 'Edit Fail',
 		'merId' => 'Merchandise ID',
+		'realPay' => 'Needed Pay',
 
 		
 	];

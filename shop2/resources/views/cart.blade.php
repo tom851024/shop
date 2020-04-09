@@ -71,16 +71,18 @@
 				
 
 			</table>
-
-		<input type="submit" value="{{ trans('messages.delete') }}" />
+		@if($count > 0)
+			<input type="submit" value="{{ trans('messages.delete') }}" />
+		@endif
 		</form>
-		<p>
-			@if($count > 0)
+		@if($count > 0)
+			<p>
 				{{ trans('messages.totalprice') }}: {{ $priceSum }}
 				<a href="/commitBuy">{{ trans('messages.commitbuy') }}</a>
-			@endif
-		</p>
+				<a href="/commitBuyWithPlate">{{ trans('messages.commitbuyPlate') }}</a>			
+			</p>
 		<a href="/delAll">{{ trans('messages.delall') }}</a>
+		@endif
 		<a href="/">{{ trans('messages.keepbuy') }}</a>
 
 	</body>

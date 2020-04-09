@@ -78,6 +78,9 @@
 		'memberData' => '會員資料',
 		'merId' => '商品編號',
 		'backMoney' => '獲得盤子',
+		'realPay' => '實付金額',
+		'commitbuyPlate' => '優先使用盤子購買',
+		
 
 		
 

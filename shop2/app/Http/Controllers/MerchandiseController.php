@@ -74,11 +74,11 @@ class MerchandiseController extends Controller
         
         $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         foreach ($cartTmp as $car) {
-        	DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+        	DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress, RealPay) values (?, ?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0, $car->Price]);
         }
 
         DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
-        
+
         foreach($cartTmp as $tmp){
             $total += $tmp->Price * $tmp->Qty;
         }
@@ -116,6 +116,15 @@ class MerchandiseController extends Controller
         return view('Thanks') ->with('plate', $plate);
 
     }
+
+
+    /*public function commitToBuyWithPlate(Request $request){
+        $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        $account = DB::table('User')->where('id', $request->session()->get('userId'));
+        foreach($cartTmp as $car){
+
+        }
+    }*/
 
 
     public function OrderList(Request $request)
