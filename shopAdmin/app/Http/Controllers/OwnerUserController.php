@@ -242,4 +242,11 @@ class OwnerUserController extends Controller
         }
     }
 
+
+
+    public function discountDel(){
+        DB::table('Discount') -> where('id', $_POST['id']) -> delete();
+        return redirect('/admin/discountMan');
+    }
+
 }

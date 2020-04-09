@@ -32,7 +32,7 @@
 							<input type="hidden" name="id" value="<?php echo $dis->id ?>">
 							<input type="submit" value="{{ trans('messages.edit') }}" />
 						</form>
-						<form>
+						<form action="/admin/discountDel" method="POST">
 							{{ csrf_field() }}
 							<input type="hidden" name="id" value="<?php echo $dis->id ?>">
 							<input type="submit" value="{{ trans('messages.delete') }}" />
@@ -43,6 +43,8 @@
 			@endforeach
 
 		</table>
+
+		<a href="/admin/omain">{{ trans('messages.home') }}</a>
 
 	</body>
 

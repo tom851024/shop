@@ -78,10 +78,32 @@ class MerchandiseController extends Controller
         }
 
         DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
-
-         foreach($cartTmp as $tmp){
+        
+        foreach($cartTmp as $tmp){
             $total += $tmp->Price * $tmp->Qty;
         }
+
+
+
+        //加入優惠
+
+        $discount = DB::table('Discount') -> where('Level', $request->session()->get('level')) -> get();
+        $account = DB::table('User') -> where('id', $request->session()->get('userId')) -> first();
+        $plate = 0;
+
+        foreach($discount as $dis){
+            if($total >= $dis->ReachGold){
+               $plate += $dis->Discount;     
+            }  
+                
+        }
+        $plateUpdate = $plate + $account->Gold;
+        DB::update('update User set Gold = ? where id = ?', [$plateUpdate, $request->session()->get('userId')]);
+
+
+        //等級提升
+
+         
 
         if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
             $lv = $request->session()->get('level') + 1;
@@ -89,7 +111,9 @@ class MerchandiseController extends Controller
             $request->session()->put('level', $lv);
         }
 
-        return view('Thanks');
+        
+
+        return view('Thanks') ->with('plate', $plate);
 
     }
 

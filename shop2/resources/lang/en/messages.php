@@ -77,6 +77,8 @@
 		'confirm' => 'post',
 		'illegel' => 'Have Illegel word in input',
 		'memberData' => 'Member Data',
+		'merId' => 'Merchandise ID',
+		'backMoney' => 'You get plate',
 
 		
 	];

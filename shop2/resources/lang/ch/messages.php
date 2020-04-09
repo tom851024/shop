@@ -76,6 +76,8 @@
 		'confirm' => '確認',
 		'illegel' => '輸入欄位含有非法字元',
 		'memberData' => '會員資料',
+		'merId' => '商品編號',
+		'backMoney' => '獲得盤子',
 
 		
 

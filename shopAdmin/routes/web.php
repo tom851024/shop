@@ -109,4 +109,6 @@ Route::prefix('admin') -> group(function(){
 
 	Route::post('/discountEdit', 'OwnerUserController@disCountEdit');
 
+	Route::post('/discountDel', 'OwnerUserController@discountDel');
+
 });

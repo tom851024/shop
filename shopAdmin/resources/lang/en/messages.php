@@ -87,6 +87,7 @@
 		'disCreate' => 'Create Discount',
 		'memberData' => 'Member Data',
 		'editFail' => 'Edit Fail',
+		'merId' => 'Merchandise ID',
 
 		
 	];
