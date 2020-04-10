@@ -85,7 +85,9 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/backView', 'OwnerUserController@backView');
 
-	
+	//Route::get('/warehouseUpdate/{merId}', 'OwnerUserController@updateMerchandise');
+
+	Route::get('/warehouseDetail/{merId}', 'OwnerUserController@listMerchandiseDetail');
 
 
 	//--------post
@@ -103,7 +105,7 @@ Route::prefix('admin') -> group(function(){
 
 	Route::post('/merGo', 'OwnerUserController@merchandiseGo');
 
-	Route::post('/warehouseDetail', 'OwnerUserController@listMerchandiseDetail');
+	//Route::post('/warehouseDetail', 'OwnerUserController@listMerchandiseDetail');
 
 	Route::post('/warehouseUpdate', 'OwnerUserController@updateMerchandise');
 

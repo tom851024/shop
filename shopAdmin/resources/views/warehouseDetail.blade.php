@@ -49,6 +49,12 @@
 			<input type="submit" name="" value="{{ trans('messages.edit') }}" />
 
 		</form>
+		@if(session() -> has('mes'))
+			@if(session()->get('mes') == '1')
+					{{ trans('messages.illegel') }}
+			@endif
+		@endif
+		<br />
 
 		<a href="/admin/warehouse">{{ trans('messages.lastPage') }}</a>
 		<a href="/admin/omain">{{ trans('messages.home') }}</a>

@@ -38,9 +38,9 @@
 						@endif
 					</td>
 					<td>
-						<form action="/admin/warehouseDetail" method="POST">	
-							{{ csrf_field() }}					
-							<input type="hidden" name="merId" id="merId" value="<?php echo $mer->id ?>">
+						<form action="/admin/warehouseDetail/<?php echo $mer->id ?>" method="get">	
+										
+							
 							<input type="submit" value="{{ trans('messages.edit') }}" />
 						</form>
 						

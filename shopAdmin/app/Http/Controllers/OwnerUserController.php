@@ -178,27 +178,36 @@ class OwnerUserController extends Controller
 
 
 
-    public function listMerchandise(){
+    public function listMerchandise()
+    {
         $merchandise = DB::table('Merchandise') -> get();
         return view('warehouse') -> with('merchandise', $merchandise);
     }
 
 
 
-    public function listMerchandiseDetail(){
-        $merchandise = DB::table('Merchandise') -> where('id', $_POST['merId']) -> first();
-        return view('warehouseDetail') -> with('mer', $merchandise);
+    public function listMerchandiseDetail($merId)
+    {
+        $merchandise = DB::table('Merchandise') -> where('id', $merId) -> first();
+        return view('warehouseDetail')->with('mer', $merchandise);
     }
 
 
 
-    public function updateMerchandise(){
-         DB::update('update Merchandise set Name = ?, ShortDes = ?,Description = ?, Price = ?, Qty = ?, Status = ?  where id = ?', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['id']]);
-         return redirect('/admin/warehouse');
+    public function updateMerchandise()
+    {
+        if(preg_match("/^[0-9]*$/", $_POST['price']) && preg_match("/^[0-9]*$/", $_POST['qty'])){
+             DB::update('update Merchandise set Name = ?, ShortDes = ?,Description = ?, Price = ?, Qty = ?, Status = ?  where id = ?', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['id']]);
+             return redirect('/admin/warehouse');
+        }else{
+            return redirect('/admin/warehouseDetail/'.$_POST['id']) -> with('mes', '1');
+        }
+
     }
 
 
-    public function insertMerchandise(){
+    public function insertMerchandise()
+    {
         if(preg_match("/^[0-9]*$/", $_POST['price']) && preg_match("/^[0-9]*$/", $_POST['qty'])){
             DB::insert('insert into Merchandise (Name, ShortDes, Description, Price, Qty, Status) values (?, ?, ?, ?, ?, ?)', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status']]);
             return redirect('/admin/warehouse');
@@ -208,7 +217,8 @@ class OwnerUserController extends Controller
     }
 
 
-    public function reportView(){
+    public function reportView()
+    {
         $report = DB::table('Report')
                 ->join('User', 'User.id', '=', 'Report.UserId')
                 ->select('Report.*', 'User.Name', 'User.UserName')
@@ -220,7 +230,8 @@ class OwnerUserController extends Controller
 
 
 
-    public function register(){
+    public function register()
+    {
         if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['password'])){
             $account = DB::table('O_User')
                             ->where('UserName', $_POST['userName'])
@@ -244,13 +255,15 @@ class OwnerUserController extends Controller
 
 
 
-    public function discountView(){
+    public function discountView()
+    {
         $discount = DB::table('Discount') -> get();
         return view('discountView') -> with('discount', $discount);
     }
 
 
-    public function disCreate(){
+    public function disCreate()
+    {
         if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] < 6){
 
             DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
@@ -262,13 +275,15 @@ class OwnerUserController extends Controller
     }
 
 
-    public function disCountEdit(){
+    public function disCountEdit()
+    {
         $discount = DB::table('Discount') -> where('id', $_POST['id']) -> first();
         return view('discountEdit') ->with('discount', $discount);
     }
 
 
-    public function disCountEditPost(){
+    public function disCountEditPost()
+    {
         if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] < 6){
             DB::update('update Discount set Level = ?, ReachGold = ?, Discount = ?  where id = ?', [$_POST['level'], $_POST['reachMon'], $_POST['discount'], $_POST['id']]);
             return redirect('/admin/discountMan');
@@ -279,14 +294,16 @@ class OwnerUserController extends Controller
 
 
 
-    public function discountDel(){
+    public function discountDel()
+    {
         DB::table('Discount') -> where('id', $_POST['id']) -> delete();
         return redirect('/admin/discountMan');
     }
 
 
 
-    public function backView(){
+    public function backView()
+    {
         $back = DB::table('BackItem')
                 ->join('CartBuy', 'CartBuy.id', '=', 'BackItem.CartId')
                 -> join('User', 'User.id', '=', 'BackItem.UserId')
@@ -303,7 +320,8 @@ class OwnerUserController extends Controller
     }
 
 
-    public function backDo(){
+    public function backDo()
+    {
         if(isset($_POST['agree'])){
             $agree = $_POST['agree'];
             for($i=0; $i<count($agree); $i++){
@@ -319,7 +337,8 @@ class OwnerUserController extends Controller
         }
 
 
-        if(isset($_POST['disagree'])){
+        if(isset($_POST['disagree']))
+        {
             $disagree = $_POST['disagree'];
             for($i=0; $i<count($disagree); $i++){
                 $back = DB::table('BackItem') -> where('id', $disagree[$i]) -> first();
