@@ -12,7 +12,7 @@
 			<text>{{ trans('messages.level') }} {{ $level }}</text>
 			<a href="/editPage">{{ trans('messages.memberData') }}</a>
 			<a href="/cart">{{ trans('messages.cart') }}</a>
-			<a href="/orderView">{{ trans('messages.orderview') }}</a>
+			<a href="/order">{{ trans('messages.orderview') }}</a>
 			<a href="/report">{{ trans('messages.report') }}</a>
 		@else
 			<a href="/login">{{ trans('messages.login') }}</a>

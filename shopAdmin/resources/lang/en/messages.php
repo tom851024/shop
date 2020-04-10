@@ -65,7 +65,7 @@
 		'level' => 'Level',
 		'plate' => 'Plate Coin',
 		'editOk' => 'Edit Success!!',
-		'searchFromName' => 'Search From Name or Merchandise Name',
+		'searchFromName' => 'Search From Member Name',
 		'searchFromOrder' => 'Search From Order number',
 		'orderNo' => 'Order Number',
 		'sending' => 'sending',

@@ -75,7 +75,19 @@ class OwnerUserController extends Controller
 
 
     public function orderView(){
+        $order = DB::table('OrderTable')
+                    ->join('User', 'User.id', '=', 'OrderTable.UserId')
+                    ->select(['OrderTable.*', 'User.Name', 'User.id as UId'])
+                    ->get();
+
+        return view('orderView') -> with('order', $order);
+    }
+
+
+
+    public function orderList($orderId){
         $order = DB::table('CartBuy')
+                 -> where('OrderId', $orderId)
                  -> join('User', 'User.id', '=', 'CartBuy.UserId')
                  -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
                  -> get();
@@ -84,21 +96,22 @@ class OwnerUserController extends Controller
     }
 
 
+
     public function orderViewSearch(){
-        $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where Name like ? OR MerName like ?";
+        $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where Name like ? ";
         $param = '%'.$_POST['search'].'%';
         $order = DB::select($query, array($param, $param));
-        return view('orderList') -> with('order', $order) -> with('search', '1');
+        return view('orderView') -> with('order', $order) -> with('search', '1');
     }
 
 
     public function orderViewSearchNum(){
         //$order = DB::table('CartBuy') -> where('id', $_POST['search']) -> first();
         if(preg_match("/^[0-9]*$/", $_POST['search'])){
-            $query = "select CartBuy.*, User.Name, User.id as UId from CartBuy Inner join User on User.id = CartBuy.UserId where CartBuy.id = ?";
+            $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where OrderTable.OrderId = ?";
             $param = $_POST['search'];
             $order = DB::select($query, array($param));
-            return view('orderList') -> with('order', $order) -> with('search', '1');
+            return view('orderView') -> with('order', $order) -> with('search', '1');
         }else{
             return redirect('/admin/ownerOrderView') -> with('mes', '1');
         }

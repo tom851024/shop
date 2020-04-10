@@ -11,7 +11,6 @@
 				<tr>
 					<th>{{ trans('messages.merName') }}</th>
 					<th>{{ trans('messages.price') }}</th>
-					<th>{{ trans('messages.realPay') }}</th>
 					<th>{{ trans('messages.qty') }}</th>
 					<th>{{ trans('messages.progress') }}</th>
 					<th>{{ trans('messages.check') }}</th>
@@ -21,7 +20,6 @@
 					<tr>
 						<td>{{ $c->MerName }}</td>
 						<td>{{ $c->Price }}</td>
-						<td>{{ $c->RealPay }}</td>
 						<td>{{ $c->Qty }}</td>
 						<td>
 							<?php
@@ -44,14 +42,24 @@
 							<form action="/orderOk" method="POST">
 								{{ csrf_field() }}
 								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
+								<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
 								<input type="submit" value="{{ trans('messages.checkout') }}" />
 							</form>
 						@elseif($c->Progress == '0')
 							<form action="/orderCancel" method="POST">
 								{{ csrf_field() }}
 								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
+								<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
 								<input type="submit" value="{{ trans('messages.back') }}" />
 							</form>
+						@elseif($c->Progress == '2')
+							<form action="" method="POST">
+								{{ csrf_field() }}
+								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
+								<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
+								<input type="submit" value="{{ trans('messages.back') }}" />
+							</form>
+						
 						@endif
 						</td>
 					</tr>
@@ -59,7 +67,7 @@
 		@else
 			<text>{{ trans('messages.noBuy') }}</text>
 		@endif
-		<a href="/">{{ trans('messages.home') }}</a>
+		<a href="/order">{{ trans('messages.lastPage') }}</a>
 		</table>
 	</body>
 

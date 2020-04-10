@@ -50,6 +50,8 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/ownerOrderView', 'OwnerUserController@orderView');
 
+	Route::get('/ownerOrderList/{orderId}', 'OwnerUserController@orderList');
+
 	Route::get('/userDetail', 'OwnerUserController@userDetail');
 
 

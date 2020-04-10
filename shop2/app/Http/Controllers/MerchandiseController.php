@@ -73,9 +73,11 @@ class MerchandiseController extends Controller
         $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
         
         $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        $orderId = $request->session()->get('userId').date("YmdHis");
         foreach ($cartTmp as $car) {
-        	DB::insert('insert into CartBuy (UserId, MerId, MerName, Price, Qty, Progress, RealPay) values (?, ?, ?, ?, ?, ?, ?)', [$car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0, $car->Price]);
+        	DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
         }
+
 
         DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
 
@@ -83,7 +85,8 @@ class MerchandiseController extends Controller
             $total += $tmp->Price * $tmp->Qty;
         }
 
-
+        //插入訂單資料表
+        DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId) values (?, ?, ?, ?)', [$orderId, $total, $total, $request->session()->get('userId')]);
 
         //加入優惠
 
@@ -127,19 +130,40 @@ class MerchandiseController extends Controller
     }*/
 
 
-    public function OrderList(Request $request)
+
+    public function selectOrder(Request $request)
     {
-    	$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
-    	$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
+        $order = DB::table('OrderTable') -> where('UserId', $request->session()->get('userId')) ->get();
+        $count = DB::table('OrderTable') -> where('UserId', $request->session()->get('userId')) ->count();
+        return view('orderList') -> with('order', $order) -> with('count', $count);
+    }
+
+
+
+
+
+
+    public function OrderList(Request $request, $orderId)
+    {
+    	$cart = DB::table('CartBuy')->where('OrderId', $orderId)->get();
+    	$cartCou = DB::table('CartBuy')->where('OrderId', $orderId)->count();
     	return view('orderView') -> with('cart', $cart) -> with('cartCou', $cartCou);
     }
+
+
+
+
+
+
+
 
     public function orderOk(Request $request)
     {
     	DB::update('update CartBuy set Progress = ? where id = ?', [2, $_POST['id']]);
-    	$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
-    	$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
-    	return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
+    	//$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
+    	//$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
+    	//return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
+        return redirect('/orderView/'.$_POST['orderId']);
     }
 
 
@@ -153,9 +177,10 @@ class MerchandiseController extends Controller
 
     public function orderCancel(Request $request){
         DB::update('update CartBuy set Progress = ? where id = ?', [4, $_POST['id']]);
-        $cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
-        $cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
-        return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
+        //$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
+        //$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
+        //return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
+        return redirect('/orderView/'.$_POST['orderId']);
     }
 
 

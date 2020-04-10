@@ -65,7 +65,9 @@ Route::get('/editPasswd', function(){
 	return view('editPasswd');
 });
 
-Route::get('/orderView', 'MerchandiseController@OrderList');
+Route::get('/order', 'MerchandiseController@selectOrder');
+
+Route::get('/orderView/{orderId}', 'MerchandiseController@OrderList');
 
 
 Route::get('/report', function(){
@@ -78,6 +80,8 @@ Route::get('/delAll', 'MerchandiseController@deleteAll');
 Route::get('/chinese', 'UserController@ChgCh');
 
 Route::get('/english', 'UserController@ChgEn');
+
+
 
 
 

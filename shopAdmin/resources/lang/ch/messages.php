@@ -64,7 +64,7 @@
 		'level' => '等級',
 		'plate' => '盤子幣',
 		'editOk' => '修改成功!!',
-		'searchFromName' => '從會員名字和商品名稱搜尋',
+		'searchFromName' => '從會員名字搜尋',
 		'searchFromOrder' => '從訂單號搜尋',
 		'orderNo' => '訂單編號',
 		'sending' => '出貨',
