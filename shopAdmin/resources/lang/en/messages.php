@@ -89,6 +89,12 @@
 		'editFail' => 'Edit Fail',
 		'merId' => 'Merchandise ID',
 		'realPay' => 'Needed Pay',
+		'backQty' => 'Back Quantity',
+		'backingFail' => 'Back Fail',
+		'backing' => 'Apply Back',
+		'applyBack' => 'Back Apply',
+		'agree' => 'Agree',
+		'disagree' => 'Disagree',
 
 		
 	];

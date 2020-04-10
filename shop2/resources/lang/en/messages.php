@@ -81,6 +81,10 @@
 		'backMoney' => 'You get plate',
 		'realPay' => 'Needed Pay',
 		'commitbuyPlate' => 'Use Plate Coin First',
+		'backing' => 'Apply Back',
+		'overQty' => 'Qty Error',
+		'backQty' => 'Back Quantity',
+		'backingFail' => 'Back Fail',
 
 		
 	];

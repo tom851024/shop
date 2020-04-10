@@ -88,6 +88,7 @@ class OwnerUserController extends Controller
     public function orderList($orderId){
         $order = DB::table('CartBuy')
                  -> where('OrderId', $orderId)
+                 ->where('Progress', '!=', '5')
                  -> join('User', 'User.id', '=', 'CartBuy.UserId')
                  -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
                  -> get();
@@ -281,6 +282,55 @@ class OwnerUserController extends Controller
     public function discountDel(){
         DB::table('Discount') -> where('id', $_POST['id']) -> delete();
         return redirect('/admin/discountMan');
+    }
+
+
+
+    public function backView(){
+        $back = DB::table('BackItem')
+                ->join('CartBuy', 'CartBuy.id', '=', 'BackItem.CartId')
+                -> join('User', 'User.id', '=', 'BackItem.UserId')
+                ->select('BackItem.*', 'User.Name', 'CartBuy.MerName', 'CartBuy.Price')
+                ->get();
+         $count = DB::table('BackItem')
+                ->join('CartBuy', 'CartBuy.id', '=', 'BackItem.CartId')
+                -> join('User', 'User.id', '=', 'BackItem.UserId')
+                ->select('BackItem.*', 'User.Name', 'CartBuy.MerName', 'CartBuy.Price')
+                ->count();
+
+        return view('backView') -> with('back', $back) -> with('count', $count);
+
+    }
+
+
+    public function backDo(){
+        if(isset($_POST['agree'])){
+            $agree = $_POST['agree'];
+            for($i=0; $i<count($agree); $i++){
+                $back = DB::table('BackItem') -> where('id', $agree[$i]) -> first();
+                $mer = DB::table('Merchandise') -> where('id', $back->MerId) -> first();
+                $account = DB::table('User') -> where('id', $back->UserId) -> first();
+                $gold = $mer->Price * $back->Qty;
+                $gold += $account->Gold;
+                DB::update('update User set Gold = ? where id = ?', [$gold, $back->UserId]);
+                DB::update('update CartBuy set Progress = ? where id = ?', ['4', $back->CartId]);
+                DB::table('BackItem') -> where('id', $agree[$i]) -> delete();
+            }
+        }
+
+
+        if(isset($_POST['disagree'])){
+            $disagree = $_POST['disagree'];
+            for($i=0; $i<count($disagree); $i++){
+                $back = DB::table('BackItem') -> where('id', $disagree[$i]) -> first();
+                DB::update('update CartBuy set Progress = ? where id = ?', ['6', $back->CartId]);
+                DB::table('BackItem') -> where('id', $disagree[$i]) -> delete();
+                
+            }
+        }
+
+
+        return redirect('/admin/backView');
     }
 
 }

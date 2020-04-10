@@ -69,6 +69,10 @@
 								{{ trans('messages.noMer') }}
 							@elseif($ord->Progress == '4')
 								{{ trans('messages.back') }}
+							@elseif($ord->Progress == '5')
+								{{ trans('messages.backing') }}
+							@elseif($ord->Progress == '6')
+								{{ trans('messages.backingFail') }}
 							@endif
 						</td>
 						<td><a href="/admin/userDetail?UId=<?php echo $ord->UId ?>">{{ $ord->Name }}</a></td>

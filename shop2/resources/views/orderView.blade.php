@@ -33,6 +33,10 @@
 									echo trans('messages.noMer');
 								}else if($c->Progress == 4){
 									echo trans('messages.back');
+								}else if($c->Progress == 5){
+									echo trans('messages.backing');
+								}else if($c->Progress == 6){
+									echo trans('messages.backingFail');
 								}
 							 ?>
 						</td>
@@ -53,10 +57,12 @@
 								<input type="submit" value="{{ trans('messages.back') }}" />
 							</form>
 						@elseif($c->Progress == '2')
-							<form action="" method="POST">
-								{{ csrf_field() }}
+							<form action="/backView/{{ $c->id }}">
+								<!--{{ csrf_field() }}
 								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
 								<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
+								<input type="hidden" name="MerId" id="MerId" value="<?php echo $c->MerId ?>" />-->
+
 								<input type="submit" value="{{ trans('messages.back') }}" />
 							</form>
 						

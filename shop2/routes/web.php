@@ -82,7 +82,7 @@ Route::get('/chinese', 'UserController@ChgCh');
 Route::get('/english', 'UserController@ChgEn');
 
 
-
+Route::get('/backView/{cartId}', 'MerchandiseController@backView');
 
 
 //--------post
@@ -103,6 +103,10 @@ Route::post('/buy', 'MerchandiseController@TmpBuy');
 Route::post('/orderOk', 'MerchandiseController@orderOk');
 
 Route::post('/orderCancel', 'MerchandiseController@orderCancel');
+
+Route::post('/orderBack', 'MerchandiseController@orderBack');
+
+
 
 Route::post('/edPassPost', 'UserController@EditPasswd');
 

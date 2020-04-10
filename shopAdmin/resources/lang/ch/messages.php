@@ -88,6 +88,12 @@
 		'editFail' => '編輯失敗',
 		'merId' => '商品編號',
 		'realPay' => '實付金額',
+		'backQty' => '退貨數量',
+		'backingFail' => '退貨被拒',
+		'backing' => '申請退貨中',
+		'applyBack' => '退貨申請',
+		'agree' => '同意',
+		'disagree' => '不同意',
 		
 
 		

@@ -48,10 +48,11 @@ class MerchandiseController extends Controller
         //$cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
     	//return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
 
-
-        $del = $_POST['del'];
-        for($i=0; $i < count($del); $i++){
-            DB::table('tmpShop') -> where('id',$del[$i])->delete();
+        if(isset($_POST['del'])){
+            $del = $_POST['del'];
+            for($i=0; $i < count($del); $i++){
+                DB::table('tmpShop') -> where('id',$del[$i])->delete();
+            }
         }
         return redirect('/cart');
 
@@ -175,12 +176,47 @@ class MerchandiseController extends Controller
     }
 
 
-    public function orderCancel(Request $request){
+    public function orderCancel(Request $request)
+    {
         DB::update('update CartBuy set Progress = ? where id = ?', [4, $_POST['id']]);
         //$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
         //$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
         //return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
         return redirect('/orderView/'.$_POST['orderId']);
+    }
+
+
+    public function backView(Request $request, $cartId)
+    {
+        $back = DB::table('CartBuy')->where('id', $cartId) -> first();
+        return view('back') -> with('back', $back);
+    }
+
+
+    public function orderBack(Request $request)
+    {   
+        if(preg_match("/^[0-9]*$/", $_POST['qty'])){
+            $cartBuy = DB::table('CartBuy')->where('id', $_POST['id'])->first();
+            
+            if($_POST['qty'] == $cartBuy->Qty){
+                DB::update('update CartBuy set Progress = ? where id = ?', [5, $_POST['id']]);
+                DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $_POST['id'], $_POST['merId'], $request->session()->get('userId'), $_POST['qty']]);
+                return redirect('/orderView/'.$_POST['orderId']);
+            }else if($_POST['qty'] < $cartBuy->Qty){
+
+                $qqty = $cartBuy->Qty - $_POST['qty'];
+                DB::update('update CartBuy set Progress = ? where id = ?', [5, $_POST['id']]);
+                DB::update('update CartBuy set Qty = ? where id = ?', [$_POST['qty'], $_POST['id']]);
+                DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$cartBuy->OrderId, $cartBuy->UserId, $cartBuy->MerId, $cartBuy->MerName, $cartBuy->Price, $qqty, '2']);
+                DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $_POST['id'], $_POST['merId'], $request->session()->get('userId'), $_POST['qty']]);
+                return redirect('/orderView/'.$_POST['orderId']);
+            }else{
+                return redirect('/backView/'.$_POST['id']) -> with('mes', '2');
+            }
+           
+        }else{
+            return redirect('/backView/'.$_POST['id']) -> with('mes', '1');
+        }
     }
 
 

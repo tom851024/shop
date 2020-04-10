@@ -80,6 +80,12 @@
 		'backMoney' => '獲得盤子',
 		'realPay' => '實付金額',
 		'commitbuyPlate' => '優先使用盤子購買',
+		'backing' => '申請退貨中',
+		'overQty' => '數量錯誤',
+		'backQty' => '退貨數量',
+		'backingFail' => '退貨被拒',
+		
+		
 		
 
 		

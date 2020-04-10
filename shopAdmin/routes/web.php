@@ -83,6 +83,8 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/discountMan', 'OwnerUserController@discountView');
 
+	Route::get('/backView', 'OwnerUserController@backView');
+
 	
 
 
@@ -116,5 +118,7 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/discountEdit', 'OwnerUserController@disCountEdit');
 
 	Route::post('/discountDel', 'OwnerUserController@discountDel');
+
+	Route::post('/backDo', 'OwnerUserController@backDo');
 
 });
