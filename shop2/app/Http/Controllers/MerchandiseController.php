@@ -26,7 +26,7 @@ class MerchandiseController extends Controller
         	//return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
             return redirect('/cart');
         }else{
-            return redirect('/cart') -> with('mes', '1');
+            return redirect('/detail/'.$_POST['merId']) -> with('mes', '1');
         }
     }
 

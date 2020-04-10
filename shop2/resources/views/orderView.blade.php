@@ -49,13 +49,7 @@
 								<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
 								<input type="submit" value="{{ trans('messages.checkout') }}" />
 							</form>
-						@elseif($c->Progress == '0')
-							<form action="/orderCancel" method="POST">
-								{{ csrf_field() }}
-								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
-								<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
-								<input type="submit" value="{{ trans('messages.back') }}" />
-							</form>
+						
 						@elseif($c->Progress == '2')
 							<form action="/backView/{{ $c->id }}">
 								<!--{{ csrf_field() }}
@@ -67,7 +61,16 @@
 							</form>
 						
 						@endif
+
+						@if($c->Progress == '0' || $c->Progress == '1')
+							<form action="/orderCancel" method="POST">
+								{{ csrf_field() }}
+								<input type="hidden" name="id" id="id" value="<?php echo $c->id ?>" />
+								<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
+								<input type="submit" value="{{ trans('messages.back') }}" />
+							</form>
 						</td>
+						@endif
 					</tr>
 				@endforeach
 		@else

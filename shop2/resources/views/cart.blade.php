@@ -85,12 +85,7 @@
 		@endif
 		<a href="/">{{ trans('messages.keepbuy') }}</a>
 		<br />
-		@if(session() -> has('mes'))
-			@if(session()->get('mes') == '1')
-					{{ trans('messages.illegel') }}
-			@endif
-		@endif
-
+		
 	</body>
 
 	

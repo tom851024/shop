@@ -50,7 +50,7 @@
 
 		</form>
 
-		
+		<a href="/admin/warehouse">{{ trans('messages.lastPage') }}</a>
 		<a href="/admin/omain">{{ trans('messages.home') }}</a>
 
 	</body>

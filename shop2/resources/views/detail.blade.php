@@ -54,6 +54,14 @@
 			</tr>
 
 		</table>
+
+		@if(session() -> has('mes'))
+			@if(session()->get('mes') == '1')
+					{{ trans('messages.illegel') }}
+			@endif
+		@endif
+		<br />
+		
 			<a href="/">{{ trans('messages.home') }}</a>
 
 
