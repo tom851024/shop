@@ -84,6 +84,8 @@ Route::get('/english', 'UserController@ChgEn');
 
 Route::get('/backView/{cartId}', 'MerchandiseController@backView');
 
+Route::get('/commitBuyWithPlate', 'MerchandiseController@plateView');
+
 
 //--------post
 
@@ -107,13 +109,13 @@ Route::post('/orderCancel', 'MerchandiseController@orderCancel');
 Route::post('/orderBack', 'MerchandiseController@orderBack');
 
 
-
 Route::post('/edPassPost', 'UserController@EditPasswd');
 
 Route::post('/reportPost', 'UserController@Report');
 
-
 Route::post('/delTmp', 'MerchandiseController@DelTmp');
+
+Route::post('/buyWithPlate', 'MerchandiseController@commitToBuyWithPlate');
 
 
 

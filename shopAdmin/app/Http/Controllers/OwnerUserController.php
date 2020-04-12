@@ -42,7 +42,8 @@ class OwnerUserController extends Controller
 
 
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $request -> session() -> forget('oUserId');
         $request -> session() -> forget('oUserName');
         return redirect('admin/ologin');
@@ -50,19 +51,23 @@ class OwnerUserController extends Controller
 
 
 
-    public function memberView(){
+    public function memberView()
+    {
         $member = DB::table('User')->get();
-        return view('memberEdit') -> with('member', $member);
+        $membercou = DB::table('User')->count();
+        return view('memberEdit')->with('member', $member)->with('count', $membercou);
     }
 
 
-    public function memberDetailView(){
+    public function memberDetailView()
+    {
         $member = DB::table('User')->where('id', $_POST['UId'])->first();
         return view('memberEditDetail') -> with('member', $member);
     }
 
 
-    public function memberEdit(){
+    public function memberEdit()
+    {
         if(preg_match("/^\w+$/", $_POST['passWd']) && preg_match("/^[0-9]*$/", $_POST['phone']) && preg_match("/^[0-9]*$/", $_POST['level']) && preg_match("/^[0-9]*$/", $_POST['gold']) && $_POST['level'] < 6){
              DB::update('update User set Passwd = ?, Name = ?, Phone = ?, Address = ?, Level = ?, Gold = ? where id = ?', [md5($_POST['passWd']), $_POST['name'], $_POST['phone'], $_POST['address'], $_POST['level'], $_POST['gold'], $_POST['id']]);
 
@@ -74,7 +79,8 @@ class OwnerUserController extends Controller
 
 
 
-    public function orderView(){
+    public function orderView()
+    {
         $order = DB::table('OrderTable')
                     ->join('User', 'User.id', '=', 'OrderTable.UserId')
                     ->select(['OrderTable.*', 'User.Name', 'User.id as UId'])
@@ -85,7 +91,8 @@ class OwnerUserController extends Controller
 
 
 
-    public function orderList($orderId){
+    public function orderList($orderId)
+    {
         $order = DB::table('CartBuy')
                  -> where('OrderId', $orderId)
                  ->where('Progress', '!=', '5')
@@ -98,7 +105,8 @@ class OwnerUserController extends Controller
 
 
 
-    public function orderViewSearch(){
+    public function orderViewSearch()
+    {
         $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where Name like ? ";
         $param = '%'.$_POST['search'].'%';
         $order = DB::select($query, array($param, $param));
@@ -106,7 +114,8 @@ class OwnerUserController extends Controller
     }
 
 
-    public function orderViewSearchNum(){
+    public function orderViewSearchNum()
+    {
         //$order = DB::table('CartBuy') -> where('id', $_POST['search']) -> first();
         if(preg_match("/^[0-9]*$/", $_POST['search'])){
             $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where OrderTable.OrderId = ?";
@@ -121,14 +130,16 @@ class OwnerUserController extends Controller
 
 
 
-    public function userDetail(){
+    public function userDetail()
+    {
         $member = DB::table('User') -> where('id', $_GET['UId']) -> first();
         return view('memberDetail') -> with('member', $member);
     }
 
 
 
-    public function merchandiseGo(Request $request){
+    public function merchandiseGo(Request $request)
+    {
         DB::update('update CartBuy set Progress = ? where id = ?', [1, $request->input('ordId')]);
         //DB::update('update CartBuy set Progress = ? where id = ?', [1, 13]);
          $order = DB::table('CartBuy')
@@ -337,8 +348,7 @@ class OwnerUserController extends Controller
         }
 
 
-        if(isset($_POST['disagree']))
-        {
+        if(isset($_POST['disagree'])){
             $disagree = $_POST['disagree'];
             for($i=0; $i<count($disagree); $i++){
                 $back = DB::table('BackItem') -> where('id', $disagree[$i]) -> first();
@@ -350,6 +360,13 @@ class OwnerUserController extends Controller
 
 
         return redirect('/admin/backView');
+    }
+
+
+    public function memberDel()
+    {
+        DB::table('User') -> where('id', $_POST['del']) -> delete();
+        return redirect('/admin/memberEdit');
     }
 
 }

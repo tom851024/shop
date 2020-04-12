@@ -122,13 +122,58 @@ class MerchandiseController extends Controller
     }
 
 
-    /*public function commitToBuyWithPlate(Request $request){
-        $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-        $account = DB::table('User')->where('id', $request->session()->get('userId'));
-        foreach($cartTmp as $car){
+    public function commitToBuyWithPlate(Request $request)
+    {
+        if(preg_match("/^[0-9]*$/", $_POST['plate'])){
+            $account = DB::table('User') -> where('id', $request->session()->get('userId'))->first();
+            
+            if($account->Gold >= $_POST['plate']){
+                $total = 0;
+                $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+                
 
+                $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+                $orderId = $request->session()->get('userId').date("YmdHis");
+                foreach ($cartTmp as $car) {
+                    DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+                }
+
+
+                DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->delete();
+
+                foreach($cartTmp as $tmp){
+                    $total += $tmp->Price * $tmp->Qty;
+                }
+
+                $realPay = $total - $_POST['plate'];
+                $gold = $account->Gold - $_POST['plate'];
+
+                //插入訂單資料表
+                DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId) values (?, ?, ?, ?)', [$orderId, $total, $realPay, $request->session()->get('userId')]);
+
+                //更新使用者虛擬幣
+                DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
+
+                 //等級提升
+
+                 
+
+                if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
+                    $lv = $request->session()->get('level') + 1;
+                    DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                    $request->session()->put('level', $lv);
+                }
+
+                
+
+                return view('Thanks');
+            }else{
+                return redirect('/commitBuyWithPlate')->with('mes', '2');
+            }
+        }else{
+            return redirect('/commitBuyWithPlate')->with('mes', '1');
         }
-    }*/
+    }
 
 
 
@@ -172,7 +217,8 @@ class MerchandiseController extends Controller
     {
         DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
         $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-        return view('cart') -> with('cartTmp', $cartTmp);
+        //return view('cart') -> with('cartTmp', $cartTmp);
+        return redirect('/cart');
     }
 
 
@@ -220,10 +266,23 @@ class MerchandiseController extends Controller
     }
 
 
-    public function merDetail(Request $request, $merId){
+    public function merDetail(Request $request, $merId)
+    {
         $merdetail = DB::table('Merchandise') -> where('id', $merId) -> first();               
         $user = $request->session()->get('userId');
         return view('detail') -> with('merdetail', $merdetail) -> with('user', $user);
     }
+
+
+
+    public function plateView(Request $request)
+    {
+        $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+        return view('plateBuy')->with('cartTmp', $cartTmp)->with('count', $cartTmpCou);
+    }
+
+
+
 
 }

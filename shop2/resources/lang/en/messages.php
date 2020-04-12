@@ -80,11 +80,13 @@
 		'merId' => 'Merchandise ID',
 		'backMoney' => 'You get plate',
 		'realPay' => 'Needed Pay',
-		'commitbuyPlate' => 'Use Plate Coin First',
+		'commitbuyPlate' => 'Use Plate Coin',
 		'backing' => 'Apply Back',
 		'overQty' => 'Qty Error',
 		'backQty' => 'Back Quantity',
 		'backingFail' => 'Back Fail',
+		'insertPlate' => 'Please insert how many plate to use',
+		'plateNotEnough' => 'Plate not Enough',
 
 		
 	];
