@@ -372,7 +372,13 @@ class OwnerUserController extends Controller
 
     public function memberDel()
     {
-        DB::table('User') -> where('id', $_POST['del']) -> delete();
+        if(isset($_POST['del'])){
+            $del = $_POST['del'];
+            for($i=0; $i<count($del); $i++){
+                //DB::table('User') -> where('id', $_POST['del']) -> delete();
+                DB::table('User') -> where('id', $del[$i]) -> delete();
+            }
+        }
         return redirect('/admin/memberEdit');
     }
 
