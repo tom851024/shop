@@ -124,5 +124,6 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/backDo', 'OwnerUserController@backDo');
 	
 	Route::post('/memberDel', 'OwnerUserController@memberDel');
+	Route::post('/merDel', 'OwnerUserController@merchandiseDel');
 
 });

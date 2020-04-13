@@ -192,7 +192,8 @@ class OwnerUserController extends Controller
     public function listMerchandise()
     {
         $merchandise = DB::table('Merchandise') -> get();
-        return view('warehouse') -> with('merchandise', $merchandise);
+        $count = DB::table('Merchandise') -> count();
+        return view('warehouse')->with('merchandise', $merchandise)->with('count', $count);
     }
 
 
@@ -367,6 +368,17 @@ class OwnerUserController extends Controller
     {
         DB::table('User') -> where('id', $_POST['del']) -> delete();
         return redirect('/admin/memberEdit');
+    }
+
+
+
+    public function merchandiseDel()
+    {
+        $mer = $_POST['del'];
+        for($i=0; $i<count($mer); $i++){
+            DB::table('Merchandise')->where('id', $mer[$i])->delete();
+        }
+        return redirect('/admin/warehouse');
     }
 
 }
