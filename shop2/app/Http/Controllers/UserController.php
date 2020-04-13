@@ -172,6 +172,13 @@ class UserController extends Controller
     }
 
 
+    public function Reply(Request $request)
+    {
+        $reply = DB::table('Reply')->where('UserId', $request->session()->get('userId'))->orderby('id', 'desc')->get();
+        return view('reply')->with('reply', $reply);
+    }
+
+
     
 }
 

@@ -253,7 +253,7 @@ class OwnerUserController extends Controller
     {
         $report = DB::table('Report')
                 ->join('User', 'User.id', '=', 'Report.UserId')
-                ->select('Report.*', 'User.Name', 'User.UserName')
+                ->select('Report.*', 'User.Name', 'User.UserName', 'User.id as UId')
                 ->orderBy('id', 'desc')
                 ->get();
 
@@ -405,6 +405,14 @@ class OwnerUserController extends Controller
             DB::table('Merchandise')->where('id', $mer[$i])->delete();
         }
         return redirect('/admin/warehouse');
+    }
+
+
+
+    public function replyPost()
+    {
+        DB::insert('insert into Reply (UserId, Reply) values (?, ?)', [$_POST['id'], $_POST['reply']]);
+        return view('replyOk');
     }
 
 }

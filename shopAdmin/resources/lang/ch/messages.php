@@ -94,8 +94,8 @@
 		'applyBack' => '退貨申請',
 		'agree' => '同意',
 		'disagree' => '不同意',
-		
-
+		'reply' => '回覆',
+		'replyOk' => '回覆完成',
 		
 
 		

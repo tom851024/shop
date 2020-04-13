@@ -86,6 +86,8 @@ Route::get('/commitBuyWithPlate', 'MerchandiseController@plateView');
 
 Route::get('/buyWithPlateFirst', 'MerchandiseController@buyWithPlateFirst');
 
+Route::get('/reply', 'UserController@Reply');
+
 
 //--------post
 

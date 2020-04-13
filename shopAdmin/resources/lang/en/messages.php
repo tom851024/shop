@@ -95,7 +95,7 @@
 		'applyBack' => 'Back Apply',
 		'agree' => 'Agree',
 		'disagree' => 'Disagree',
-
-		
+		'reply' => 'Reply',
+		'replyOk' => 'Reply Complete',
 	];
 ?>

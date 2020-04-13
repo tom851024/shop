@@ -96,6 +96,11 @@ Route::prefix('admin') -> group(function(){
 	});
 
 
+	Route::get('reply/{userId}', function($userId){
+		return view('cusReply')->with('userId', $userId);
+	});
+
+
 	//--------post
 
 
@@ -134,5 +139,7 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/merDel', 'OwnerUserController@merchandiseDel');
 
 	Route::post('/editPasswdPost', 'OwnerUserController@memberEditPasswd');
+
+	Route::post('/replyPost', 'OwnerUserController@replyPost');
 
 });

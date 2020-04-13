@@ -89,6 +89,7 @@
 		'plateNotEnough' => 'Plate not Enough',
 		'buyWithPlateFirst' => 'Buy with Plate first',
 		'backSingle' => 'Back Single',
+		'reply' => 'View Reply',
 		
 	];
 ?>

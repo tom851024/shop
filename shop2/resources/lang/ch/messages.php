@@ -88,7 +88,7 @@
 		'plateNotEnough' => '盤子不足',
 		'buyWithPlateFirst' => '優先使用盤子',
 		'backSingle' => '單一退貨',
-		
+		'reply' => '瀏覽回覆',
 		
 
 		
