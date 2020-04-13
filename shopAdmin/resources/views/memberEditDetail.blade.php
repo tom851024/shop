@@ -10,8 +10,8 @@
 		
 		<form action="/admin/memberEditPost" method="POST">
 			{{ csrf_field() }}
-			<text>{{ trans('messages.password') }}: </text>
-			<input type="text" name="passWd" id="passWd" value="" required="required" /><br />
+			<!-- <text>{{ trans('messages.password') }}: </text>
+			<input type="text" name="passWd" id="passWd" value="" required="required" /><br /> -->
 			<text>{{ trans('messages.name') }}: </text>
 			<input type="text" name="name" id="name" value="{{ $member->Name }}" required="required" /><br />
 			<text>{{ trans('messages.phone') }}: </text>
@@ -28,6 +28,14 @@
 			<input type="submit" value="{{ trans('messages.edit') }}" />
 					
 		</form>
+		@if(session() -> has('mes'))
+			@if(session()->get('mes') == '1')
+					{{ trans('messages.illegel') }}
+			@endif
+		@endif
+
+		<br />
+		<a href="/admin/editPasswd/{{ $member->id }}">{{ trans('messages.editPass') }}</a>
 
 		<a href="/admin/omain">{{ trans('messages.home') }}</a>
 

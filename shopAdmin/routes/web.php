@@ -89,13 +89,19 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/warehouseDetail/{merId}', 'OwnerUserController@listMerchandiseDetail');
 
+	Route::get('/memberDetailPost/{userId}', 'OwnerUserController@memberDetailView');
+
+	Route::get('/editPasswd/{userId}', function($userId){
+		return view('memberEditPass')->with('userId', $userId);
+	});
+
 
 	//--------post
 
 
 	Route::post('/postOLogin', 'OwnerUserController@login');
 
-	Route::post('/memberDetailPost', 'OwnerUserController@memberDetailView');
+	
 
 	Route::post('/memberEditPost', 'OwnerUserController@memberEdit');
 
@@ -124,6 +130,9 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/backDo', 'OwnerUserController@backDo');
 	
 	Route::post('/memberDel', 'OwnerUserController@memberDel');
+
 	Route::post('/merDel', 'OwnerUserController@merchandiseDel');
+
+	Route::post('/editPasswdPost', 'OwnerUserController@memberEditPasswd');
 
 });

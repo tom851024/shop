@@ -10,7 +10,7 @@
 		@else
 			<text>{{ trans('messages.editOk') }}</text>
 		@endif
-		<a href="/admin/omain">{{ trans('messages.home') }}</a>
+		<a href="/admin/memberEdit">{{ trans('messages.lastPage') }}</a>
 	</body>
 
 </html>

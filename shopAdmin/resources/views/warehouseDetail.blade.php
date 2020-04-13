@@ -27,12 +27,12 @@
 
 				<tr>
 					<th>{{ trans('messages.price') }}</th>
-					<td><input type="text" name="price" id="price" value="{{ $mer->Price }}" onkeyup="value=value.replace(/[^\d]/g, '')"  required="required"/></td>
+					<td><input type="text" name="price" id="price" maxlength="25" value="{{ $mer->Price }}" onkeyup="value=value.replace(/[^\d]/g, '')"  required="required"/></td>
 				</tr>
 
 				<tr>
 					<th>{{ trans('messages.qty') }}</th>
-					<td><input type="text" name="qty" id="qty" value="{{ $mer->Qty }}" onkeyup="value=value.replace(/[^\d]/g, '')" required="required" /></td>
+					<td><input type="text" name="qty" id="qty" maxlength="9" value="{{ $mer->Qty }}" onkeyup="value=value.replace(/[^\d]/g, '')" required="required" /></td>
 				</tr>
 
 				<tr>

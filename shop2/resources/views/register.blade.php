@@ -8,11 +8,14 @@
 	<body>
 		<form action="/postReg" method="POST">
 			{{ csrf_field() }}
-			<text>{{ trans('messages.userName') }}: </text> <input type="text" name="userName" id="userName" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
-			<text>{{ trans('messages.password') }}: </text> <input type="password" name="passWord" id="passWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
-			<text>{{ trans('messages.confirmPass') }}: </text> <input type="password" name="repassWord" id="repassWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<text>{{ trans('messages.userName') }}: </text> 
+			<input type="text" name="userName" maxlength="20" id="userName" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<text>{{ trans('messages.password') }}: </text> 
+			<input type="password" name="passWord" id="passWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<text>{{ trans('messages.confirmPass') }}: </text> 
+			<input type="password" name="repassWord" id="repassWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 			<text>{{ trans('messages.name') }}: </text>
-			<input type="text" name="name" id="name" required="required" /><br />
+			<input type="text" name="name" id="name" maxlength="20" required="required" /><br />
 			<text>{{ trans('messages.phone') }}: </text>
 			<input type="text" name="tel" id="tel" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 

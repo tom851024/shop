@@ -60,21 +60,34 @@ class OwnerUserController extends Controller
     }
 
 
-    public function memberDetailView()
+    public function memberDetailView($userId)
     {
-        $member = DB::table('User')->where('id', $_POST['UId'])->first();
+        //$member = DB::table('User')->where('id', $_POST['UId'])->first();
+        $member = DB::table('User')->where('id', $userId)->first();
         return view('memberEditDetail')->with('member', $member);
     }
 
 
     public function memberEdit()
     {
-        if(preg_match("/^\w+$/", $_POST['passWd']) && preg_match("/^[0-9]*$/", $_POST['phone']) && preg_match("/^[0-9]*$/", $_POST['level']) && preg_match("/^[0-9]*$/", $_POST['gold']) && $_POST['level'] < 6){
-             DB::update('update User set Passwd = ?, Name = ?, Phone = ?, Address = ?, Level = ?, Gold = ? where id = ?', [md5($_POST['passWd']), $_POST['name'], $_POST['phone'], $_POST['address'], $_POST['level'], $_POST['gold'], $_POST['id']]);
+        if(preg_match("/^[0-9]*$/", $_POST['phone']) && preg_match("/^[0-9]*$/", $_POST['level']) && preg_match("/^[0-9]*$/", $_POST['gold']) && $_POST['level'] < 6 && preg_match("/^\w+$/", $_POST['name'])){
+             DB::update('update User set Name = ?, Phone = ?, Address = ?, Level = ?, Gold = ? where id = ?', [$_POST['name'], $_POST['phone'], $_POST['address'], $_POST['level'], $_POST['gold'], $_POST['id']]);
 
              return view('OEditOk');
         }else{
-            return view('OEditOk')->with('err', '1');
+            //return view('OEditOk')->with('err', '1');
+            return redirect('/admin/memberDetailPost/'.$_POST['id'])->with('mes', '1');
+        }
+    }
+
+
+    public function memberEditPasswd()
+    {
+        if(preg_match("/^\w+$/", $_POST['passwd'])){
+            DB::update('update User set Passwd = ? where id = ?', [md5($_POST['passwd']), $_POST['id']]);
+            return view('OEditOk');
+        }else{
+            return redirect('/admin/editPasswd/'.$_POST['id'])->with('mes', '1');
         }
     }
 

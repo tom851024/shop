@@ -20,11 +20,12 @@
 						<td>{{ $mem->UserName }}</td>
 						<td>{{ $mem->Name }}</td>
 						<td>
-							<form action="/admin/memberDetailPost" method="POST">
+							<!-- <form action="/admin/memberDetailPost" method="POST">
 								{{ csrf_field() }}
 								<input type="hidden" name="UId" id="UId" value="<?php echo $mem->id ?>" />
 								<input type="submit" value="{{ trans('messages.edit') }}">
-							</form>
+							</form> -->
+							<a href="/admin/memberDetailPost/{{ $mem->id }}">{{ trans('messages.edit') }}</a>
 						</td>
 						<td>
 								<input type="checkbox" name="del[]" value="<?php echo $mem->id ?>">					

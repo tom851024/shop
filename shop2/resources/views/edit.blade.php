@@ -10,7 +10,7 @@
 		<form method="POST" action="/postEdit">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.name') }}: </text>
-			<input type="text" name="name" id="name" value="{{ $account->Name }}" required="required" /><br />
+			<input type="text" name="name" id="name" maxlength="20" value="{{ $account->Name }}" required="required" /><br />
 
 			<text>{{ trans('messages.phone') }}: </text>
 			<input type="text" name="tel" id="tel" value="{{ $account->Phone }}" required="required" /><br />
