@@ -28,16 +28,16 @@ class OwnerUserController extends Controller
                     $request->session()->put('oUserId', $account->id);
                     $request->session()->put('oUserName', $account->UserName);
                     $request->session()->put('oUserAuth', $account->Auth);
-        			return redirect('admin/omain') -> with('oUId', $request->session()->get('oUserId')) -> with('oUName', $request->session()->get('oUserName')) -> with('oUserAuth', $request->session()->get('oUserAuth'));
+        			return redirect('admin/omain')->with('oUId', $request->session()->get('oUserId'))->with('oUName', $request->session()->get('oUserName'))->with('oUserAuth', $request->session()->get('oUserAuth'));
                     
         		}else{           
-                    return redirect('/admin/ologin') -> with('lerr', '2');
+                    return redirect('/admin/ologin')->with('lerr', '2');
                 }
         	}else{
-                return redirect('/admin/ologin') -> with('lerr', '1');
+                return redirect('/admin/ologin')->with('lerr', '1');
         	}
         }else{
-            return redirect('/admin/ologin') -> with('lerr', '3');
+            return redirect('/admin/ologin')->with('lerr', '3');
         }
 	}
 
@@ -45,8 +45,8 @@ class OwnerUserController extends Controller
 
     public function logout(Request $request)
     {
-        $request -> session() -> forget('oUserId');
-        $request -> session() -> forget('oUserName');
+        $request->session()->forget('oUserId');
+        $request->session()->forget('oUserName');
         return redirect('admin/ologin');
     }
 
@@ -63,7 +63,7 @@ class OwnerUserController extends Controller
     public function memberDetailView()
     {
         $member = DB::table('User')->where('id', $_POST['UId'])->first();
-        return view('memberEditDetail') -> with('member', $member);
+        return view('memberEditDetail')->with('member', $member);
     }
 
 
@@ -74,7 +74,7 @@ class OwnerUserController extends Controller
 
              return view('OEditOk');
         }else{
-            return view('OEditOk') -> with('err', '1');
+            return view('OEditOk')->with('err', '1');
         }
     }
 
@@ -87,7 +87,7 @@ class OwnerUserController extends Controller
                     ->select(['OrderTable.*', 'User.Name', 'User.id as UId'])
                     ->get();
 
-        return view('orderView') -> with('order', $order);
+        return view('orderView')->with('order', $order);
     }
 
 
@@ -101,7 +101,7 @@ class OwnerUserController extends Controller
                  -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
                  -> get();
  
-        return view('orderList') -> with('order', $order);
+        return view('orderList')->with('order', $order);
     }
 
 
@@ -111,7 +111,7 @@ class OwnerUserController extends Controller
         $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where Name like ? ";
         $param = '%'.$_POST['search'].'%';
         $order = DB::select($query, array($param, $param));
-        return view('orderView') -> with('order', $order) -> with('search', '1');
+        return view('orderView')->with('order', $order)->with('search', '1');
     }
 
 
@@ -122,9 +122,9 @@ class OwnerUserController extends Controller
             $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where OrderTable.OrderId = ?";
             $param = $_POST['search'];
             $order = DB::select($query, array($param));
-            return view('orderView') -> with('order', $order) -> with('search', '1');
+            return view('orderView')->with('order', $order)->with('search', '1');
         }else{
-            return redirect('/admin/ownerOrderView') -> with('mes', '1');
+            return redirect('/admin/ownerOrderView')->with('mes', '1');
         }
 
     }
@@ -145,7 +145,7 @@ class OwnerUserController extends Controller
 
         if(isset($_POST['mergo'])){
             $mer = $_POST['mergo'];
-            for($i=0; $i<count($mer); $i++){
+            for($i = 0; $i < count($mer); $i++){
                 //DB::update('update CartBuy set Progress = ? where id = ?', [1, $request->input('ordId')]);
                 DB::update('update CartBuy set Progress = ? where id = ?', [1, $mer[$i]]);
                 
@@ -208,7 +208,7 @@ class OwnerUserController extends Controller
 
     public function listMerchandiseDetail($merId)
     {
-        $merchandise = DB::table('Merchandise') -> where('id', $merId) -> first();
+        $merchandise = DB::table('Merchandise')->where('id', $merId)->first();
         return view('warehouseDetail')->with('mer', $merchandise);
     }
 
@@ -220,7 +220,7 @@ class OwnerUserController extends Controller
              DB::update('update Merchandise set Name = ?, ShortDes = ?,Description = ?, Price = ?, Qty = ?, Status = ?  where id = ?', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status'], $_POST['id']]);
              return redirect('/admin/warehouse');
         }else{
-            return redirect('/admin/warehouseDetail/'.$_POST['id']) -> with('mes', '1');
+            return redirect('/admin/warehouseDetail/'.$_POST['id'])->with('mes', '1');
         }
 
     }
@@ -232,7 +232,7 @@ class OwnerUserController extends Controller
             DB::insert('insert into Merchandise (Name, ShortDes, Description, Price, Qty, Status) values (?, ?, ?, ?, ?, ?)', [$_POST['name'], $_POST['sdes'], $_POST['des'], $_POST['price'], $_POST['qty'], $_POST['status']]);
             return redirect('/admin/warehouse');
         }else{
-            return redirect('/admin/warehouseCreate') -> with('mes', '1');
+            return redirect('/admin/warehouseCreate')->with('mes', '1');
         }
     }
 
@@ -245,7 +245,7 @@ class OwnerUserController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
 
-        return view('cusReport') -> with('report', $report);
+        return view('cusReport')->with('report', $report);
     }
 
 
@@ -260,15 +260,15 @@ class OwnerUserController extends Controller
             if($account == 0){
                 if(strcmp($_POST['password'], $_POST['repassword']) == 0){
                     DB::insert('insert into O_User (UserName, Passwd, Auth) values(?, ?, ?)', [$_POST['userName'], md5($_POST['password']), $_POST['auth']]);
-                    return redirect('/admin/oRegister') -> with('mes', '3');
+                    return redirect('/admin/oRegister')->with('mes', '3');
                 }else{
-                    return redirect('/admin/oRegister') -> with('mes', '2');
+                    return redirect('/admin/oRegister')->with('mes', '2');
                 }
             }else{
-                return redirect('/admin/oRegister') -> with('mes', '4');
+                return redirect('/admin/oRegister')->with('mes', '4');
             }
         }else{
-            return redirect('/admin/oRegister') -> with('mes', '1');
+            return redirect('/admin/oRegister')->with('mes', '1');
         }
     }
 
@@ -277,8 +277,8 @@ class OwnerUserController extends Controller
 
     public function discountView()
     {
-        $discount = DB::table('Discount') -> get();
-        return view('discountView') -> with('discount', $discount);
+        $discount = DB::table('Discount')->get();
+        return view('discountView')->with('discount', $discount);
     }
 
 
@@ -290,7 +290,7 @@ class OwnerUserController extends Controller
             return redirect('/admin/discountMan');
 
         }else{
-            return redirect('/admin/discountCre') -> with('mes', '1');
+            return redirect('/admin/discountCre')->with('mes', '1');
         }
     }
 
@@ -298,7 +298,7 @@ class OwnerUserController extends Controller
     public function disCountEdit()
     {
         $discount = DB::table('Discount') -> where('id', $_POST['id']) -> first();
-        return view('discountEdit') ->with('discount', $discount);
+        return view('discountEdit')->with('discount', $discount);
     }
 
 
@@ -308,7 +308,7 @@ class OwnerUserController extends Controller
             DB::update('update Discount set Level = ?, ReachGold = ?, Discount = ?  where id = ?', [$_POST['level'], $_POST['reachMon'], $_POST['discount'], $_POST['id']]);
             return redirect('/admin/discountMan');
         }else{
-            return redirect('/admin/discountMan') -> with('mes', '1');
+            return redirect('/admin/discountMan')->with('mes', '1');
         }
     }
 
@@ -316,7 +316,7 @@ class OwnerUserController extends Controller
 
     public function discountDel()
     {
-        DB::table('Discount') -> where('id', $_POST['id']) -> delete();
+        DB::table('Discount') -> where('id', $_POST['id'])->delete();
         return redirect('/admin/discountMan');
     }
 
@@ -335,7 +335,7 @@ class OwnerUserController extends Controller
                 ->select('BackItem.*', 'User.Name', 'CartBuy.MerName', 'CartBuy.Price')
                 ->count();
 
-        return view('backView') -> with('back', $back) -> with('count', $count);
+        return view('backView')->with('back', $back)->with('count', $count);
 
     }
 
@@ -344,25 +344,25 @@ class OwnerUserController extends Controller
     {
         if(isset($_POST['agree'])){
             $agree = $_POST['agree'];
-            for($i=0; $i<count($agree); $i++){
-                $back = DB::table('BackItem') -> where('id', $agree[$i]) -> first();
-                $mer = DB::table('Merchandise') -> where('id', $back->MerId) -> first();
-                $account = DB::table('User') -> where('id', $back->UserId) -> first();
+            for($i = 0; $i < count($agree); $i++){
+                $back = DB::table('BackItem') -> where('id', $agree[$i])->first();
+                $mer = DB::table('Merchandise') -> where('id', $back->MerId)->first();
+                $account = DB::table('User') -> where('id', $back->UserId)->first();
                 $gold = $mer->Price * $back->Qty;
                 $gold += $account->Gold;
                 DB::update('update User set Gold = ? where id = ?', [$gold, $back->UserId]);
                 DB::update('update CartBuy set Progress = ? where id = ?', ['4', $back->CartId]);
-                DB::table('BackItem') -> where('id', $agree[$i]) -> delete();
+                DB::table('BackItem')->where('id', $agree[$i]) -> delete();
             }
         }
 
 
         if(isset($_POST['disagree'])){
             $disagree = $_POST['disagree'];
-            for($i=0; $i<count($disagree); $i++){
-                $back = DB::table('BackItem') -> where('id', $disagree[$i]) -> first();
+            for($i = 0; $i < count($disagree); $i++){
+                $back = DB::table('BackItem')->where('id', $disagree[$i]) -> first();
                 DB::update('update CartBuy set Progress = ? where id = ?', ['6', $back->CartId]);
-                DB::table('BackItem') -> where('id', $disagree[$i]) -> delete();
+                DB::table('BackItem')->where('id', $disagree[$i])->delete();
                 
             }
         }
@@ -376,9 +376,9 @@ class OwnerUserController extends Controller
     {
         if(isset($_POST['del'])){
             $del = $_POST['del'];
-            for($i=0; $i<count($del); $i++){
+            for($i = 0; $i < count($del); $i++){
                 //DB::table('User') -> where('id', $_POST['del']) -> delete();
-                DB::table('User') -> where('id', $del[$i]) -> delete();
+                DB::table('User')->where('id', $del[$i])->delete();
             }
         }
         return redirect('/admin/memberEdit');
@@ -389,7 +389,7 @@ class OwnerUserController extends Controller
     public function merchandiseDel()
     {
         $mer = $_POST['del'];
-        for($i=0; $i<count($mer); $i++){
+        for($i = 0; $i < count($mer); $i++){
             DB::table('Merchandise')->where('id', $mer[$i])->delete();
         }
         return redirect('/admin/warehouse');

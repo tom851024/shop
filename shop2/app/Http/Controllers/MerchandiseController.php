@@ -12,7 +12,7 @@ class MerchandiseController extends Controller
     public function ListMerchandise(Request $request)
     {
     	$merchandise = DB::table('Merchandise') -> where('status', '0') -> get();
-    	return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'))->with('level', $request->session()->get('level'));
+    	return view('mainPage')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'))->with('level', $request->session()->get('level'));
     }
 
 
@@ -37,7 +37,7 @@ class MerchandiseController extends Controller
         $query = "select * from Merchandise where status = 0 AND Name like ? OR ShortDes like ?";
         $param = '%'.$_POST['search'].'%';
         $merchandise = DB::select($query, array($param, $param));
-        return view('mainPage') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
+        return view('mainPage')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'));
     }
 
 
@@ -50,8 +50,8 @@ class MerchandiseController extends Controller
 
         if(isset($_POST['del'])){
             $del = $_POST['del'];
-            for($i=0; $i < count($del); $i++){
-                DB::table('tmpShop') -> where('id',$del[$i])->delete();
+            for($i = 0; $i < count($del); $i++){
+                DB::table('tmpShop')->where('id',$del[$i])->delete();
             }
         }
         return redirect('/cart');
@@ -63,7 +63,7 @@ class MerchandiseController extends Controller
     {
     	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
-    	return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
+    	return view('cart')->with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
     }
 
 
@@ -92,7 +92,7 @@ class MerchandiseController extends Controller
 
         //加入優惠
 
-        $discount = DB::table('Discount') -> where('Level', $request->session()->get('level')) -> get();
+        $discount = DB::table('Discount')->where('Level', $request->session()->get('level'))->get();
             
         $plate = 0;
 
@@ -128,7 +128,7 @@ class MerchandiseController extends Controller
     public function commitToBuyWithPlate(Request $request)
     {
         if(preg_match("/^[0-9]*$/", $_POST['plate'])){
-            $account = DB::table('User') -> where('id', $request->session()->get('userId'))->first();
+            $account = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             
             if($account->Gold >= $_POST['plate']){
                 $total = 0;
@@ -181,7 +181,7 @@ class MerchandiseController extends Controller
 
     public function buyWithPlateFirst(Request $request)
     {
-        $account = DB::table('User') -> where('id', $request->session()->get('userId'))->first();
+        $account = DB::table('User')->where('id', $request->session()->get('userId'))->first();
         $total = 0;
         $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
                 
@@ -225,9 +225,9 @@ class MerchandiseController extends Controller
 
     public function selectOrder(Request $request)
     {
-        $order = DB::table('OrderTable') -> where('UserId', $request->session()->get('userId')) ->get();
-        $count = DB::table('OrderTable') -> where('UserId', $request->session()->get('userId')) ->count();
-        return view('orderList') -> with('order', $order) -> with('count', $count);
+        $order = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->get();
+        $count = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->count();
+        return view('orderList')->with('order', $order)->with('count', $count);
     }
 
 
@@ -261,7 +261,7 @@ class MerchandiseController extends Controller
 
     public function deleteAll(Request $request)
     {
-        DB::table('tmpShop') -> where('UserId', $request->session()->get('userId'))->delete();
+        DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->delete();
         $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         //return view('cart') -> with('cartTmp', $cartTmp);
         return redirect('/cart');
@@ -281,7 +281,7 @@ class MerchandiseController extends Controller
     public function backView(Request $request, $cartId)
     {
         $back = DB::table('CartBuy')->where('id', $cartId) -> first();
-        return view('back') -> with('back', $back);
+        return view('back')->with('back', $back);
     }
 
 
@@ -303,20 +303,20 @@ class MerchandiseController extends Controller
                 DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $_POST['id'], $_POST['merId'], $request->session()->get('userId'), $_POST['qty']]);
                 return redirect('/orderView/'.$_POST['orderId']);
             }else{
-                return redirect('/backView/'.$_POST['id']) -> with('mes', '2');
+                return redirect('/backView/'.$_POST['id'])->with('mes', '2');
             }
            
         }else{
-            return redirect('/backView/'.$_POST['id']) -> with('mes', '1');
+            return redirect('/backView/'.$_POST['id'])->with('mes', '1');
         }
     }
 
 
     public function merDetail(Request $request, $merId)
     {
-        $merdetail = DB::table('Merchandise') -> where('id', $merId) -> first();               
+        $merdetail = DB::table('Merchandise')->where('id', $merId) -> first();               
         $user = $request->session()->get('userId');
-        return view('detail') -> with('merdetail', $merdetail) -> with('user', $user);
+        return view('detail') -> with('merdetail', $merdetail)->with('user', $user);
     }
 
 
@@ -335,7 +335,7 @@ class MerchandiseController extends Controller
         //處理已領貨
         if(isset($_POST['checkok'])){
             $chk = $_POST['checkok'];
-            for($i=0; $i<count($chk); $i++){
+            for($i = 0; $i < count($chk); $i++){
                 DB::update('update CartBuy set Progress = ? where id = ?', [2, $chk[$i]]);
             }
         }
@@ -343,7 +343,7 @@ class MerchandiseController extends Controller
         //領貨前退貨
         if(isset($_POST['cancel'])){
             $chk = $_POST['cancel'];
-            for($i=0; $i<count($chk); $i++){
+            for($i = 0; $i < count($chk); $i++){
                 DB::update('update CartBuy set Progress = ? where id = ?', [4, $chk[$i]]);
             }
         }
@@ -352,7 +352,7 @@ class MerchandiseController extends Controller
             $chk = $_POST['back'];
             $qty = $_POST['qty'];
             $mer = $_POST['mer'];
-            for($i=0; $i<count($chk); $i++){
+            for($i = 0; $i < count($chk); $i++){
                 DB::update('update CartBuy set Progress = ? where id = ?', [5, $chk[$i]]);
                 DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $chk[$i], $mer[$i], $request->session()->get('userId'), $qty[$i]]);
             }

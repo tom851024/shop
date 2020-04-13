@@ -23,13 +23,13 @@ class UserController extends Controller
                     return view('login');
                 }else   		
         			//return redirect('register', ['err' => '1']);
-                    return redirect('/register') -> with('err', '1');
+                    return redirect('/register')->with('err', '1');
         	}else{
         		//return redirect('register', ['err' => '2', 'account' => $account]);
-                return redirect('/register') -> with('err', '2');
+                return redirect('/register')->with('err', '2');
         	}
         }else{
-            return redirect('/register') -> with('err', '3');
+            return redirect('/register')->with('err', '3');
         }
     }
 
@@ -51,20 +51,20 @@ class UserController extends Controller
                     $request->session()->put('userName',  $account->UserName);
                     $request->session()->put('level', $account->Level);
                     $merchandise = DB::table('Merchandise') -> get();
-                    return redirect('/') -> with('merchandise', $merchandise) ->with('user', $request->session()->get('userName'));
+                    return redirect('/')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'));
                 }else{
                     //return view('login', ['lerr' => '2']);
-                    return redirect('/login') -> with('err', '2');
+                    return redirect('/login')->with('err', '2');
                 }
             }else{
                 //return view('login', ['lerr' => '1']);
-                return redirect('/login') -> with('err', '1');
+                return redirect('/login')->with('err', '1');
             }
 
 
 
         }else{
-            return redirect('/login') -> with('err', '3');
+            return redirect('/login')->with('err', '3');
         }
     	
 
@@ -73,9 +73,9 @@ class UserController extends Controller
 
     public function Logout(Request $request)
     {
-        $request -> session() -> forget('user');
-        $request -> session() -> forget('userName');
-        $merchandise = DB::table('Merchandise') -> get();
+        $request -> session()->forget('user');
+        $request -> session()->forget('userName');
+        $merchandise = DB::table('Merchandise')->get();
         return redirect('/');
     }
 
@@ -97,7 +97,7 @@ class UserController extends Controller
         $account = DB::table('User')
                         ->where('id', $request->session()->get('userId'))
                         ->first();
-        return view('edit') -> with('account', $account);
+        return view('edit')->with('account', $account);
     }
 
 
@@ -108,7 +108,7 @@ class UserController extends Controller
             DB::update('update User set Name = ?, Phone = ?, Address = ? where id = ?', [$_POST['name'], $_POST['tel'], $_POST['address'], $request->session()->get('userId')]);
             return redirect('/');
         }else{
-            return redirect('/editPage') -> with('err', '1');
+            return redirect('/editPage')->with('err', '1');
         }
         
     }
@@ -126,21 +126,21 @@ class UserController extends Controller
                 if(strcmp($_POST['newPasswd'], $_POST['reNewPasswd']) == 0){
 
                     DB::update('update User set Passwd = ? where id = ?', [md5($_POST['newPasswd']), $request->session()->get('userId')]);
-                    $request -> session() -> forget('user');
-                    return view('edPasOk') -> with('user', 0);
+                    $request -> session()->forget('user');
+                    return view('edPasOk')->with('user', 0);
 
                 }else{
                     //return view('editPasswd') -> with('err', 2);
-                    return redirect('/editPasswd') -> with('err', 2);
+                    return redirect('/editPasswd')->with('err', 2);
                 }
 
             }else{
                 //return view('editPasswd') -> with('err', 1);
-                return redirect('/editPasswd') -> with('err', 1);
+                return redirect('/editPasswd')->with('err', 1);
             }
 
         }else{
-            return redirect('/editPasswd') -> with('err', 3);
+            return redirect('/editPasswd')->with('err', 3);
         }
        
     }
