@@ -205,7 +205,7 @@ class MerchandiseController extends Controller
         }else{
             $realpay = $total - $account->Gold;
             //插入訂單資料表
-            DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId) values (?, ?, ?, ?)', [$orderId, $total, $realpay, $request->session()->get('userId')]);
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $realpay, $request->session()->get('userId'), $account->Address, $account->Phone]);
              //更新使用者虛擬幣
             DB::update('update User set Gold = ? where id = ?', ['0', $request->session()->get('userId')]);
         }
