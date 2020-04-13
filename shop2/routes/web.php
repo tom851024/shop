@@ -55,11 +55,9 @@ Route::get('/mainCart', function(Request $request){
 
 Route::get('/editPage', 'UserController@EditSelect');
 
-
+Route::get('/commitBuy', 'MerchandiseController@commitToBuy');
 
 Route::get('/cart', 'MerchandiseController@tmpCartView');
-
-Route::get('/commitBuy', 'MerchandiseController@commitToBuy');
 
 Route::get('/editPasswd', function(){
 	return view('editPasswd');
@@ -85,6 +83,8 @@ Route::get('/english', 'UserController@ChgEn');
 Route::get('/backView/{cartId}', 'MerchandiseController@backView');
 
 Route::get('/commitBuyWithPlate', 'MerchandiseController@plateView');
+
+Route::get('/buyWithPlateFirst', 'MerchandiseController@buyWithPlateFirst');
 
 
 //--------post
@@ -118,6 +118,8 @@ Route::post('/delTmp', 'MerchandiseController@DelTmp');
 Route::post('/buyWithPlate', 'MerchandiseController@commitToBuyWithPlate');
 
 Route::post('/orderCheck', 'MerchandiseController@orderCheck');
+
+
 
 
 

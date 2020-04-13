@@ -9,18 +9,18 @@
 		
 		<table width="80%" border="1">
 			<tr>
-				<th>{{ trans('messages.orderMan') }}</th>
-				<td>{{ $member->Name }}</td>
+				<th width="30%">{{ trans('messages.orderMan') }}</th>
+				<td width="70%">{{ $member->Name }}</td>
 			</tr>
 
 			<tr>
-				<th>{{ trans('messages.phone') }}</th>
-				<td>{{ $member->Phone }}</td>
+				<th width="30%">{{ trans('messages.phone') }}</th>
+				<td width="70%">{{ $member2->Phone }}</td>
 			</tr>
 
 			<tr>
-				<th>{{ trans('messages.address') }}</th>
-				<td>{{ $member->Address }}</td>
+				<th width="30%">{{ trans('messages.address') }}</th>
+				<td width="70%">{{ $member2->Address }}</td>
 			</tr>
 		</table>
 

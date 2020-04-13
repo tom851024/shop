@@ -70,13 +70,14 @@ class MerchandiseController extends Controller
 
     public function commitToBuy(Request $request)
     {
+       
         $total = 0;
         $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
-        
+        $account = DB::table('User') -> where('id', $request->session()->get('userId')) -> first();
         $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
         $orderId = $request->session()->get('userId').date("YmdHis");
         foreach ($cartTmp as $car) {
-        	DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+            DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
         }
 
 
@@ -87,19 +88,19 @@ class MerchandiseController extends Controller
         }
 
         //插入訂單資料表
-        DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId) values (?, ?, ?, ?)', [$orderId, $total, $total, $request->session()->get('userId')]);
+        DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $total, $request->session()->get('userId'), $account->Address, $account->Phone]);
 
         //加入優惠
 
         $discount = DB::table('Discount') -> where('Level', $request->session()->get('level')) -> get();
-        $account = DB::table('User') -> where('id', $request->session()->get('userId')) -> first();
+            
         $plate = 0;
 
         foreach($discount as $dis){
             if($total >= $dis->ReachGold){
-               $plate += $dis->Discount;     
+                $plate += $dis->Discount;     
             }  
-                
+                    
         }
         $plateUpdate = $plate + $account->Gold;
         DB::update('update User set Gold = ? where id = ?', [$plateUpdate, $request->session()->get('userId')]);
@@ -107,7 +108,7 @@ class MerchandiseController extends Controller
 
         //等級提升
 
-         
+             
 
         if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
             $lv = $request->session()->get('level') + 1;
@@ -115,9 +116,11 @@ class MerchandiseController extends Controller
             $request->session()->put('level', $lv);
         }
 
-        
+            
 
         return view('Thanks') ->with('plate', $plate);
+        
+
 
     }
 
@@ -149,7 +152,7 @@ class MerchandiseController extends Controller
                 $gold = $account->Gold - $_POST['plate'];
 
                 //插入訂單資料表
-                DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId) values (?, ?, ?, ?)', [$orderId, $total, $realPay, $request->session()->get('userId')]);
+                DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $realPay, $request->session()->get('userId'), $account->Address, $account->Phone]);
 
                 //更新使用者虛擬幣
                 DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
@@ -173,6 +176,49 @@ class MerchandiseController extends Controller
         }else{
             return redirect('/commitBuyWithPlate')->with('mes', '1');
         }
+    }
+
+
+    public function buyWithPlateFirst(Request $request)
+    {
+        $account = DB::table('User') -> where('id', $request->session()->get('userId'))->first();
+        $total = 0;
+        $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+                
+
+        $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        $orderId = $request->session()->get('userId').date("YmdHis");
+        foreach ($cartTmp as $car){
+             DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+        }
+        DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->delete();
+        foreach($cartTmp as $tmp){
+            $total += $tmp->Price * $tmp->Qty;
+        }
+
+        if($account->Gold >= $total){
+            $gold = $account->Gold - $total;
+            //插入訂單資料表
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, '0', $request->session()->get('userId'), $account->Address, $account->Phone]);
+             //更新使用者虛擬幣
+            DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
+        }else{
+            $realpay = $total - $account->Gold;
+            //插入訂單資料表
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId) values (?, ?, ?, ?)', [$orderId, $total, $realpay, $request->session()->get('userId')]);
+             //更新使用者虛擬幣
+            DB::update('update User set Gold = ? where id = ?', ['0', $request->session()->get('userId')]);
+        }
+
+
+        if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
+            $lv = $request->session()->get('level') + 1;
+            DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+            $request->session()->put('level', $lv);
+        }
+
+        return view('Thanks');
+
     }
 
 

@@ -86,7 +86,7 @@
 		'backingFail' => '退貨被拒',
 		'insertPlate' => '請輸入要使用多少盤子幣',
 		'plateNotEnough' => '盤子不足',
-		
+		'buyWithPlateFirst' => '優先使用盤子',
 		
 		
 

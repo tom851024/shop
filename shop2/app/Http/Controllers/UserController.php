@@ -115,7 +115,8 @@ class UserController extends Controller
 
 
 
-    public function EditPasswd(Request $request){
+    public function EditPasswd(Request $request)
+    {
         if(preg_match("/^\w+$/", $_POST['passwd']) && preg_match("/^\w+$/", $_POST['newPasswd'])){
             $account = DB::table('User')
                         ->where('id', $request->session()->get('userId'))

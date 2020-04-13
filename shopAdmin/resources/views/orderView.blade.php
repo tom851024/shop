@@ -47,7 +47,8 @@
 							<td><a href="/admin/ownerOrderList/{{ $ord->OrderId }}">{{ $ord->OrderId }}</a></td>
 							<td>{{ $ord->Total }}</td>
 							<td>{{ $ord->RealPay }}</td>
-							<td><a href="/admin/userDetail?UId=<?php echo $ord->UId ?>">{{ $ord->Name }}</a></td>
+							<!-- <td><a href="/admin/userDetail?UId=<?php echo $ord->OrderId ?>">{{ $ord->Name }}</a></td> -->
+							<td><a href="/admin/userDetail/<?php echo $ord->OrderId ?>/<?php echo $ord->UserId ?>">{{ $ord->Name }}</a></td>
 						</tr>
 					@endforeach
 

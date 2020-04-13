@@ -78,6 +78,14 @@
 		@if($count > 0)
 			<p>
 				{{ trans('messages.totalprice') }}: {{ $priceSum }}
+				<!--<form action="/commitBuy" method="POST">
+					{{ csrf_field() }}
+					<text>{{ trans('messages.address') }}</text>
+					<input type="text" name="address" required="required" /><br />
+					<text>{{ trans('messages.phone') }}</text>
+					<input type="text" name="phone" required="required" /><br />
+					<input type="submit" value="{{ trans('messages.commitbuy') }}" />
+				</form>-->
 				<a href="/commitBuy">{{ trans('messages.commitbuy') }}</a>
 				<a href="/commitBuyWithPlate">{{ trans('messages.commitbuyPlate') }}</a>			
 			</p>

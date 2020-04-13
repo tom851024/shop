@@ -10,7 +10,8 @@ use DB;
 
 class OwnerUserController extends Controller
 {
-	public function login(Request $request){
+	public function login(Request $request)
+    {
 
         if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWd'])){
 
@@ -130,10 +131,11 @@ class OwnerUserController extends Controller
 
 
 
-    public function userDetail()
+    public function userDetail($orderId, $userId)
     {
-        $member = DB::table('User') -> where('id', $_GET['UId']) -> first();
-        return view('memberDetail') -> with('member', $member);
+        $member = DB::table('User')->where('id', $userId)->first();
+        $member2 = DB::table('OrderTable')->where('OrderId', $orderId)->first();
+        return view('memberDetail')->with('member', $member)->with('member2', $member2);
     }
 
 

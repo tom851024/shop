@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 10, 2020 at 05:05 PM
+-- Generation Time: Apr 13, 2020 at 12:11 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -35,6 +35,13 @@ CREATE TABLE `BackItem` (
   `Qty` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `BackItem`
+--
+
+INSERT INTO `BackItem` (`id`, `OrderId`, `CartId`, `MerId`, `UserId`, `Qty`) VALUES
+(3, '1120200412034113', 112, 2, 11, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -57,8 +64,8 @@ CREATE TABLE `CartBuy` (
 --
 
 INSERT INTO `CartBuy` (`id`, `OrderId`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`, `Progress`) VALUES
-(93, '1120200410011154', 11, 4, '電腦螢幕', 5000, 2, 0),
-(94, '1120200410011154', 11, 1, 'computer 1', 30000, 5, 0),
+(93, '1120200410011154', 11, 4, '電腦螢幕', 5000, 2, 1),
+(94, '1120200410011154', 11, 1, 'computer 1', 30000, 5, 1),
 (95, '1120200410011650', 11, 1, 'computer 1', 30000, 1, 5),
 (96, '1120200410011650', 11, 4, '電腦螢幕', 5000, 2, 5),
 (97, '1120200410011837', 11, 2, 'Laptop', 40000, 2, 4),
@@ -71,7 +78,23 @@ INSERT INTO `CartBuy` (`id`, `OrderId`, `UserId`, `MerId`, `MerName`, `Price`, `
 (106, '1020200410090408', 10, 1, 'computer 1', 30000, 3, 4),
 (107, '1020200410090408', 10, 4, '電腦螢幕', 5000, 1, 4),
 (108, '1020200410090408', 10, 4, '電腦螢幕', 5000, 1, 2),
-(109, '1020200410090408', 10, 1, 'computer 1', 30000, 2, 2);
+(109, '1020200410090408', 10, 1, 'computer 1', 30000, 2, 2),
+(110, '1020200410091808', 10, 1, 'computer 1', 30000, 2, 4),
+(111, '1120200412033905', 11, 1, 'computer 1', 30000, 2, 2),
+(112, '1120200412034113', 11, 2, 'Laptop', 40000, 1, 5),
+(113, '1120200413011924', 11, 1, 'computer 1', 30000, 2, 6),
+(114, '1120200413011924', 11, 4, '電腦螢幕', 5000, 2, 4),
+(115, '1120200413011924', 11, 2, 'Laptop', 40000, 3, 4),
+(116, '1120200413024103', 11, 4, '電腦螢幕', 5000, 2, 4),
+(117, '1120200413024103', 11, 4, '電腦螢幕', 5000, 2, 4),
+(118, '1120200413024103', 11, 2, 'Laptop', 40000, 5, 4),
+(119, '1120200413032201', 11, 2, 'Laptop', 40000, 6, 0),
+(120, '1120200413032247', 11, 1, 'computer 1', 30000, 1, 0),
+(121, '1120200413032349', 11, 1, 'computer 1', 30000, 1, 0),
+(122, '1120200413035522', 11, 1, 'computer 1', 30000, 2, 0),
+(123, '1120200413035623', 11, 4, '電腦螢幕', 5000, 2, 0),
+(124, '1120200413035846', 11, 2, 'Laptop', 40000, 2, 0),
+(125, '1120200413035914', 11, 4, '電腦螢幕', 5000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -130,19 +153,31 @@ CREATE TABLE `OrderTable` (
   `OrderId` varchar(40) NOT NULL,
   `Total` int(30) NOT NULL,
   `RealPay` int(30) NOT NULL,
-  `UserId` int(20) NOT NULL
+  `UserId` int(20) NOT NULL,
+  `Address` text NOT NULL,
+  `Phone` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `OrderTable`
 --
 
-INSERT INTO `OrderTable` (`id`, `OrderId`, `Total`, `RealPay`, `UserId`) VALUES
-(1, '1120200410011154', 160000, 160000, 11),
-(2, '1120200410011650', 85000, 85000, 11),
-(3, '1120200410011837', 110000, 110000, 11),
-(4, '1020200410021951', 285000, 285000, 10),
-(5, '1020200410090408', 160000, 160000, 10);
+INSERT INTO `OrderTable` (`id`, `OrderId`, `Total`, `RealPay`, `UserId`, `Address`, `Phone`) VALUES
+(1, '1120200410011154', 160000, 160000, 11, '', ''),
+(2, '1120200410011650', 85000, 85000, 11, '', ''),
+(3, '1120200410011837', 110000, 110000, 11, '', ''),
+(4, '1020200410021951', 285000, 285000, 10, '', ''),
+(5, '1020200410090408', 160000, 160000, 10, '', ''),
+(6, '1020200410091808', 60000, 60000, 10, '', ''),
+(7, '1120200412033905', 60000, 10000, 11, '', ''),
+(8, '1120200412034113', 40000, 30000, 11, '', ''),
+(9, '1120200413011924', 190000, 190000, 11, '', ''),
+(10, '1120200413024103', 220000, 215000, 11, '', ''),
+(11, '1120200413032201', 240000, 235000, 11, '', ''),
+(12, '1120200413032349', 30000, 0, 11, '', ''),
+(13, '1120200413035623', 10000, 10000, 11, 'Taichung DFG Road 666', '09456789322'),
+(14, '1120200413035846', 80000, 79900, 11, 'Taichung DFG Road 666', '09456789322'),
+(15, '1120200413035914', 5000, 0, 11, 'Taichung DFG Road 456', '09456789322');
 
 -- --------------------------------------------------------
 
@@ -210,7 +245,7 @@ INSERT INTO `tmpShop` (`id`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`) VALUE
 (35, 1, 2, 'Laptop', 40000, 2),
 (43, 8, 1, 'computer 1', 30000, 6),
 (44, 8, 3, 'XBOX1080', 9000, 5),
-(54, 11, 1, 'computer 1', 30000, 2);
+(59, 10, 2, 'Laptop', 40000, 2);
 
 -- --------------------------------------------------------
 
@@ -236,7 +271,7 @@ CREATE TABLE `User` (
 
 INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`, `Gold`) VALUES
 (10, 'md5', '202cb962ac59075b964b07152d234b70', 0, 'md5', '09456123221', 'Taichung AC Road 456', 5, 120100),
-(11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789322', 'Taichung DFG Road 666', 5, 10000),
+(11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789322', 'Taichung DFG Road 456', 5, 14900),
 (12, 'boss', '698d51a19d8a121ce581499d7b701668', 0, '111', '111', '111', 2, 0);
 
 --
@@ -305,12 +340,12 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `BackItem`
 --
 ALTER TABLE `BackItem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 --
 -- AUTO_INCREMENT for table `Discount`
 --
@@ -320,12 +355,12 @@ ALTER TABLE `Discount`
 -- AUTO_INCREMENT for table `Merchandise`
 --
 ALTER TABLE `Merchandise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `OrderTable`
 --
 ALTER TABLE `OrderTable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `O_User`
 --
@@ -340,12 +375,12 @@ ALTER TABLE `Report`
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

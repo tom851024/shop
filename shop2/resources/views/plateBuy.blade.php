@@ -39,7 +39,7 @@
 			<form action="buyWithPlate" method="POST">
 				{{ csrf_field() }}
 				<text>{{ trans('messages.insertPlate') }}:</text>
-				<input type="text" name="plate" />
+				<input type="text" name="plate" required="required" />
 				<input type="submit" value="{{ trans('messages.confirm') }}">
 			</form>
 			@if(session()->has('mes'))
@@ -54,8 +54,8 @@
 		@if($count > 0)
 			<p>
 				{{ trans('messages.totalprice') }}: {{ $priceSum }}
-				<a href="/commitBuy">{{ trans('messages.commitbuy') }}</a>
-							
+				
+				<a href="/buyWithPlateFirst">{{ trans('messages.buyWithPlateFirst') }}</a>		
 			</p>
 		
 		@endif

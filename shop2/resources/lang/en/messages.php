@@ -87,7 +87,7 @@
 		'backingFail' => 'Back Fail',
 		'insertPlate' => 'Please insert how many plate to use',
 		'plateNotEnough' => 'Plate not Enough',
-
+		'buyWithPlateFirst' => 'Buy with Plate first',
 		
 	];
 ?>

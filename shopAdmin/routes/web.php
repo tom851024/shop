@@ -52,7 +52,7 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/ownerOrderList/{orderId}', 'OwnerUserController@orderList');
 
-	Route::get('/userDetail', 'OwnerUserController@userDetail');
+	Route::get('/userDetail/{orderId}/{UserId}', 'OwnerUserController@userDetail');
 
 
 	Route::get('/chinese', 'OwnerUserController@ChgCh');
