@@ -38,10 +38,17 @@
 				<tr>
 					<th>{{ trans('messages.postOrNot') }}</th>
 					<td>
-						<select name="status" id="status">
-							<option value="0">{{ trans('messages.enable') }}</option>
-							<option value="1">{{ trans('messages.disable') }}</option>
-						</select>
+						@if($mer->Status == '0')
+							<select name="status" id="status">
+								<option value="0" selected="selected">{{ trans('messages.enable') }}</option>
+								<option value="1">{{ trans('messages.disable') }}</option>
+							</select>
+						@else
+							<select name="status" id="status">
+								<option value="0">{{ trans('messages.enable') }}</option>
+								<option value="1"  selected="selected">{{ trans('messages.disable') }}</option>
+							</select>
+						@endif
 					</td>
 				</tr>
 			</table>

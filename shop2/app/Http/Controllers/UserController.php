@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function Register()
     {
-        if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWord']) && preg_match("/^[0-9]*$/", $_POST['tel'])){
+        if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWord']) && preg_match("/^[0-9]*$/", $_POST['tel']) && preg_match("/^\w+$/", $_POST['name'])){
         	$account = DB::table('User')
         					->where('Username', $_POST['userName'])
         					->count();
@@ -104,7 +104,7 @@ class UserController extends Controller
 
     public function Edit(Request $request)
     {
-        if(preg_match("/^[0-9]*$/", $_POST['tel'])){
+        if(preg_match("/^[0-9]*$/", $_POST['tel']) && preg_match("/^\w+$/", $_POST['name'])){
             DB::update('update User set Name = ?, Phone = ?, Address = ? where id = ?', [$_POST['name'], $_POST['tel'], $_POST['address'], $request->session()->get('userId')]);
             return redirect('/');
         }else{

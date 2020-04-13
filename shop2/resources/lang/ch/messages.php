@@ -87,6 +87,7 @@
 		'insertPlate' => '請輸入要使用多少盤子幣',
 		'plateNotEnough' => '盤子不足',
 		'buyWithPlateFirst' => '優先使用盤子',
+		'backSingle' => '單一退貨',
 		
 		
 

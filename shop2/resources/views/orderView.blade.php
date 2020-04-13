@@ -41,6 +41,12 @@
 				});
 					
 			});
+
+
+
+			function backSingle(id){
+				window.location = 'http://localhost/backView/'+id;
+			}
 		</script>
 	</head>
 
@@ -57,6 +63,7 @@
 					<th align="center" width="30%">{{ trans('messages.progress') }}</th>
 					<th align="center" width="30%">{{ trans('messages.check') }}</th>
 					<th align="center" width="30%">{{ trans('messages.back') }}</th>
+					<th align="center" width="30%">{{ trans('messages.backSingle') }}</th>
 				</tr>
 
 				<tr>
@@ -66,6 +73,7 @@
 					<td align="center" width="30%"></td>
 					<td align="center" width="30%"><input type="checkbox" id="chkokall"  /></td>
 					<td align="center" width="30%"><input type="checkbox" id="chkbackall" /></td>
+					<td></td>
 				</tr>
 
 				@foreach($cart as $c)
@@ -104,6 +112,11 @@
 								<input type="checkbox" name="back[]" value="<?php echo $c->id ?>" />
 								<input type="hidden" name="qty[]" value="<?php echo $c->Qty ?>" />
 								<input type="hidden" name="mer[]" value="<?php echo $c->MerId ?>" />
+							@endif
+						</td>
+						<td align="center" width="30%">
+							@if($c->Progress == '2')								
+								<input type="button" value="{{ trans('messages.back') }}" onclick="backSingle(<?php echo $c->id ?>)" />
 							@endif
 						</td>
 						

@@ -96,7 +96,6 @@ class OwnerUserController extends Controller
     {
         $order = DB::table('CartBuy')
                  -> where('OrderId', $orderId)
-                 ->where('Progress', '!=', '5')
                  -> join('User', 'User.id', '=', 'CartBuy.UserId')
                  -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
                  -> get();
