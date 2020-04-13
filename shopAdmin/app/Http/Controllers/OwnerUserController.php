@@ -140,16 +140,22 @@ class OwnerUserController extends Controller
 
     public function merchandiseGo(Request $request)
     {
-        DB::update('update CartBuy set Progress = ? where id = ?', [1, $request->input('ordId')]);
-        //DB::update('update CartBuy set Progress = ? where id = ?', [1, 13]);
-         $order = DB::table('CartBuy')
-                 -> join('User', 'User.id', '=', 'CartBuy.UserId')
-                 -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
-                 -> get();
- 
-        //return view('orderList') -> with('order', $order);
-        //return $order -> toArray();
-        //return Response::json($order);
+
+        if(isset($_POST['mergo'])){
+            $mer = $_POST['mergo'];
+            for($i=0; $i<count($mer); $i++){
+                //DB::update('update CartBuy set Progress = ? where id = ?', [1, $request->input('ordId')]);
+                DB::update('update CartBuy set Progress = ? where id = ?', [1, $mer[$i]]);
+                
+                $order = DB::table('CartBuy')
+                         -> join('User', 'User.id', '=', 'CartBuy.UserId')
+                         -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
+                         -> get();
+            }
+        }
+            return redirect('admin/ownerOrderList/'.$_POST['orderId']);
+        
+       
     }
 
 
