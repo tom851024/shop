@@ -284,5 +284,38 @@ class MerchandiseController extends Controller
 
 
 
+    public function orderCheck(Request $request)
+    {
+        //處理已領貨
+        if(isset($_POST['checkok'])){
+            $chk = $_POST['checkok'];
+            for($i=0; $i<count($chk); $i++){
+                DB::update('update CartBuy set Progress = ? where id = ?', [2, $chk[$i]]);
+            }
+        }
+
+        //領貨前退貨
+        if(isset($_POST['cancel'])){
+            $chk = $_POST['cancel'];
+            for($i=0; $i<count($chk); $i++){
+                DB::update('update CartBuy set Progress = ? where id = ?', [4, $chk[$i]]);
+            }
+        }
+        //領貨後退貨
+        if(isset($_POST['back'])){
+            $chk = $_POST['back'];
+            $qty = $_POST['qty'];
+            $mer = $_POST['mer'];
+            for($i=0; $i<count($chk); $i++){
+                DB::update('update CartBuy set Progress = ? where id = ?', [5, $chk[$i]]);
+                DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $chk[$i], $mer[$i], $request->session()->get('userId'), $qty[$i]]);
+            }
+        }
+
+        return redirect('/orderView/'.$_POST['orderId']);
+    }
+
+
+
 
 }

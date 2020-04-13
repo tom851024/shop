@@ -102,9 +102,9 @@ Route::post('/search', 'MerchandiseController@Search');
 
 Route::post('/buy', 'MerchandiseController@TmpBuy');
 
-Route::post('/orderOk', 'MerchandiseController@orderOk');
+//Route::post('/orderOk', 'MerchandiseController@orderOk');
 
-Route::post('/orderCancel', 'MerchandiseController@orderCancel');
+//Route::post('/orderCancel', 'MerchandiseController@orderCancel');
 
 Route::post('/orderBack', 'MerchandiseController@orderBack');
 
@@ -116,6 +116,8 @@ Route::post('/reportPost', 'UserController@Report');
 Route::post('/delTmp', 'MerchandiseController@DelTmp');
 
 Route::post('/buyWithPlate', 'MerchandiseController@commitToBuyWithPlate');
+
+Route::post('/orderCheck', 'MerchandiseController@orderCheck');
 
 
 
