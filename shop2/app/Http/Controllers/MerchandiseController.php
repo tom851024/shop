@@ -395,7 +395,7 @@ class MerchandiseController extends Controller
             for($i = 0; $i < count($chk); $i++){
                 DB::update('update CartBuy set Progress = ? where id = ?', [4, $chk[$i]]);
                 $bk = DB::table('CartBuy')->where('id', $chk[$i])->first();
-                $backTotal += $bk->Price;
+                $backTotal += $bk->Price * $bk->Qty;
             }
 
             //扣掉優惠
@@ -432,12 +432,12 @@ class MerchandiseController extends Controller
                 DB::update('update CartBuy set Progress = ? where id = ?', [5, $chk[$i]]);
                 DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $chk[$i], $mer[$i], $request->session()->get('userId'), $qty[$i]]);
                 $bk = DB::table('CartBuy')->where('id', $chk[$i])->first();
-                $backTotal += $bk->Price;
+                $backTotal += $bk->Price * $bk->Qty;
             }
 
 
 
-             //扣掉優惠
+            //扣掉優惠
             $subTotal = 0;
             $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('UserId', $request->session()->get('userId'))->get();
             $total = DB::table('OrderTable')->where('orderId', $_POST['orderId'])->first();
@@ -450,7 +450,7 @@ class MerchandiseController extends Controller
             }
             $date = date("Y-m-d H:i:s");
             DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
-            
+
             $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             $gold->Gold = $gold->Gold - $subTotal;
             
