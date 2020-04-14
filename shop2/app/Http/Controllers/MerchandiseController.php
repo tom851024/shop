@@ -125,6 +125,7 @@ class MerchandiseController extends Controller
         $plateUpdate = $plate + $account->Gold;
         DB::update('update User set Gold = ? where id = ?', [$plateUpdate, $request->session()->get('userId')]);
 
+        date_default_timezone_set('Asia/Taipei');
         $date = date("Y-m-d H:i:s");
         DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), $plate, $date]);
 
@@ -172,6 +173,7 @@ class MerchandiseController extends Controller
                 }
 
                  //紀錄虛擬幣
+                date_default_timezone_set('Asia/Taipei');
                 $date = date("Y-m-d H:i:s");
                 DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0 - $_POST['plate'], $date]);
 
@@ -227,6 +229,7 @@ class MerchandiseController extends Controller
 
         if($account->Gold >= $total){
             //紀錄虛擬幣
+            date_default_timezone_set('Asia/Taipei');
             $date = date("Y-m-d H:i:s");
             DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0 - $total, $date]);
 
@@ -237,6 +240,7 @@ class MerchandiseController extends Controller
             DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
         }else{
             //紀錄虛擬幣
+            date_default_timezone_set('Asia/Taipei');
             $date = date("Y-m-d H:i:s");
             DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0 - $account->Gold, $date]);
 
@@ -355,6 +359,7 @@ class MerchandiseController extends Controller
                 }
                  $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
                  $gold->Gold = $gold->Gold - $subTotal;
+                 date_default_timezone_set('Asia/Taipei');
                  $date = date("Y-m-d H:i:s");
 
                  if($gold->Gold >= 0){
@@ -396,6 +401,7 @@ class MerchandiseController extends Controller
                 }
                  $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
                  $gold->Gold = $gold->Gold - $subTotal;
+                 date_default_timezone_set('Asia/Taipei');
                  $date = date("Y-m-d H:i:s");
 
                  if($gold->Gold >= 0){
@@ -471,6 +477,7 @@ class MerchandiseController extends Controller
                     $subTotal += $sub->Discount;
                 }
             }
+            date_default_timezone_set('Asia/Taipei');
             $date = date("Y-m-d H:i:s");
             DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
 
@@ -513,6 +520,7 @@ class MerchandiseController extends Controller
                     $subTotal += $sub->Discount;
                 }
             }
+            date_default_timezone_set('Asia/Taipei');
             $date = date("Y-m-d H:i:s");
             DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
 

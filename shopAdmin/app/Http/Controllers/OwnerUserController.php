@@ -364,6 +364,7 @@ class OwnerUserController extends Controller
                 $account = DB::table('User') -> where('id', $back->UserId)->first();
                 $gold = $mer->Price * $back->Qty;
                 //插入虛擬幣紀錄
+                date_default_timezone_set('Asia/Taipei');
                 $date = date("Y-m-d H:i:s");
                 DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$back->UserId, $gold, $date]);
 
@@ -418,6 +419,7 @@ class OwnerUserController extends Controller
 
     public function replyPost()
     {
+        date_default_timezone_set('Asia/Taipei');
         $date = date("Y-m-d");
         DB::insert('insert into Reply (UserId, Reply, Date) values (?, ?, ?)', [$_POST['id'], $_POST['reply'], $date]);
         return view('replyOk');
