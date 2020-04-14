@@ -91,6 +91,7 @@
 		'backSingle' => 'Back Single',
 		'reply' => 'View Reply',
 		'replyDate' => 'Reply Date',
+		'qtyNotEnough' => 'Quantity not Enough'
 		
 	];
 ?>

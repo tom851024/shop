@@ -90,6 +90,7 @@
 		'backSingle' => '單一退貨',
 		'reply' => '瀏覽回覆',
 		'replyDate' => '回覆日期',
+		'qtyNotEnough' => '庫存不足',
 		
 
 		

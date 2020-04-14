@@ -35,6 +35,10 @@
 				<td align="center" width="70%">{{ $merdetail -> Price }}</td>
 			</tr>
 			<tr>
+				<th align="center" width="30%">{{ trans('messages.qty') }}</th>
+				<td align="center" width="70%">{{ $merdetail -> Qty }}</td>
+			</tr>
+			<tr>
 				@if($user>0)
 					<td>
 					<!--	<a href="/shop2/public/index.php/buy?merId=<?php echo $merdetail->id ?>&merName=<?php echo $merdetail->Name ?>&price=<?php echo $merdetail->Price ?>">Buy!!</a>-->
@@ -57,7 +61,9 @@
 
 		@if(session() -> has('mes'))
 			@if(session()->get('mes') == '1')
-					{{ trans('messages.illegel') }}
+				{{ trans('messages.illegel') }}
+			@elseif(session()->get('mes') == '2')
+				{{ trans('messages.qtyNotEnough') }}
 			@endif
 		@endif
 		<br />

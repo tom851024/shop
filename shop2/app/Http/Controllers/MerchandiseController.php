@@ -19,12 +19,31 @@ class MerchandiseController extends Controller
     public function TmpBuy(Request $request)
     {
     	if(preg_match("/^[0-9]*$/", $_POST['Qty'])){
-        	DB::insert('insert into tmpShop (UserId, MerId, MerName, Price, Qty) values (?, ?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['merId'], $_POST['merName'], $_POST['price'], $_POST['Qty']]);
-        	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-        	
-        	$cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+
+            $merchandise = DB::table('Merchandise')->where('id', $_POST['merId'])->first();
+
+            if($_POST['Qty'] <= $merchandise->Qty){
+
+                $merCount = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->where('MerId', $_POST['merId'])->count();
+                if($merCount == 0){
+                	DB::insert('insert into tmpShop (UserId, MerId, MerName, Price, Qty) values (?, ?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['merId'], $_POST['merName'], $_POST['price'], $_POST['Qty']]);
+                	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+                	
+                	$cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+                }else{
+                    $mer = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->where('MerId', $_POST['merId'])->first();
+                    $qty = $mer->Qty + $_POST['Qty'];
+                    DB::update('update tmpShop set Qty = ? where MerId = ?', [$qty, $_POST['merId']]);
+                }
+                return redirect('/cart');
+
+            }else{
+                return redirect('/detail/'.$_POST['merId']) -> with('mes', '2');
+            }
         	//return view('cart') -> with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
-            return redirect('/cart');
+
+
+            
         }else{
             return redirect('/detail/'.$_POST['merId']) -> with('mes', '1');
         }
