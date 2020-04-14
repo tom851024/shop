@@ -39,6 +39,7 @@
 						<th>{{ trans('messages.orderNo') }}</th>
 						<th>{{ trans('messages.totalprice') }}</th>
 						<th>{{ trans('messages.realPay') }}</th>
+						<th>{{ trans('messages.plateBuy') }}</th>
 						<th>{{ trans('messages.orderMan') }}</th>
 					</tr>
 
@@ -48,6 +49,7 @@
 							<td>{{ $ord->Total }}</td>
 							<td>{{ $ord->RealPay }}</td>
 							<!-- <td><a href="/admin/userDetail?UId=<?php echo $ord->OrderId ?>">{{ $ord->Name }}</a></td> -->
+							<td>{{ $ord->Plate }}</td>
 							<td><a href="/admin/userDetail/<?php echo $ord->OrderId ?>/<?php echo $ord->UserId ?>">{{ $ord->Name }}</a></td>
 						</tr>
 					@endforeach

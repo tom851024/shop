@@ -95,6 +95,7 @@
 		'plateLook' => '查詢盤子幣',
 		'plateChange' => '盤子幣紀錄',
 		'date' => '日期',
+		'plateBuy' => '付出盤子幣',
 
 		
 

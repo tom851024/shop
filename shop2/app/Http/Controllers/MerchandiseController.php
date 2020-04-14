@@ -277,7 +277,8 @@ class MerchandiseController extends Controller
     {
     	$cart = DB::table('CartBuy')->where('OrderId', $orderId)->get();
     	$cartCou = DB::table('CartBuy')->where('OrderId', $orderId)->count();
-    	return view('orderView') -> with('cart', $cart) -> with('cartCou', $cartCou);
+        $order = DB::table('OrderTable')->where('OrderId', $orderId)->first();
+    	return view('orderView')->with('cart', $cart)->with('cartCou', $cartCou)->with('order', $order);
     }
 
 

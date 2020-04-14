@@ -96,6 +96,7 @@
 		'plateLook' => 'Look Plate Coin',
 		'plateChange' => 'Plate Record',
 		'date' => 'Date',
+		'plateBuy' => 'Pay with Plate',
 		
 	];
 ?>

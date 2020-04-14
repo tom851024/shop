@@ -112,8 +112,10 @@ class OwnerUserController extends Controller
                  -> join('User', 'User.id', '=', 'CartBuy.UserId')
                  -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
                  -> get();
+
+        $plate = DB::table('OrderTable')->where('OrderId', $orderId)->first();
  
-        return view('orderList')->with('order', $order);
+        return view('orderList')->with('order', $order)->with('plate', $plate);
     }
 
 
@@ -364,7 +366,7 @@ class OwnerUserController extends Controller
                 //插入虛擬幣紀錄
                 $date = date("Y-m-d H:i:s");
                 DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$back->UserId, $gold, $date]);
-                
+
                 $gold += $account->Gold;
                 DB::update('update User set Gold = ? where id = ?', [$gold, $back->UserId]);
 

@@ -127,6 +127,8 @@
 			@endif
 			<a href="/order">{{ trans('messages.lastPage') }}</a>
 			</table>
+			<text>{{ trans('messages.plateBuy') }} : {{ $order->Plate}}</text>
+			<br />
 			<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
 			<input type="submit" value="{{ trans('messages.confirm') }}" />
 		</form>

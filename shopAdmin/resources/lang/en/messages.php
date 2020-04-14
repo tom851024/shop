@@ -97,5 +97,6 @@
 		'disagree' => 'Disagree',
 		'reply' => 'Reply',
 		'replyOk' => 'Reply Complete',
+		'plateBuy' => 'Pay with Plate',
 	];
 ?>

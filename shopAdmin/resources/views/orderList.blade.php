@@ -132,6 +132,9 @@
 
 				</table>
 
+				<text>{{ trans('messages.plateBuy') }} : {{ $plate->Plate }}</text>
+				<br />
+
 				<input type="submit" value="{{ trans('messages.confirm') }}">
 			</form>
 		</p>

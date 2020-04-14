@@ -96,7 +96,7 @@
 		'disagree' => '不同意',
 		'reply' => '回覆',
 		'replyOk' => '回覆完成',
-		
+		'plateBuy' => '付出盤子幣',
 
 		
 
