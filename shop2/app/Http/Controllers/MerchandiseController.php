@@ -333,7 +333,23 @@ class MerchandiseController extends Controller
             }
 
 
-            //扣掉優惠
+            // //扣掉優惠
+            // $notBack = DB::table('CartBuy')->where('OrderId', $_POST['orderId'])->where('Progress', '!=', '5')->get();
+            // $total = 0;
+            // foreach($notBack as $nb){
+            //     $total += $nb->Price ;
+            // }
+            // foreach($disId as $dis){
+            //     $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
+            //     if($total < $sub->ReachGold){
+            //         $subTotal += $sub->Discount;
+            //     }
+            // }
+            // $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+            // $gold->Gold = $gold->Gold - $subTotal;
+            // $date = date("Y-m-d H:i:s");
+            // DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+            // DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
            
             //DB::insert('insert into Plate (UserId, ChangeGold) values (?, ?)', [$request->session()->get('userId'), 0-$subTotal]);
            
@@ -389,15 +405,18 @@ class MerchandiseController extends Controller
             $total->Total -=  $backTotal;
             foreach($disId as $dis){
                 $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
-                if($total->Total > $sub->ReachGold){
+                if($total->Total < $sub->ReachGold){
                     $subTotal += $sub->Discount;
                 }
             }
+            $date = date("Y-m-d H:i:s");
+            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+
             $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             $gold->Gold = $gold->Gold - $subTotal;
-            $date = date("Y-m-d H:i:s");
+           
             DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
-            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+            
 
 
 
@@ -425,15 +444,18 @@ class MerchandiseController extends Controller
             $total->Total -=  $backTotal;
             foreach($disId as $dis){
                 $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
-                if($total->Total > $sub->ReachGold){
+                if($total->Total < $sub->ReachGold){
                     $subTotal += $sub->Discount;
                 }
             }
+            $date = date("Y-m-d H:i:s");
+            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+            
             $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             $gold->Gold = $gold->Gold - $subTotal;
-            $date = date("Y-m-d H:i:s");
+            
             DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
-            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+            
 
 
 
