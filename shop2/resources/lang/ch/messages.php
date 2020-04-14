@@ -89,6 +89,7 @@
 		'buyWithPlateFirst' => '優先使用盤子',
 		'backSingle' => '單一退貨',
 		'reply' => '瀏覽回覆',
+		'replyDate' => '回覆日期',
 		
 
 		

@@ -411,7 +411,8 @@ class OwnerUserController extends Controller
 
     public function replyPost()
     {
-        DB::insert('insert into Reply (UserId, Reply) values (?, ?)', [$_POST['id'], $_POST['reply']]);
+        $date = date("Y-m-d");
+        DB::insert('insert into Reply (UserId, Reply, Date) values (?, ?, ?)', [$_POST['id'], $_POST['reply'], $date]);
         return view('replyOk');
     }
 
