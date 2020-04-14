@@ -118,7 +118,7 @@ class MerchandiseController extends Controller
         foreach($discount as $dis){
             if($total >= $dis->ReachGold){
                 $plate += $dis->Discount;
-                DB::insert('insert into OrderDiscount (OrderId, DiscountId, UserId) values (?, ?, ?)', [$orderId, $dis->id, $request->session()->get('userId')]);     
+                DB::insert('insert into OrderDiscount (OrderId, DiscountId, UserId, Status) values (?, ?, ?, ?)', [$orderId, $dis->id, $request->session()->get('userId'), 0]);     
             }  
                     
         }
@@ -319,6 +319,32 @@ class MerchandiseController extends Controller
             if($_POST['qty'] == $cartBuy->Qty){
                 DB::update('update CartBuy set Progress = ? where id = ?', [5, $_POST['id']]);
                 DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $_POST['id'], $_POST['merId'], $request->session()->get('userId'), $_POST['qty']]);
+
+                 // //扣掉優惠
+                 $notBack = DB::table('CartBuy')->where('OrderId', $_POST['orderId'])->where('Progress', '!=', '5')->get();
+                 $total = 0;
+                 $subTotal = 0;
+                 foreach($notBack as $nb){
+                     $total += $nb->Price * $nb->Qty;
+                 }
+                 $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('UserId', $request->session()->get('userId'))->where('Status', '0')->get();
+                foreach($disId as $dis){
+                  $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
+                     if($total < $sub->ReachGold){
+                         $subTotal += $sub->Discount;
+                         DB::update('update OrderDiscount set Status = ? where id = ?', [1, $dis->id]);
+                     }
+                }
+                 $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+                 $gold->Gold = $gold->Gold - $subTotal;
+                 $date = date("Y-m-d H:i:s");
+                 DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+                 DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+               
+             
+
+
+
                 return redirect('/orderView/'.$_POST['orderId']);
             }else if($_POST['qty'] < $cartBuy->Qty){
 
@@ -327,31 +353,37 @@ class MerchandiseController extends Controller
                 DB::update('update CartBuy set Qty = ? where id = ?', [$_POST['qty'], $_POST['id']]);
                 DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$cartBuy->OrderId, $cartBuy->UserId, $cartBuy->MerId, $cartBuy->MerName, $cartBuy->Price, $qqty, '2']);
                 DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $_POST['id'], $_POST['merId'], $request->session()->get('userId'), $_POST['qty']]);
+
+
+                 // //扣掉優惠
+                 $notBack = DB::table('CartBuy')->where('OrderId', $_POST['orderId'])->where('Progress', '!=', '5')->get();
+                 $total = 0;
+                 $subTotal = 0;
+                 foreach($notBack as $nb){
+                     $total += $nb->Price * $nb->Qty;
+                 }
+                 $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('UserId', $request->session()->get('userId'))->where('Status', '0')->get();
+                foreach($disId as $dis){
+                  $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
+                     if($total < $sub->ReachGold){
+                         $subTotal += $sub->Discount;
+                         DB::update('update OrderDiscount set Status = ? where id = ?', [1, $dis->id]);
+                     }
+                }
+                 $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+                 $gold->Gold = $gold->Gold - $subTotal;
+                 $date = date("Y-m-d H:i:s");
+                 DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+                 DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+               
+
                 return redirect('/orderView/'.$_POST['orderId']);
             }else{
                 return redirect('/backView/'.$_POST['id'])->with('mes', '2');
             }
 
 
-            // //扣掉優惠
-            // $notBack = DB::table('CartBuy')->where('OrderId', $_POST['orderId'])->where('Progress', '!=', '5')->get();
-            // $total = 0;
-            // foreach($notBack as $nb){
-            //     $total += $nb->Price ;
-            // }
-            // foreach($disId as $dis){
-            //     $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
-            //     if($total < $sub->ReachGold){
-            //         $subTotal += $sub->Discount;
-            //     }
-            // }
-            // $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
-            // $gold->Gold = $gold->Gold - $subTotal;
-            // $date = date("Y-m-d H:i:s");
-            // DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
-            // DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
            
-            //DB::insert('insert into Plate (UserId, ChangeGold) values (?, ?)', [$request->session()->get('userId'), 0-$subTotal]);
            
         }else{
             return redirect('/backView/'.$_POST['id'])->with('mes', '1');
