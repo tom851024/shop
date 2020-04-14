@@ -149,7 +149,10 @@ class UserController extends Controller
 
     public function Report(Request $request)
     {
-        DB::insert('insert into Report (UserId, Report) values (?, ?)', [$request->session()->get('userId'), $_POST['report']]);
+        date_default_timezone_set('Asia/Taipei');
+        $date = date("Y-m-d H:i:s");
+        $roomId = date("YmdHis");
+        DB::insert('insert into Report (UserId, Report, RoomId, Date) values (?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['report'], $roomId, $date]);
         return view('reportOk');
     }
 
@@ -193,6 +196,32 @@ class UserController extends Controller
         $plate = DB::table('Plate')->where('UserId', $request->session()->get('userId'))->where('ChangeGold', '!=', '0')->orderby('Date', 'desc')->get();
         $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
         return view('platePage')->with('plate', $plate)->with('user', $user);
+    }
+
+
+
+    public function reportView(Request $request)
+    {
+        $report = DB::table('Report')->where('UserId', $request->session()->get('userId'))->get();
+        return view('reportView')->with('report', $report);
+    }
+
+
+
+    public function reportChat(Request $request, $roomId){
+       $report = DB::table('Report')
+                ->where('RoomId', $roomId)
+                ->get();
+        return view('reportChat')->with('report', $report);
+    }
+
+
+
+    public function reportReply(Request $request){
+        date_default_timezone_set('Asia/Taipei');
+        $date = date("Y-m-d H:i:s");
+        DB::insert('insert into Report (UserId, Report, RoomId, Date) values (?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['report'], $_POST['roomId'], $date]);
+        return redirect('/reportChat/'.$_POST['roomId']);
     }
 
 

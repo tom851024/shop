@@ -14,7 +14,8 @@
 			<input type="submit" value="{{ trans('messages.reporting') }}">
 		</form>
 
-		<a href="/">{{ trans('messages.lastPage') }}</a>
+		
+		<a href="/reportView">{{ trans('messages.lastPage') }}</a>
 	</body>
 
 </html>

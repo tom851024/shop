@@ -13,7 +13,7 @@
 			<a href="/editPage">{{ trans('messages.memberData') }}</a>
 			<a href="/cart">{{ trans('messages.cart') }}</a>
 			<a href="/order">{{ trans('messages.orderview') }}</a>
-			<a href="/report">{{ trans('messages.report') }}</a>
+			<a href="/reportView">{{ trans('messages.report') }}</a>
 			<a href="/reply">{{ trans('messages.reply') }}</a>
 			<a href="/plate">{{ trans('messages.plateLook') }}</a>
 		@else

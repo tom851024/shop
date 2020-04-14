@@ -98,5 +98,9 @@
 		'reply' => 'Reply',
 		'replyOk' => 'Reply Complete',
 		'plateBuy' => 'Pay with Plate',
+		'date' => 'Date',
+		'reportMan' => 'Report man',
+		'user' => 'User',
+		'admin' => 'Admin',
 	];
 ?>

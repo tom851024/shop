@@ -96,9 +96,7 @@ Route::prefix('admin') -> group(function(){
 	});
 
 
-	Route::get('reply/{userId}', function($userId){
-		return view('cusReply')->with('userId', $userId);
-	});
+	Route::get('reply/{roomId}', 'OwnerUserController@reply');
 
 
 	//--------post

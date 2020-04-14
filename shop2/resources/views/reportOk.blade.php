@@ -6,6 +6,6 @@
 
 	<body>
 		{{ trans('messages.reportOk') }}
-		<a href="/">{{ trans('messages.home') }}</a>
+		<a href="/reportView">{{ trans('messages.lastPage') }}</a>
 	</body>
 </html>

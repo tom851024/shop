@@ -96,8 +96,10 @@
 		'plateChange' => '盤子幣紀錄',
 		'date' => '日期',
 		'plateBuy' => '付出盤子幣',
-
-		
+		'reportCreate' => '創新回報',
+		'reportMan' => '回報人',
+		'admin' => '管理人',
+		'user' => '使用者',
 
 	];
 ?>

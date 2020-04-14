@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Report Page</title>
+		<meta charset="utf-8">
+		<title>Report</title>
 	</head>
 
-	<body>
 
+	<body>
 		<table width="80%" border="1">
 			<tr>
 				<th>{{ trans('messages.reportMan') }}</th>
@@ -27,22 +28,18 @@
 				</tr>
 			@endforeach
 		</table>
+		<br />
+			<form action="/reportReply" method="POST">
+			{{ csrf_field() }}
+			<text>{{ trans('messages.report') }}：</text>
+			<textarea cols="50" rows="5" name="report" id="report" required="required"></textarea>
+			<input type="hidden" name="roomId" value="{{ $r->RoomId }}">
+			<input type="submit" value="{{ trans('messages.reporting') }}">
+			</form>
 
 		<br />
-
-
-
-		<form action="/admin/replyPost" method="POST">
-			{{ csrf_field() }}
-			<text>{{ trans('messages.reply') }}: </text>
-			<textarea cols="50" rows="5" name="reply" id="reply" required="required"></textarea>
-			<input type="hidden" name="roomId" value="{{ $r->RoomId }}" />
-			<input type="submit" value="{{ trans('messages.confirm') }}">
-		</form>
-
-
-
-		<a href="/admin/viewReport">{{ trans('messages.lastPage') }}</a>
+		<a href="/reportView">{{ trans('messages.lastPage') }}</a>
 	</body>
+
 
 </html>

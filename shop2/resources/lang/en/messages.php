@@ -97,6 +97,10 @@
 		'plateChange' => 'Plate Record',
 		'date' => 'Date',
 		'plateBuy' => 'Pay with Plate',
+		'reportCreate' => 'Create Report',
+		'reportMan' => 'Report man',
+		'admin' => 'Admin',
+		'user' => 'User',
 		
 	];
 ?>

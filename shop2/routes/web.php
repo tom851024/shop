@@ -92,6 +92,10 @@ Route::get('/userView/{orderId}/{userId}', 'UserController@userView');
 
 Route::get('/plate', 'UserController@plateLook');
 
+Route::get('/reportView', 'UserController@reportView');
+
+Route::get('/reportChat/{roomId}', 'UserController@reportChat');
+
 
 //--------post
 
@@ -124,6 +128,8 @@ Route::post('/delTmp', 'MerchandiseController@DelTmp');
 Route::post('/buyWithPlate', 'MerchandiseController@commitToBuyWithPlate');
 
 Route::post('/orderCheck', 'MerchandiseController@orderCheck');
+
+Route::post('/reportReply', 'UserController@reportReply');
 
 
 

@@ -97,8 +97,10 @@
 		'reply' => '回覆',
 		'replyOk' => '回覆完成',
 		'plateBuy' => '付出盤子幣',
-
-		
+		'date' => '日期',
+		'reportMan' => '回報人',
+		'user' => '使用者',
+		'admin' => '管理人',
 
 	];
 ?>
