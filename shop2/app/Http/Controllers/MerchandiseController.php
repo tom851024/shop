@@ -117,7 +117,8 @@ class MerchandiseController extends Controller
 
         foreach($discount as $dis){
             if($total >= $dis->ReachGold){
-                $plate += $dis->Discount;     
+                $plate += $dis->Discount;
+                DB::insert('insert into OrderDiscount (OrderId, DiscountId, UserId) values (?, ?, ?)', [$orderId, $dis->id, $request->session()->get('userId')]);     
             }  
                     
         }
@@ -294,6 +295,11 @@ class MerchandiseController extends Controller
         //$cart = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->get();
         //$cartCou = DB::table('CartBuy')->where('UserId', $request->session()->get('userId'))->count();
         //return view('orderView')->with('cart', $cart)-> with('cartCou', $cartCou);
+
+        
+
+
+
         return redirect('/orderView/'.$_POST['orderId']);
     }
 
@@ -325,6 +331,11 @@ class MerchandiseController extends Controller
             }else{
                 return redirect('/backView/'.$_POST['id'])->with('mes', '2');
             }
+
+
+            //扣掉優惠
+           
+            //DB::insert('insert into Plate (UserId, ChangeGold) values (?, ?)', [$request->session()->get('userId'), 0-$subTotal]);
            
         }else{
             return redirect('/backView/'.$_POST['id'])->with('mes', '1');
@@ -363,19 +374,70 @@ class MerchandiseController extends Controller
         //領貨前退貨
         if(isset($_POST['cancel'])){
             $chk = $_POST['cancel'];
+            $backTotal = 0;
             for($i = 0; $i < count($chk); $i++){
                 DB::update('update CartBuy set Progress = ? where id = ?', [4, $chk[$i]]);
+                $bk = DB::table('CartBuy')->where('id', $chk[$i])->first();
+                $backTotal += $bk->Price;
             }
+
+            //扣掉優惠
+            $subTotal = 0;
+            $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('UserId', $request->session()->get('userId'))->get();
+            $total = DB::table('OrderTable')->where('orderId', $_POST['orderId'])->first();
+            $total->Total -=  $backTotal;
+            foreach($disId as $dis){
+                $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
+                if($total->Total > $sub->ReachGold){
+                    $subTotal += $sub->Discount;
+                }
+            }
+            $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+            $gold->Gold = $gold->Gold - $subTotal;
+            $date = date("Y-m-d H:i:s");
+            DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+
+
+
         }
+
         //領貨後退貨
         if(isset($_POST['back'])){
             $chk = $_POST['back'];
             $qty = $_POST['qty'];
             $mer = $_POST['mer'];
+            $backTotal = 0;
             for($i = 0; $i < count($chk); $i++){
                 DB::update('update CartBuy set Progress = ? where id = ?', [5, $chk[$i]]);
                 DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $chk[$i], $mer[$i], $request->session()->get('userId'), $qty[$i]]);
+                $bk = DB::table('CartBuy')->where('id', $chk[$i])->first();
+                $backTotal += $bk->Price;
             }
+
+
+
+             //扣掉優惠
+            $subTotal = 0;
+            $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('UserId', $request->session()->get('userId'))->get();
+            $total = DB::table('OrderTable')->where('orderId', $_POST['orderId'])->first();
+            $total->Total -=  $backTotal;
+            foreach($disId as $dis){
+                $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
+                if($total->Total > $sub->ReachGold){
+                    $subTotal += $sub->Discount;
+                }
+            }
+            $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+            $gold->Gold = $gold->Gold - $subTotal;
+            $date = date("Y-m-d H:i:s");
+            DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
+
+
+
+
+
         }
 
         return redirect('/orderView/'.$_POST['orderId']);
