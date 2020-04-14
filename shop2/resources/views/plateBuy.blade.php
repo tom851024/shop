@@ -36,7 +36,7 @@
 
 			</table>
 		@if($count > 0)
-			<form action="buyWithPlate" method="POST">
+			<form action="/buyWithPlate" method="POST">
 				{{ csrf_field() }}
 				<text>{{ trans('messages.insertPlate') }}:</text>
 				<input type="text" name="plate" required="required" />

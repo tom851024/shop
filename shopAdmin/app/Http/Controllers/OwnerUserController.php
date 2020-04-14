@@ -361,8 +361,13 @@ class OwnerUserController extends Controller
                 $mer = DB::table('Merchandise') -> where('id', $back->MerId)->first();
                 $account = DB::table('User') -> where('id', $back->UserId)->first();
                 $gold = $mer->Price * $back->Qty;
+                //插入虛擬幣紀錄
+                $date = date("Y-m-d H:i:s");
+                DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$back->UserId, $gold, $date]);
+                
                 $gold += $account->Gold;
                 DB::update('update User set Gold = ? where id = ?', [$gold, $back->UserId]);
+
                 DB::update('update CartBuy set Progress = ? where id = ?', ['4', $back->CartId]);
                 DB::table('BackItem')->where('id', $agree[$i]) -> delete();
             }

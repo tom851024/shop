@@ -92,6 +92,9 @@
 		'replyDate' => '回覆日期',
 		'qtyNotEnough' => '庫存不足',
 		'hasPlate' => '擁有盤子幣',
+		'plateLook' => '查詢盤子幣',
+		'plateChange' => '盤子幣紀錄',
+		'date' => '日期',
 
 		
 

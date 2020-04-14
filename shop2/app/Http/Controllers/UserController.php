@@ -187,6 +187,15 @@ class UserController extends Controller
     }
 
 
+
+    public function plateLook(Request $request)
+    {
+        $plate = DB::table('Plate')->where('UserId', $request->session()->get('userId'))->where('ChangeGold', '!=', '0')->orderby('Date', 'desc')->get();
+        $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+        return view('platePage')->with('plate', $plate)->with('user', $user);
+    }
+
+
     
 }
 

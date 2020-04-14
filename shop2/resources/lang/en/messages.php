@@ -93,6 +93,9 @@
 		'replyDate' => 'Reply Date',
 		'qtyNotEnough' => 'Quantity not Enough',
 		'hasPlate' => 'Plate Coin',
+		'plateLook' => 'Look Plate Coin',
+		'plateChange' => 'Plate Record',
+		'date' => 'Date',
 		
 	];
 ?>

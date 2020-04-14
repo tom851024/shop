@@ -15,6 +15,7 @@
 			<a href="/order">{{ trans('messages.orderview') }}</a>
 			<a href="/report">{{ trans('messages.report') }}</a>
 			<a href="/reply">{{ trans('messages.reply') }}</a>
+			<a href="/plate">{{ trans('messages.plateLook') }}</a>
 		@else
 			<a href="/login">{{ trans('messages.login') }}</a>
 			<a href="/register">{{ trans('messages.register') }}</a>

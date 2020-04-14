@@ -107,7 +107,7 @@ class MerchandiseController extends Controller
         }
 
         //插入訂單資料表
-        DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $total, $request->session()->get('userId'), $account->Address, $account->Phone]);
+        DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $total, '0', $request->session()->get('userId'), $account->Address, $account->Phone]);
 
         //加入優惠
 
@@ -124,6 +124,9 @@ class MerchandiseController extends Controller
         }
         $plateUpdate = $plate + $account->Gold;
         DB::update('update User set Gold = ? where id = ?', [$plateUpdate, $request->session()->get('userId')]);
+
+        $date = date("Y-m-d H:i:s");
+        DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), $plate, $date]);
 
 
         //等級提升
@@ -168,11 +171,17 @@ class MerchandiseController extends Controller
                     $total += $tmp->Price * $tmp->Qty;
                 }
 
+                 //紀錄虛擬幣
+                $date = date("Y-m-d H:i:s");
+                DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0 - $_POST['plate'], $date]);
+
                 $realPay = $total - $_POST['plate'];
                 $gold = $account->Gold - $_POST['plate'];
 
                 //插入訂單資料表
-                DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $realPay, $request->session()->get('userId'), $account->Address, $account->Phone]);
+                DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $realPay, $_POST['plate'], $request->session()->get('userId'), $account->Address, $account->Phone]);
+
+
 
                 //更新使用者虛擬幣
                 DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
@@ -217,15 +226,23 @@ class MerchandiseController extends Controller
         }
 
         if($account->Gold >= $total){
+            //紀錄虛擬幣
+            $date = date("Y-m-d H:i:s");
+            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0 - $total, $date]);
+
             $gold = $account->Gold - $total;
             //插入訂單資料表
-            DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, '0', $request->session()->get('userId'), $account->Address, $account->Phone]);
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, '0', $total, $request->session()->get('userId'), $account->Address, $account->Phone]);
              //更新使用者虛擬幣
             DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
         }else{
+            //紀錄虛擬幣
+            $date = date("Y-m-d H:i:s");
+            DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0 - $account->Gold, $date]);
+
             $realpay = $total - $account->Gold;
             //插入訂單資料表
-            DB::insert('insert into OrderTable (OrderId, Total, RealPay, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $realpay, $request->session()->get('userId'), $account->Address, $account->Phone]);
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $realpay, $account->Gold, $request->session()->get('userId'), $account->Address, $account->Phone]);
              //更新使用者虛擬幣
             DB::update('update User set Gold = ? where id = ?', ['0', $request->session()->get('userId')]);
         }
@@ -338,7 +355,13 @@ class MerchandiseController extends Controller
                  $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
                  $gold->Gold = $gold->Gold - $subTotal;
                  $date = date("Y-m-d H:i:s");
-                 DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+
+                 if($gold->Gold >= 0){
+                    DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+                 }else{
+                    DB::update('update User set Gold = ? where id = ?', [0, $request->session()->get('userId')]);
+                 }
+
                  DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
                
              
@@ -373,7 +396,13 @@ class MerchandiseController extends Controller
                  $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
                  $gold->Gold = $gold->Gold - $subTotal;
                  $date = date("Y-m-d H:i:s");
-                 DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+
+                 if($gold->Gold >= 0){
+                     DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+                }else{
+                    DB::update('update User set Gold = ? where id = ?', [0, $request->session()->get('userId')]);
+                }
+
                  DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), 0-$subTotal, $date]);
                
 
@@ -447,8 +476,11 @@ class MerchandiseController extends Controller
             $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             $gold->Gold = $gold->Gold - $subTotal;
            
-            DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
-            
+           if($gold->Gold >= 0){
+                DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+            }else{
+                DB::update('update User set Gold = ? where id = ?', [0, $request->session()->get('userId')]);
+            }
 
 
 
@@ -486,8 +518,11 @@ class MerchandiseController extends Controller
             $gold = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             $gold->Gold = $gold->Gold - $subTotal;
             
-            DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
-            
+            if($gold->Gold >= 0){
+                DB::update('update User set Gold = ? where id = ?', [$gold->Gold, $request->session()->get('userId')]);
+            }else{
+                DB::update('update User set Gold = ? where id = ?', [0, $request->session()->get('userId')]);
+            }
 
 
 

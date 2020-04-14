@@ -90,6 +90,8 @@ Route::get('/reply', 'UserController@Reply');
 
 Route::get('/userView/{orderId}/{userId}', 'UserController@userView');
 
+Route::get('/plate', 'UserController@plateLook');
+
 
 //--------post
 

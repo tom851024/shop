@@ -18,7 +18,7 @@
 			<text>{{ trans('messages.address') }}: </text>
 			<input type="text" name="address" id="address" value="{{ $account->Address }}" required="required" /><br />
 
-			<text>{{ trans('messages.plate') }}: {{ $account->Gold }}</text><br />
+			
 			
 
 			<input type="submit" value="{{ trans('messages.edit') }}" />
