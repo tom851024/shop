@@ -343,7 +343,7 @@ class MerchandiseController extends Controller
                 DB::insert('insert into BackItem (OrderId, CartId, MerId, UserId, Qty) values(?, ?, ?, ?, ?)', [$_POST['orderId'], $_POST['id'], $_POST['merId'], $request->session()->get('userId'), $_POST['qty']]);
 
                  // //扣掉優惠
-                 $notBack = DB::table('CartBuy')->where('OrderId', $_POST['orderId'])->where('Progress', '!=', '5')->get();
+                 $notBack = DB::table('CartBuy')->where('OrderId', $_POST['orderId'])->where('Progress', '!=', '5')->where('Progress', '!=', '4')->get();
                  $total = 0;
                  $subTotal = 0;
                  foreach($notBack as $nb){
