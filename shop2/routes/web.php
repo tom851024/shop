@@ -88,6 +88,8 @@ Route::get('/buyWithPlateFirst', 'MerchandiseController@buyWithPlateFirst');
 
 Route::get('/reply', 'UserController@Reply');
 
+Route::get('/userView/{orderId}/{userId}', 'UserController@userView');
+
 
 //--------post
 

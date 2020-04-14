@@ -179,6 +179,14 @@ class UserController extends Controller
     }
 
 
+    public function userView(Request $request, $orderId, $userId)
+    {
+        $user = DB::table('OrderTable')->where('UserId', $userId)->where('OrderId', $orderId)->first();
+        $name = DB::table('User')->where('id', $userId)->first();
+        return view('userView')->with('user', $user)->with('name', $name);
+    }
+
+
     
 }
 

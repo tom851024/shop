@@ -246,7 +246,8 @@ class MerchandiseController extends Controller
     {
         $order = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->get();
         $count = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->count();
-        return view('orderList')->with('order', $order)->with('count', $count);
+        $User = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+        return view('orderList')->with('order', $order)->with('count', $count)->with('user', $User);
     }
 
 
