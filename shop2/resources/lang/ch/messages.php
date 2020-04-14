@@ -91,7 +91,7 @@
 		'reply' => '瀏覽回覆',
 		'replyDate' => '回覆日期',
 		'qtyNotEnough' => '庫存不足',
-		
+		'hasPlate' => '擁有盤子幣',
 
 		
 

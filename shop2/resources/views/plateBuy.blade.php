@@ -50,7 +50,9 @@
 				@endif
 			@endif
 		@endif
-		
+		<br />
+			<text>{{ trans('messages.hasPlate') }}: {{ $user->Gold }}</text>
+		<br />
 		@if($count > 0)
 			<p>
 				{{ trans('messages.totalprice') }}: {{ $priceSum }}

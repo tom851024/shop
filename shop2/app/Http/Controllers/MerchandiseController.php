@@ -355,8 +355,9 @@ class MerchandiseController extends Controller
     public function plateView(Request $request)
     {
         $cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+        $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
         $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
-        return view('plateBuy')->with('cartTmp', $cartTmp)->with('count', $cartTmpCou);
+        return view('plateBuy')->with('cartTmp', $cartTmp)->with('count', $cartTmpCou)->with('user', $user);
     }
 
 
