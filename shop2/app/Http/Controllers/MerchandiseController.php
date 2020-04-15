@@ -12,8 +12,10 @@ class MerchandiseController extends Controller
     public function ListMerchandise(Request $request)
     {
     	$merchandise = DB::table('Merchandise')->where('status', '0') -> get();
-        $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
-        $request->session()->put('level', $user->Level);
+        if(null !== $request->session()->get('userId')){
+            $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+            $request->session()->put('level', $user->Level);
+        }
     	return view('mainPage')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'))->with('level', $request->session()->get('level'));
     }
 
