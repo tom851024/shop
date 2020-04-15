@@ -106,5 +106,6 @@
 		'levelEx' => 'This level has been set up',
 		'levelMan' => 'Level Management',
 		'levelCreate' => 'Create Level',
+		'searchFromMer' => 'Search from Merchandise',
 	];
 ?>

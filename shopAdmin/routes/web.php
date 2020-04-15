@@ -151,4 +151,6 @@ Route::prefix('admin') -> group(function(){
 
 	Route::post('/levelDel', 'OwnerUserController@levelDel');
 
+	Route::post('/orderSearchMer', 'OwnerUserController@orderViewSearchMer');
+
 });

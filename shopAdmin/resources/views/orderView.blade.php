@@ -29,6 +29,14 @@
 				@endif
 			</form>
 
+
+			<form action="/admin/orderSearchMer" method="POST">
+				{{ csrf_field() }}
+				<text>{{ trans('messages.searchFromMer') }}</text>
+				<input type="text" name="search" id="search" required="required" />
+				<input type="submit" value="{{ trans('messages.search') }}" />
+			</form>
+
 		</p>
 
 

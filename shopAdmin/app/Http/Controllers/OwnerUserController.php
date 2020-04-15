@@ -123,7 +123,7 @@ class OwnerUserController extends Controller
     public function orderViewSearch()
     {
         $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where Name like ? ";
-        $param = '%'.$_POST['search'].'%';
+        $param = '%' . $_POST['search'] . '%';
         $order = DB::select($query, array($param, $param));
         return view('orderView')->with('order', $order)->with('search', '1');
     }
@@ -142,6 +142,16 @@ class OwnerUserController extends Controller
         }
 
     }
+
+
+    public function orderViewSearchMer()
+    {
+        $query = "select CartBuy.*, User.Name from CartBuy Inner join User on User.id = CartBuy.UserId where MerName like ?";
+        $param = '%' . $_POST['search'] . '%';
+        $order = DB::select($query, array($param));
+        return view('orderViewMer')->with('order', $order);
+    }
+
 
 
 

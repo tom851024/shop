@@ -105,7 +105,7 @@
 		'levelEx' => '此等級已經設定過',
 		'levelMan' => '等級管理',
 		'levelCreate' => '創新等級',
-		
+		'searchFromMer' => '商品搜尋',
 
 	];
 ?>
