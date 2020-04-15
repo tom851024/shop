@@ -11,7 +11,9 @@ class MerchandiseController extends Controller
 
     public function ListMerchandise(Request $request)
     {
-    	$merchandise = DB::table('Merchandise') -> where('status', '0') -> get();
+    	$merchandise = DB::table('Merchandise')->where('status', '0') -> get();
+        $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+        $request->session()->put('level', $user->Level);
     	return view('mainPage')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'))->with('level', $request->session()->get('level'));
     }
 
@@ -111,7 +113,8 @@ class MerchandiseController extends Controller
 
         //加入優惠
 
-        $discount = DB::table('Discount')->where('Level', $request->session()->get('level'))->get();
+        //$discount = DB::table('Discount')->where('Level', $request->session()->get('level'))->get();
+        $discount = DB::table('Discount')->where('Level', $account->Level)->get();
             
         $plate = 0;
 
@@ -134,8 +137,10 @@ class MerchandiseController extends Controller
 
              
 
-        if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
-            $lv = $request->session()->get('level') + 1;
+        //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
+        if($total > $account->Level*10000 && $account->Level < 5){
+            //$lv = $request->session()->get('level') + 1;
+            $lv = $account->Level + 1;
             DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
             $request->session()->put('level', $lv);
         }
@@ -192,8 +197,10 @@ class MerchandiseController extends Controller
 
                  
 
-                if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
-                    $lv = $request->session()->get('level') + 1;
+                //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
+                if($total > $account->Level * 10000 && $account->Level < 5){
+                    //$lv = $request->session()->get('level') + 1;
+                    $lv = $account->Level + 1;
                     DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
                     $request->session()->put('level', $lv);
                 }
@@ -246,14 +253,16 @@ class MerchandiseController extends Controller
 
             $realpay = $total - $account->Gold;
             //插入訂單資料表
-            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?)', [$orderId, $total, $realpay, $account->Gold, $request->session()->get('userId'), $account->Address, $account->Phone]);
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $realpay, $account->Gold, $request->session()->get('userId'), $account->Address, $account->Phone]);
              //更新使用者虛擬幣
             DB::update('update User set Gold = ? where id = ?', ['0', $request->session()->get('userId')]);
         }
 
 
-        if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
-            $lv = $request->session()->get('level') + 1;
+        //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
+        if($total > $account->Level * 10000 && $account->Level < 5){
+            //$lv = $request->session()->get('level') + 1;
+            $lv = $account->Level + 1;
             DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
             $request->session()->put('level', $lv);
         }
