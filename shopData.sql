@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 15, 2020 at 10:17 AM
+-- Generation Time: Apr 15, 2020 at 01:54 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -77,7 +77,14 @@ INSERT INTO `CartBuy` (`id`, `OrderId`, `UserId`, `MerId`, `MerName`, `Price`, `
 (250, '1320200415014805', 13, 2, 'Laptop', 40000, 2, 0),
 (251, '1320200415014917', 13, 3, 'XBOX1080', 9000, 2, 0),
 (252, '1320200415014927', 13, 2, 'Laptop', 40000, 2, 0),
-(253, '1320200415015032', 13, 2, 'Laptop', 40000, 2, 0);
+(253, '1320200415015032', 13, 2, 'Laptop', 40000, 2, 0),
+(254, '1120200415023925', 11, 2, 'Laptop', 40000, 5, 0),
+(255, '1120200415024318', 11, 2, 'Laptop', 40000, 2, 0),
+(256, '1120200415034142', 11, 1, 'computer 1', 30000, 2, 0),
+(257, '1120200415034208', 11, 1, 'computer 1', 30000, 2, 0),
+(258, '1120200415054206', 11, 4, '電腦螢幕', 5000, 2, 0),
+(259, '1120200415054543', 11, 4, '電腦螢幕', 5000, 4, 0),
+(260, '1120200415054639', 11, 1, 'computer 1', 30000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -100,6 +107,27 @@ INSERT INTO `Discount` (`id`, `Level`, `ReachGold`, `Discount`) VALUES
 (4, 2, 10000, 5000),
 (5, 1, 5000, 1000),
 (6, 5, 10000, 5000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Level`
+--
+
+CREATE TABLE `Level` (
+  `id` int(11) NOT NULL,
+  `ReachGold` int(20) NOT NULL,
+  `Level` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Level`
+--
+
+INSERT INTO `Level` (`id`, `ReachGold`, `Level`) VALUES
+(1, 10000, 1),
+(3, 20000, 2),
+(4, 30000, 3);
 
 -- --------------------------------------------------------
 
@@ -161,7 +189,10 @@ INSERT INTO `OrderDiscount` (`id`, `OrderId`, `DiscountId`, `UserId`, `Status`) 
 (58, '1220200414091226', 4, 12, 0),
 (59, '1220200414092537', 4, 12, 1),
 (60, '1320200415014744', 4, 13, 0),
-(61, '1320200415014805', 6, 13, 0);
+(61, '1320200415014805', 6, 13, 0),
+(62, '1120200415034142', 6, 11, 0),
+(63, '1120200415034208', 6, 11, 0),
+(64, '1120200415054206', 5, 11, 0);
 
 -- --------------------------------------------------------
 
@@ -191,7 +222,14 @@ INSERT INTO `OrderTable` (`id`, `OrderId`, `Total`, `RealPay`, `Plate`, `UserId`
 (90, '1320200415014758', 60000, 60000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
 (91, '1320200415014805', 80000, 80000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
 (92, '1320200415014917', 18000, 17000, 1000, 13, 'Taichung EFR Road 514', '09456713654'),
-(93, '1320200415015032', 80000, 71000, 9000, 13, 'Taichung EFR Road 514', '09456713654');
+(93, '1320200415015032', 80000, 71000, 9000, 13, 'Taichung EFR Road 514', '09456713654'),
+(94, '1120200415023925', 200000, 200000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
+(95, '1120200415024318', 80000, 80000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
+(96, '1120200415034142', 60000, 60000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
+(97, '1120200415034208', 60000, 60000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
+(98, '1120200415054206', 10000, 10000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
+(99, '1120200415054543', 20000, 10000, 10000, 11, 'Taichung DFG Road 123', '09456789123'),
+(100, '1120200415054639', 30000, 0, 30000, 11, 'Taichung DFG Road 123', '09456789123');
 
 -- --------------------------------------------------------
 
@@ -213,7 +251,8 @@ CREATE TABLE `O_User` (
 INSERT INTO `O_User` (`id`, `UserName`, `Passwd`, `Auth`) VALUES
 (1, 'boss', '123456', 1),
 (2, 'hello', '654321', 2),
-(3, 'god', 'e10adc3949ba59abbe56e057f20f883e', 1);
+(3, 'god', 'e10adc3949ba59abbe56e057f20f883e', 1),
+(4, 'emp', 'c33367701511b4f6020ec61ded352059', 2);
 
 -- --------------------------------------------------------
 
@@ -263,7 +302,14 @@ INSERT INTO `Plate` (`id`, `UserId`, `ChangeGold`, `Date`) VALUES
 (90, 13, 5000, '2020-04-15 09:48:05'),
 (91, 13, -1000, '2020-04-15 09:49:17'),
 (92, 13, -9000, '2020-04-15 09:49:27'),
-(93, 13, -9000, '2020-04-15 09:50:32');
+(93, 13, -9000, '2020-04-15 09:50:32'),
+(94, 11, 0, '2020-04-15 10:39:25'),
+(95, 11, 0, '2020-04-15 10:43:18'),
+(96, 11, 5000, '2020-04-15 11:41:42'),
+(97, 11, 5000, '2020-04-15 11:42:08'),
+(98, 11, 1000, '2020-04-15 13:42:06'),
+(99, 11, -10000, '2020-04-15 13:45:43'),
+(100, 11, -30000, '2020-04-15 13:46:39');
 
 -- --------------------------------------------------------
 
@@ -354,7 +400,7 @@ CREATE TABLE `User` (
 --
 
 INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`, `Gold`) VALUES
-(11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789123', 'Taichung DFG Road 123', 5, 54000),
+(11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789123', 'Taichung DFG Road 123', 3, 25000),
 (12, 'boss', '698d51a19d8a121ce581499d7b701668', 0, '111', '111', '111', 2, 34000),
 (13, 'md5', '1bc29b36f623ba82aaf6724fd3b16718', 0, 'Md5', '09456713654', 'Taichung EFR Road 514', 3, 0);
 
@@ -378,6 +424,12 @@ ALTER TABLE `CartBuy`
 -- Indexes for table `Discount`
 --
 ALTER TABLE `Discount`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Level`
+--
+ALTER TABLE `Level`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -447,12 +499,17 @@ ALTER TABLE `BackItem`
 -- AUTO_INCREMENT for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=254;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 --
 -- AUTO_INCREMENT for table `Discount`
 --
 ALTER TABLE `Discount`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `Level`
+--
+ALTER TABLE `Level`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `Merchandise`
 --
@@ -462,22 +519,22 @@ ALTER TABLE `Merchandise`
 -- AUTO_INCREMENT for table `OrderDiscount`
 --
 ALTER TABLE `OrderDiscount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `OrderTable`
 --
 ALTER TABLE `OrderTable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `O_User`
 --
 ALTER TABLE `O_User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `Plate`
 --
 ALTER TABLE `Plate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `Reply`
 --
@@ -492,7 +549,7 @@ ALTER TABLE `Report`
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT for table `User`
 --

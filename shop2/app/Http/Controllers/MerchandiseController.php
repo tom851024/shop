@@ -84,9 +84,13 @@ class MerchandiseController extends Controller
 
     public function tmpCartView(Request $request)
     {
-    	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
-        $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
-    	return view('cart')->with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
+        if(null !== $request->session()->get('userId')){
+        	$cartTmp = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->get();
+            $cartTmpCou = DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->count();
+        	return view('cart')->with('cartTmp', $cartTmp) -> with('count', $cartTmpCou);
+        }else{
+            return redirect('/login');
+        }
     }
 
 
@@ -137,15 +141,14 @@ class MerchandiseController extends Controller
 
         //等級提升
 
-             
-
-        //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
-        if($total > $account->Level*10000 && $account->Level < 5){
-            //$lv = $request->session()->get('level') + 1;
+        $uLv = DB::table('Level')->where('Level', $account->Level)->first();
+        if($total >= $uLv->ReachGold){
             $lv = $account->Level + 1;
             DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
             $request->session()->put('level', $lv);
         }
+         
+        
 
             
 
@@ -195,17 +198,14 @@ class MerchandiseController extends Controller
                 //更新使用者虛擬幣
                 DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
 
-                 //等級提升
-
-                 
-
-                //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
-                if($total > $account->Level * 10000 && $account->Level < 5){
-                    //$lv = $request->session()->get('level') + 1;
+                //等級提升                 
+                $uLv = DB::table('Level')->where('Level', $account->Level)->first();
+                if($total >= $uLv->ReachGold){
                     $lv = $account->Level + 1;
                     DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
                     $request->session()->put('level', $lv);
                 }
+
 
                 
 
@@ -262,9 +262,9 @@ class MerchandiseController extends Controller
 
 
         //等級提升
-        //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
-        if($total > $account->Level * 10000 && $account->Level < 5){
-            //$lv = $request->session()->get('level') + 1;
+                
+        $uLv = DB::table('Level')->where('Level', $account->Level)->first();
+        if($total >= $uLv->ReachGold){
             $lv = $account->Level + 1;
             DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
             $request->session()->put('level', $lv);
@@ -278,10 +278,14 @@ class MerchandiseController extends Controller
 
     public function selectOrder(Request $request)
     {
-        $order = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->get();
-        $count = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->count();
-        $User = DB::table('User')->where('id', $request->session()->get('userId'))->first();
-        return view('orderList')->with('order', $order)->with('count', $count)->with('user', $User);
+        if(null !== $request->session()->get('userId')){
+            $order = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->get();
+            $count = DB::table('OrderTable')->where('UserId', $request->session()->get('userId'))->count();
+            $User = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+            return view('orderList')->with('order', $order)->with('count', $count)->with('user', $User);
+        }else{
+            return redirect('/login');
+        }
     }
 
 
@@ -555,6 +559,18 @@ class MerchandiseController extends Controller
     }
 
 
+
+    function levelUp($account, $pay, $maxLevel)
+    {
+        //等級提升
+        //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
+        if($total > $account->Level * $pay && $account->Level < $maxLevel){
+            //$lv = $request->session()->get('level') + 1;
+            $lv = $account->Level + 1;
+            DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+            $request->session()->put('level', $lv);
+        }
+    }
 
 
 }

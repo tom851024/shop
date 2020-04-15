@@ -96,7 +96,14 @@ Route::prefix('admin') -> group(function(){
 	});
 
 
-	Route::get('reply/{roomId}', 'OwnerUserController@reply');
+	Route::get('/reply/{roomId}', 'OwnerUserController@reply');
+
+
+	Route::get('/level', 'OwnerUserController@levelManagement');
+
+	Route::get('/levelCre', function(){
+		return view('levelCre');
+	});
 
 
 	//--------post
@@ -139,5 +146,9 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/editPasswdPost', 'OwnerUserController@memberEditPasswd');
 
 	Route::post('/replyPost', 'OwnerUserController@replyPost');
+
+	Route::post('/levelPost', 'OwnerUserController@levelPost');
+
+	Route::post('/levelDel', 'OwnerUserController@levelDel');
 
 });

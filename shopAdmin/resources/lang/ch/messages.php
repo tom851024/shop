@@ -101,6 +101,11 @@
 		'reportMan' => '回報人',
 		'user' => '使用者',
 		'admin' => '管理人',
+		'levelNow' => '使用者目前等級',
+		'levelEx' => '此等級已經設定過',
+		'levelMan' => '等級管理',
+		'levelCreate' => '創新等級',
+		
 
 	];
 ?>

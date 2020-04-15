@@ -102,5 +102,9 @@
 		'reportMan' => 'Report man',
 		'user' => 'User',
 		'admin' => 'Admin',
+		'levelNow' => 'User Current Level',
+		'levelEx' => 'This level has been set up',
+		'levelMan' => 'Level Management',
+		'levelCreate' => 'Create Level',
 	];
 ?>

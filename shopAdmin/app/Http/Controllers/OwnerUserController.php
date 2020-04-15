@@ -70,7 +70,7 @@ class OwnerUserController extends Controller
 
     public function memberEdit()
     {
-        if(preg_match("/^[0-9]*$/", $_POST['phone']) && preg_match("/^[0-9]*$/", $_POST['level']) && preg_match("/^[0-9]*$/", $_POST['gold']) && $_POST['level'] < 6 && preg_match("/^\w+$/", $_POST['name'])){
+        if(preg_match("/^[0-9]*$/", $_POST['phone']) && preg_match("/^[0-9]*$/", $_POST['level']) && preg_match("/^[0-9]*$/", $_POST['gold'])  && preg_match("/^\w+$/", $_POST['name'])){
              DB::update('update User set Name = ?, Phone = ?, Address = ?, Level = ?, Gold = ? where id = ?', [$_POST['name'], $_POST['phone'], $_POST['address'], $_POST['level'], $_POST['gold'], $_POST['id']]);
 
              return view('OEditOk');
@@ -434,6 +434,47 @@ class OwnerUserController extends Controller
                 ->get();
 
         return view('cusReply')->with('report', $report);
+    }
+
+
+
+    public function levelManagement()
+    {
+        $level = DB::table('Level')->get();
+        return view('levelView')->with('level', $level);
+    }
+
+
+    public function levelPost()
+    {
+        if(preg_match("/^[0-9]*$/", $_POST['reachMoney']) && preg_match("/^[0-9]*$/", $_POST['levelNow'])){
+            $lv = DB::table('Level')->where('Level', $_POST['levelNow'])->count();
+            if($lv == 0){
+                DB::insert('insert into Level (ReachGold, Level) values (?, ?)', [$_POST['reachMoney'], $_POST['levelNow']]);
+                return redirect('/admin/level');
+            }else{
+                return redirect('/admin/levelCre')->with('mes', '2');
+            }
+
+        }else{
+            return redirect('/admin/levelCre')->with('mes', '1');
+        }
+
+    }
+
+
+
+
+    public function levelDel()
+    {
+        if(isset($_POST['del'])){
+            $del = $_POST['del'];
+            for($i = 0; $i < count($del); $i++){
+                DB::table('Level')->where('id', $del[$i])->delete();
+            }
+        }
+
+        return redirect('/admin/level');
     }
 
 }

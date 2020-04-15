@@ -17,6 +17,7 @@
 				<a href="/admin/memberEdit">{{ trans('messages.memberOEdit') }}</a>
 				<a href="/admin/discountMan">{{ trans('messages.discount') }}</a>
 				<a href="/admin/oRegister">{{ trans('messages.oregister') }}</a>
+				<a href="/admin/level">{{ trans('messages.levelMan') }}</a>
 			@endif
 			<text>{{ trans('messages.welcome') }} {{ $oUName }}</text>
 			<a href="/admin/ochinese">中文</a>&nbsp;

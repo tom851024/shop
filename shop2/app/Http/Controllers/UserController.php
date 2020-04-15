@@ -94,10 +94,15 @@ class UserController extends Controller
 
     public function EditSelect(Request $request)
     {
-        $account = DB::table('User')
-                        ->where('id', $request->session()->get('userId'))
-                        ->first();
-        return view('edit')->with('account', $account);
+        if(null !== $request->session()->get('userId')){
+            $account = DB::table('User')
+                            ->where('id', $request->session()->get('userId'))
+                            ->first();
+            return view('edit')->with('account', $account);
+        }else{
+            return redirect('/login');
+        }
+        
     }
 
 
@@ -193,17 +198,25 @@ class UserController extends Controller
 
     public function plateLook(Request $request)
     {
-        $plate = DB::table('Plate')->where('UserId', $request->session()->get('userId'))->where('ChangeGold', '!=', '0')->orderby('Date', 'desc')->get();
-        $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
-        return view('platePage')->with('plate', $plate)->with('user', $user);
+        if(null !== $request->session()->get('userId')){
+            $plate = DB::table('Plate')->where('UserId', $request->session()->get('userId'))->where('ChangeGold', '!=', '0')->orderby('Date', 'desc')->take(20)->get();
+            $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+            return view('platePage')->with('plate', $plate)->with('user', $user);
+        }else{
+            return redirect('/login');
+        }
     }
 
 
 
     public function reportView(Request $request)
     {
-        $report = DB::table('Report')->where('UserId', $request->session()->get('userId'))->get();
-        return view('reportView')->with('report', $report);
+        if(null !== $request->session()->get('userId')){
+            $report = DB::table('Report')->where('UserId', $request->session()->get('userId'))->get();
+            return view('reportView')->with('report', $report);
+        }else{
+            return redirect('/login');
+        }
     }
 
 
