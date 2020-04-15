@@ -109,5 +109,9 @@
 		'searchFromMer' => 'Search from Merchandise',
 		'previous' => 'Last Page',
 		'next' => 'Next Page',
+		'status' => 'Status',
+		'start' => 'Enable',
+		'stop' => 'Disable',
+		'totalMoney' => 'Total Money',
 	];
 ?>

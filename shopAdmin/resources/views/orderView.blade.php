@@ -63,8 +63,8 @@
 					@endforeach
 
 				</table>
-			
-			
+				
+						
 			</p>
 
 			<a href="/admin/omain">{{ trans('messages.home') }}</a>

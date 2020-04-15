@@ -3,14 +3,12 @@
         <ul class="pagination">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <!-- <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')"> -->
-                    <li class="disabled" aria-disabled="true" aria-label="@lang('messages.previous')">
-                    <span aria-hidden="true">&lsaquo;</span>
+                <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
+                    <span aria-hidden="true">{{ trans('messages.previous') }}</span>
                 </li>
             @else
                 <li>
-                    <!-- <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a> -->
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('messages.previous')">&lsaquo;</a>
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">{{ trans('messages.previous') }}</a>
                 </li>
             @endif
 
@@ -36,13 +34,11 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li>
-                    <!-- <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a> -->
-                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('messages.next')">&rsaquo;</a>
+                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">{{ trans('messages.next') }}</a>
                 </li>
             @else
-                <!-- <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.next')"> -->
-                    <li class="disabled" aria-disabled="true" aria-label="@lang('messages.next')">
-                    <span aria-hidden="true">&rsaquo;</span>
+                <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
+                    <span aria-hidden="true">{{ trans('messages.next') }}</span>
                 </li>
             @endif
         </ul>

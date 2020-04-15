@@ -11,7 +11,8 @@ class MerchandiseController extends Controller
 
     public function ListMerchandise(Request $request)
     {
-    	$merchandise = DB::table('Merchandise')->where('status', '0') -> get();
+    	//$merchandise = DB::table('Merchandise')->where('status', '0') -> get();
+        $merchandise = DB::table('Merchandise')->where('status', '0') -> simplePaginate(10);
         if(null !== $request->session()->get('userId')){
             $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             
@@ -149,12 +150,13 @@ class MerchandiseController extends Controller
         //等級提升
 
         $uLv = DB::table('Level')->where('Level', $account->Level)->first();
-        if($total >= $uLv->ReachGold){
-            $lv = $account->Level + 1;
-            DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
-            $request->session()->put('level', $lv);
-        }
-         
+        //if(isset($uLv)){
+            if($total >= $uLv->ReachGold){
+                $lv = $account->Level + 1;
+                DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                $request->session()->put('level', $lv);
+            }
+        //}
         
 
             

@@ -10,6 +10,27 @@
 			{{ trans('messages.reachMoney') }}:
 			<input type="text" name="reachMoney" required="required" maxlength="10" /><br />
 
+			{{ trans('messages.status') }}:
+			<select name="rStatus">
+				<option value="1">{{ trans('messages.start') }}</option>
+				<option value="0">{{ trans('messages.stop') }}</option>
+			</select>
+			<br />
+
+			
+			{{ trans('messages.totalMoney') }}:
+			<input type="text" name="totalMoney" required="required" maxlength="10" /><br />
+
+			
+
+			{{ trans('messages.status') }}:
+			<select name="tStatus">
+				<option value="1">{{ trans('messages.start') }}</option>
+				<option value="0">{{ trans('messages.stop') }}</option>
+			</select>
+			<br />
+
+
 			{{ trans('messages.levelNow') }}:
 			<input type="text" name="levelNow" required="required" maxlength="2" /><br />
 
@@ -28,6 +49,9 @@
 
 
 		@endif
+
+		<br />
+		<a href="/admin/level">{{ trans('messages.lastPage') }}</a>
 
 	</body>
 

@@ -106,6 +106,9 @@ Route::prefix('admin') -> group(function(){
 	});
 
 
+	Route::get('/editLevel/{levelId}', 'OwnerUserController@levelEditView');
+
+
 	//--------post
 
 
@@ -152,5 +155,7 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/levelDel', 'OwnerUserController@levelDel');
 
 	Route::post('/orderSearchMer', 'OwnerUserController@orderViewSearchMer');
+
+	Route::post('/editLevelPost', 'OwnerUserController@editLevelPost');
 
 });

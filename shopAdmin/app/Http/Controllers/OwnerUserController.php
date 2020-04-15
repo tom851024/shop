@@ -458,10 +458,10 @@ class OwnerUserController extends Controller
 
     public function levelPost()
     {
-        if(preg_match("/^[0-9]*$/", $_POST['reachMoney']) && preg_match("/^[0-9]*$/", $_POST['levelNow'])){
+        if(preg_match("/^[0-9]*$/", $_POST['reachMoney']) && preg_match("/^[0-9]*$/", $_POST['levelNow']) && preg_match("/^[0-9]*$/", $_POST['totalMoney'])){
             $lv = DB::table('Level')->where('Level', $_POST['levelNow'])->count();
             if($lv == 0){
-                DB::insert('insert into Level (ReachGold, Level) values (?, ?)', [$_POST['reachMoney'], $_POST['levelNow']]);
+                DB::insert('insert into Level (ReachGold, TotalGold, RStatus, TStatus, Level) values (?, ?, ?, ?, ?)', [$_POST['reachMoney'], $_POST['totalMoney'], $_POST['rStatus'], $_POST['tStatus'], $_POST['levelNow']]);
                 return redirect('/admin/level');
             }else{
                 return redirect('/admin/levelCre')->with('mes', '2');
@@ -486,6 +486,34 @@ class OwnerUserController extends Controller
         }
 
         return redirect('/admin/level');
+    }
+
+
+
+    public function levelEditView($levelId)
+    {
+        $level = DB::table('Level')->where('id', $levelId)->first();
+        return view('levelEditView')->with('level', $level);
+    }
+
+
+
+    public function editLevelPost()
+    {
+        if(preg_match("/^[0-9]*$/", $_POST['reachMoney']) && preg_match("/^[0-9]*$/", $_POST['levelNow']) && preg_match("/^[0-9]*$/", $_POST['totalMoney'])){
+            $lv = DB::table('Level')->where('Level', $_POST['levelNow'])->count();
+            $lvv = DB::table('Level')->where('id', $_POST['id'])->first();
+
+            if($lv == 0 || $_POST['levelNow'] == $lvv->Level){
+                DB::update('update Level set ReachGold = ?, TotalGold = ?, RStatus = ?, TStatus = ?, Level = ? where id = ?', [$_POST['reachMoney'], $_POST['totalMoney'], $_POST['rStatus'], $_POST['tStatus'], $_POST['levelNow'], $_POST['id']]);
+                return redirect('/admin/level');
+            }else{
+                return redirect('/admin/editLevel/' . $_POST['id'])->with('mes', '2');
+            }
+
+        }else{
+            return redirect('/admin/editLevel/' . $_POST['id'])->with('mes', '1');
+        }
     }
 
 }

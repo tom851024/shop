@@ -108,6 +108,10 @@
 		'searchFromMer' => '商品搜尋',
 		'previous' => '上一頁',
 		'next' => '下一頁',
+		'status' => '狀態',
+		'start' => '啟用',
+		'stop' => '停用',
+		'totalMoney' => '累積金額',
 
 	];
 ?>
