@@ -14,7 +14,14 @@ class MerchandiseController extends Controller
     	$merchandise = DB::table('Merchandise')->where('status', '0') -> get();
         if(null !== $request->session()->get('userId')){
             $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
-            $request->session()->put('level', $user->Level);
+            
+            if(isset($user)){
+                $request->session()->put('level', $user->Level);
+            }else{
+                $request -> session()->forget('user');
+                $request -> session()->forget('userName');
+            }
+
         }
     	return view('mainPage')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'))->with('level', $request->session()->get('level'));
     }

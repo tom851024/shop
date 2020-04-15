@@ -106,6 +106,8 @@
 		'levelMan' => '等級管理',
 		'levelCreate' => '創新等級',
 		'searchFromMer' => '商品搜尋',
+		'previous' => '上一頁',
+		'next' => '下一頁',
 
 	];
 ?>

@@ -98,6 +98,7 @@ class OwnerUserController extends Controller
         $order = DB::table('OrderTable')
                     ->join('User', 'User.id', '=', 'OrderTable.UserId')
                     ->select(['OrderTable.*', 'User.Name', 'User.id as UId'])
+                    //->simplePaginate(10);
                     ->get();
 
         return view('orderView')->with('order', $order);

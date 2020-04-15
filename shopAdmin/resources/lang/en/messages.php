@@ -107,5 +107,7 @@
 		'levelMan' => 'Level Management',
 		'levelCreate' => 'Create Level',
 		'searchFromMer' => 'Search from Merchandise',
+		'previous' => 'Last Page',
+		'next' => 'Next Page',
 	];
 ?>
