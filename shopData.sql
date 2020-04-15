@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 14, 2020 at 06:38 PM
+-- Generation Time: Apr 15, 2020 at 10:17 AM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -70,7 +70,14 @@ CREATE TABLE `CartBuy` (
 INSERT INTO `CartBuy` (`id`, `OrderId`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`, `Progress`) VALUES
 (244, '1220200414092537', 12, 4, '電腦螢幕', 5000, 1, 4),
 (245, '1220200414092537', 12, 3, 'XBOX1080', 9000, 1, 4),
-(246, '1220200414092537', 12, 4, '電腦螢幕', 5000, 1, 4);
+(246, '1220200414092537', 12, 4, '電腦螢幕', 5000, 1, 4),
+(247, '1320200415014744', 13, 1, 'computer 1', 30000, 2, 0),
+(248, '1320200415014752', 13, 2, 'Laptop', 40000, 1, 0),
+(249, '1320200415014758', 13, 1, 'computer 1', 30000, 2, 0),
+(250, '1320200415014805', 13, 2, 'Laptop', 40000, 2, 0),
+(251, '1320200415014917', 13, 3, 'XBOX1080', 9000, 2, 0),
+(252, '1320200415014927', 13, 2, 'Laptop', 40000, 2, 0),
+(253, '1320200415015032', 13, 2, 'Laptop', 40000, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -152,7 +159,9 @@ INSERT INTO `OrderDiscount` (`id`, `OrderId`, `DiscountId`, `UserId`, `Status`) 
 (56, '1120200414084821', 6, 11, 0),
 (57, '1220200414090411', 4, 12, 1),
 (58, '1220200414091226', 4, 12, 0),
-(59, '1220200414092537', 4, 12, 1);
+(59, '1220200414092537', 4, 12, 1),
+(60, '1320200415014744', 4, 13, 0),
+(61, '1320200415014805', 6, 13, 0);
 
 -- --------------------------------------------------------
 
@@ -176,7 +185,13 @@ CREATE TABLE `OrderTable` (
 --
 
 INSERT INTO `OrderTable` (`id`, `OrderId`, `Total`, `RealPay`, `Plate`, `UserId`, `Address`, `Phone`) VALUES
-(87, '1220200414092537', 19000, 19000, 0, 12, '111', '111');
+(87, '1220200414092537', 19000, 19000, 0, 12, '111', '111'),
+(88, '1320200415014744', 60000, 60000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
+(89, '1320200415014752', 40000, 40000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
+(90, '1320200415014758', 60000, 60000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
+(91, '1320200415014805', 80000, 80000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
+(92, '1320200415014917', 18000, 17000, 1000, 13, 'Taichung EFR Road 514', '09456713654'),
+(93, '1320200415015032', 80000, 71000, 9000, 13, 'Taichung EFR Road 514', '09456713654');
 
 -- --------------------------------------------------------
 
@@ -241,7 +256,14 @@ INSERT INTO `Plate` (`id`, `UserId`, `ChangeGold`, `Date`) VALUES
 (83, 12, -5000, '2020-04-14 17:27:54'),
 (84, 12, 5000, '2020-04-14 17:28:09'),
 (85, 12, 0, '2020-04-14 17:28:34'),
-(86, 12, 9000, '2020-04-14 17:28:43');
+(86, 12, 9000, '2020-04-14 17:28:43'),
+(87, 13, 5000, '2020-04-15 09:47:44'),
+(88, 13, 0, '2020-04-15 09:47:52'),
+(89, 13, 0, '2020-04-15 09:47:58'),
+(90, 13, 5000, '2020-04-15 09:48:05'),
+(91, 13, -1000, '2020-04-15 09:49:17'),
+(92, 13, -9000, '2020-04-15 09:49:27'),
+(93, 13, -9000, '2020-04-15 09:50:32');
 
 -- --------------------------------------------------------
 
@@ -278,7 +300,10 @@ INSERT INTO `Report` (`id`, `UserId`, `Report`, `RoomId`, `Date`) VALUES
 (6, 12, 'hello~~', '20200414175008', '2020-04-14 17:50:08'),
 (7, 12, 'hello too~', '20200414175008', '2020-04-14 18:08:27'),
 (8, 0, '0000aaaaaa', '20200414175008', '2020-04-14 00:00:00'),
-(9, 0, 'yoyo~', '20200414175008', '2020-04-14 18:24:47');
+(9, 0, 'yoyo~', '20200414175008', '2020-04-14 18:24:47'),
+(10, 13, 'hey, this is a test!', '20200415085904', '2020-04-15 08:59:04'),
+(11, 0, 'okok, i\'m ok', '20200415085904', '2020-04-15 09:06:55'),
+(12, 13, 'yes, it is ok', '20200415085904', '2020-04-15 09:09:30');
 
 -- --------------------------------------------------------
 
@@ -330,7 +355,8 @@ CREATE TABLE `User` (
 
 INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`, `Gold`) VALUES
 (11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789123', 'Taichung DFG Road 123', 5, 54000),
-(12, 'boss', '698d51a19d8a121ce581499d7b701668', 0, '111', '111', '111', 2, 34000);
+(12, 'boss', '698d51a19d8a121ce581499d7b701668', 0, '111', '111', '111', 2, 34000),
+(13, 'md5', '1bc29b36f623ba82aaf6724fd3b16718', 0, 'Md5', '09456713654', 'Taichung EFR Road 514', 3, 0);
 
 --
 -- Indexes for dumped tables
@@ -416,12 +442,12 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `BackItem`
 --
 ALTER TABLE `BackItem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=254;
 --
 -- AUTO_INCREMENT for table `Discount`
 --
@@ -436,12 +462,12 @@ ALTER TABLE `Merchandise`
 -- AUTO_INCREMENT for table `OrderDiscount`
 --
 ALTER TABLE `OrderDiscount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `OrderTable`
 --
 ALTER TABLE `OrderTable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT for table `O_User`
 --
@@ -451,27 +477,27 @@ ALTER TABLE `O_User`
 -- AUTO_INCREMENT for table `Plate`
 --
 ALTER TABLE `Plate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT for table `Reply`
 --
 ALTER TABLE `Reply`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Report`
 --
 ALTER TABLE `Report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

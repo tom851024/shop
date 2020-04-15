@@ -259,6 +259,7 @@ class MerchandiseController extends Controller
         }
 
 
+        //等級提升
         //if($total > $request->session()->get('level')*10000 && $request->session()->get('level') < 5){
         if($total > $account->Level * 10000 && $account->Level < 5){
             //$lv = $request->session()->get('level') + 1;
