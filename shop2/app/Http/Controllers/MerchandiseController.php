@@ -149,15 +149,27 @@ class MerchandiseController extends Controller
 
         //等級提升
 
-        $uLv = DB::table('Level')->where('Level', $account->Level)->first();
-        //if(isset($uLv)){
-            if($total >= $uLv->ReachGold){
+         $uLv = DB::table('Level')->where('Level', $account->Level)->first();
+        if(isset($uLv)){
+            $orderTable = DB::table('OrderTable')->where('UserId', $account->id)->get();
+            $costTotal = 0;
+            if(isset($orderTable)){
+                foreach($orderTable as $or){
+                    $costTotal += $or->Total;
+                }
+            }
+
+             if($total >= $uLv->ReachGold && $uLv->RStatus == '1'){
+                 $lv = $account->Level + 1;
+                 DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                 $request->session()->put('level', $lv);
+             }else if($costTotal >= $uLv->TotalGold && $uLv->TStatus == '1'){
                 $lv = $account->Level + 1;
                 DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
                 $request->session()->put('level', $lv);
-            }
-        //}
-        
+             }
+           
+        }
 
             
 
@@ -208,11 +220,34 @@ class MerchandiseController extends Controller
                 DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
 
                 //等級提升                 
+                // $uLv = DB::table('Level')->where('Level', $account->Level)->first();
+                // if($total >= $uLv->ReachGold){
+                //     $lv = $account->Level + 1;
+                //     DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                //     $request->session()->put('level', $lv);
+                // }
+
+
                 $uLv = DB::table('Level')->where('Level', $account->Level)->first();
-                if($total >= $uLv->ReachGold){
-                    $lv = $account->Level + 1;
-                    DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
-                    $request->session()->put('level', $lv);
+                if(isset($uLv)){
+                    $orderTable = DB::table('OrderTable')->where('UserId', $account->id)->get();
+                    $costTotal = 0;
+                    if(isset($orderTable)){
+                        foreach($orderTable as $or){
+                            $costTotal += $or->Total;
+                        }
+                    }
+
+                     if($total >= $uLv->ReachGold && $uLv->RStatus == '1'){
+                         $lv = $account->Level + 1;
+                         DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                         $request->session()->put('level', $lv);
+                     }else if($costTotal >= $uLv->TotalGold && $uLv->TStatus == '1'){
+                        $lv = $account->Level + 1;
+                        DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                        $request->session()->put('level', $lv);
+                     }
+                   
                 }
 
 
@@ -272,11 +307,34 @@ class MerchandiseController extends Controller
 
         //等級提升
                 
+        // $uLv = DB::table('Level')->where('Level', $account->Level)->first();
+        // if($total >= $uLv->ReachGold){
+        //     $lv = $account->Level + 1;
+        //     DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+        //     $request->session()->put('level', $lv);
+        // }
+
+
         $uLv = DB::table('Level')->where('Level', $account->Level)->first();
-        if($total >= $uLv->ReachGold){
-            $lv = $account->Level + 1;
-            DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
-            $request->session()->put('level', $lv);
+        if(isset($uLv)){
+            $orderTable = DB::table('OrderTable')->where('UserId', $account->id)->get();
+            $costTotal = 0;
+            if(isset($orderTable)){
+                foreach($orderTable as $or){
+                    $costTotal += $or->Total;
+                }
+            }
+
+            if($total >= $uLv->ReachGold && $uLv->RStatus == '1'){
+                $lv = $account->Level + 1;
+                DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                $request->session()->put('level', $lv);
+            }else if($costTotal >= $uLv->TotalGold && $uLv->TStatus == '1'){
+                $lv = $account->Level + 1;
+                DB::update('update User set Level = ? where id = ?', [$lv, $request->session()->get('userId')]);
+                $request->session()->put('level', $lv);
+            }
+                   
         }
 
         return view('Thanks');

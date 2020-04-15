@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 15, 2020 at 01:54 PM
+-- Generation Time: Apr 15, 2020 at 05:47 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -68,23 +68,14 @@ CREATE TABLE `CartBuy` (
 --
 
 INSERT INTO `CartBuy` (`id`, `OrderId`, `UserId`, `MerId`, `MerName`, `Price`, `Qty`, `Progress`) VALUES
-(244, '1220200414092537', 12, 4, '電腦螢幕', 5000, 1, 4),
-(245, '1220200414092537', 12, 3, 'XBOX1080', 9000, 1, 4),
-(246, '1220200414092537', 12, 4, '電腦螢幕', 5000, 1, 4),
-(247, '1320200415014744', 13, 1, 'computer 1', 30000, 2, 0),
-(248, '1320200415014752', 13, 2, 'Laptop', 40000, 1, 0),
-(249, '1320200415014758', 13, 1, 'computer 1', 30000, 2, 0),
-(250, '1320200415014805', 13, 2, 'Laptop', 40000, 2, 0),
-(251, '1320200415014917', 13, 3, 'XBOX1080', 9000, 2, 0),
-(252, '1320200415014927', 13, 2, 'Laptop', 40000, 2, 0),
-(253, '1320200415015032', 13, 2, 'Laptop', 40000, 2, 0),
-(254, '1120200415023925', 11, 2, 'Laptop', 40000, 5, 0),
-(255, '1120200415024318', 11, 2, 'Laptop', 40000, 2, 0),
-(256, '1120200415034142', 11, 1, 'computer 1', 30000, 2, 0),
-(257, '1120200415034208', 11, 1, 'computer 1', 30000, 2, 0),
-(258, '1120200415054206', 11, 4, '電腦螢幕', 5000, 2, 0),
-(259, '1120200415054543', 11, 4, '電腦螢幕', 5000, 4, 0),
-(260, '1120200415054639', 11, 1, 'computer 1', 30000, 1, 0);
+(271, '1820200415093948', 18, 2, 'Laptop', 40000, 1, 0),
+(272, '1820200415093953', 18, 4, '電腦螢幕', 5000, 2, 0),
+(273, '1920200415094117', 19, 3, 'XBOX1080', 9000, 2, 0),
+(274, '1920200415094138', 19, 2, 'Laptop', 40000, 5, 0),
+(275, '1920200415094207', 19, 4, '電腦螢幕', 5000, 1, 0),
+(276, '1920200415094211', 19, 4, '電腦螢幕', 5000, 2, 0),
+(277, '1920200415094547', 19, 4, '電腦螢幕', 5000, 2, 0),
+(278, '1920200415094644', 19, 4, '電腦螢幕', 5000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -117,6 +108,9 @@ INSERT INTO `Discount` (`id`, `Level`, `ReachGold`, `Discount`) VALUES
 CREATE TABLE `Level` (
   `id` int(11) NOT NULL,
   `ReachGold` int(20) NOT NULL,
+  `TotalGold` int(20) NOT NULL,
+  `RStatus` int(2) NOT NULL,
+  `TStatus` int(2) NOT NULL,
   `Level` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -124,10 +118,8 @@ CREATE TABLE `Level` (
 -- Dumping data for table `Level`
 --
 
-INSERT INTO `Level` (`id`, `ReachGold`, `Level`) VALUES
-(1, 10000, 1),
-(3, 20000, 2),
-(4, 30000, 3);
+INSERT INTO `Level` (`id`, `ReachGold`, `TotalGold`, `RStatus`, `TStatus`, `Level`) VALUES
+(8, 10000, 15000, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -192,7 +184,22 @@ INSERT INTO `OrderDiscount` (`id`, `OrderId`, `DiscountId`, `UserId`, `Status`) 
 (61, '1320200415014805', 6, 13, 0),
 (62, '1120200415034142', 6, 11, 0),
 (63, '1120200415034208', 6, 11, 0),
-(64, '1120200415054206', 5, 11, 0);
+(64, '1120200415054206', 5, 11, 0),
+(65, '1620200415093204', 5, 16, 0),
+(66, '1620200415093223', 5, 16, 0),
+(67, '1620200415093318', 5, 16, 0),
+(68, '1620200415093353', 5, 16, 0),
+(69, '1620200415093441', 5, 16, 0),
+(70, '1620200415093508', 5, 16, 0),
+(71, '1620200415093522', 5, 16, 0),
+(72, '1720200415093646', 5, 17, 0),
+(73, '1720200415093651', 5, 17, 0),
+(74, '1820200415093948', 5, 18, 0),
+(75, '1820200415093953', 5, 18, 0),
+(76, '1920200415094117', 5, 19, 0),
+(77, '1920200415094138', 5, 19, 0),
+(78, '1920200415094207', 5, 19, 0),
+(79, '1920200415094211', 5, 19, 0);
 
 -- --------------------------------------------------------
 
@@ -216,20 +223,14 @@ CREATE TABLE `OrderTable` (
 --
 
 INSERT INTO `OrderTable` (`id`, `OrderId`, `Total`, `RealPay`, `Plate`, `UserId`, `Address`, `Phone`) VALUES
-(87, '1220200414092537', 19000, 19000, 0, 12, '111', '111'),
-(88, '1320200415014744', 60000, 60000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
-(89, '1320200415014752', 40000, 40000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
-(90, '1320200415014758', 60000, 60000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
-(91, '1320200415014805', 80000, 80000, 0, 13, 'Taichung EFR Road 514', '09456713654'),
-(92, '1320200415014917', 18000, 17000, 1000, 13, 'Taichung EFR Road 514', '09456713654'),
-(93, '1320200415015032', 80000, 71000, 9000, 13, 'Taichung EFR Road 514', '09456713654'),
-(94, '1120200415023925', 200000, 200000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
-(95, '1120200415024318', 80000, 80000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
-(96, '1120200415034142', 60000, 60000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
-(97, '1120200415034208', 60000, 60000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
-(98, '1120200415054206', 10000, 10000, 0, 11, 'Taichung DFG Road 123', '09456789123'),
-(99, '1120200415054543', 20000, 10000, 10000, 11, 'Taichung DFG Road 123', '09456789123'),
-(100, '1120200415054639', 30000, 0, 30000, 11, 'Taichung DFG Road 123', '09456789123');
+(111, '1820200415093948', 40000, 40000, 0, 18, '123', '123'),
+(112, '1820200415093953', 10000, 10000, 0, 18, '123', '123'),
+(113, '1920200415094117', 18000, 18000, 0, 19, '123', '123'),
+(114, '1920200415094138', 200000, 200000, 0, 19, '123', '123'),
+(115, '1920200415094207', 5000, 5000, 0, 19, '123', '123'),
+(116, '1920200415094211', 10000, 10000, 0, 19, '123', '123'),
+(117, '1920200415094547', 10000, 5000, 5000, 19, '123', '123'),
+(118, '1920200415094644', 5000, 0, 5000, 19, '123', '123');
 
 -- --------------------------------------------------------
 
@@ -309,7 +310,25 @@ INSERT INTO `Plate` (`id`, `UserId`, `ChangeGold`, `Date`) VALUES
 (97, 11, 5000, '2020-04-15 11:42:08'),
 (98, 11, 1000, '2020-04-15 13:42:06'),
 (99, 11, -10000, '2020-04-15 13:45:43'),
-(100, 11, -30000, '2020-04-15 13:46:39');
+(100, 11, -30000, '2020-04-15 13:46:39'),
+(101, 11, 0, '2020-04-15 16:09:19'),
+(102, 16, 1000, '2020-04-15 17:32:04'),
+(103, 16, 1000, '2020-04-15 17:32:23'),
+(104, 16, 1000, '2020-04-15 17:33:18'),
+(105, 16, 1000, '2020-04-15 17:33:53'),
+(106, 16, 1000, '2020-04-15 17:34:41'),
+(107, 16, 1000, '2020-04-15 17:35:08'),
+(108, 16, 1000, '2020-04-15 17:35:22'),
+(109, 17, 1000, '2020-04-15 17:36:46'),
+(110, 17, 1000, '2020-04-15 17:36:51'),
+(111, 18, 1000, '2020-04-15 17:39:48'),
+(112, 18, 1000, '2020-04-15 17:39:53'),
+(113, 19, 1000, '2020-04-15 17:41:17'),
+(114, 19, 1000, '2020-04-15 17:41:38'),
+(115, 19, 1000, '2020-04-15 17:42:07'),
+(116, 19, 1000, '2020-04-15 17:42:11'),
+(117, 19, -5000, '2020-04-15 17:45:47'),
+(118, 19, -5000, '2020-04-15 17:46:44');
 
 -- --------------------------------------------------------
 
@@ -400,9 +419,11 @@ CREATE TABLE `User` (
 --
 
 INSERT INTO `User` (`id`, `UserName`, `Passwd`, `vty`, `Name`, `Phone`, `Address`, `Level`, `Gold`) VALUES
-(11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789123', 'Taichung DFG Road 123', 3, 25000),
+(11, 'tom', 'b7f91ee1b94f1ed3dbb2959607f4b784', 0, 'tom', '09456789123', 'Taichung DFG Road 123', 4, 25000),
 (12, 'boss', '698d51a19d8a121ce581499d7b701668', 0, '111', '111', '111', 2, 34000),
-(13, 'md5', '1bc29b36f623ba82aaf6724fd3b16718', 0, 'Md5', '09456713654', 'Taichung EFR Road 514', 3, 0);
+(13, 'md5', '1bc29b36f623ba82aaf6724fd3b16718', 0, 'Md5', '09456713654', 'Taichung EFR Road 514', 3, 0),
+(18, 'level', 'c9e9a848920877e76685b2e4e76de38d', 0, '123', '123', '123', 2, 2000),
+(19, 'lv2', '86674789d69da8edffc4b3ca45540e1b', 0, '123', '123', '123', 2, 30000);
 
 --
 -- Indexes for dumped tables
@@ -499,7 +520,7 @@ ALTER TABLE `BackItem`
 -- AUTO_INCREMENT for table `CartBuy`
 --
 ALTER TABLE `CartBuy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
 --
 -- AUTO_INCREMENT for table `Discount`
 --
@@ -509,7 +530,7 @@ ALTER TABLE `Discount`
 -- AUTO_INCREMENT for table `Level`
 --
 ALTER TABLE `Level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `Merchandise`
 --
@@ -519,12 +540,12 @@ ALTER TABLE `Merchandise`
 -- AUTO_INCREMENT for table `OrderDiscount`
 --
 ALTER TABLE `OrderDiscount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `OrderTable`
 --
 ALTER TABLE `OrderTable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 --
 -- AUTO_INCREMENT for table `O_User`
 --
@@ -534,7 +555,7 @@ ALTER TABLE `O_User`
 -- AUTO_INCREMENT for table `Plate`
 --
 ALTER TABLE `Plate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 --
 -- AUTO_INCREMENT for table `Reply`
 --
@@ -549,12 +570,12 @@ ALTER TABLE `Report`
 -- AUTO_INCREMENT for table `tmpShop`
 --
 ALTER TABLE `tmpShop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
