@@ -96,8 +96,8 @@ class OwnerUserController extends Controller
     public function orderView()
     {
         $order = DB::table('OrderTable')
-                    ->join('User', 'User.id', '=', 'OrderTable.UserId')
-                    ->select(['OrderTable.*', 'User.Name', 'User.id as UId'])
+                    //->join('User', 'User.id', '=', 'OrderTable.UserId')
+                    //->select(['OrderTable.*', 'User.Name', 'User.id as UId'])
                     ->simplePaginate(10);
                     //->get();
 
@@ -108,10 +108,14 @@ class OwnerUserController extends Controller
 
     public function orderList($orderId)
     {
-        $order = DB::table('CartBuy')
+        // $order = DB::table('CartBuy')
+        //          -> where('OrderId', $orderId)
+        //          -> join('User', 'User.id', '=', 'CartBuy.UserId')
+        //          -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
+        //          -> get();
+
+         $order = DB::table('CartBuy')
                  -> where('OrderId', $orderId)
-                 -> join('User', 'User.id', '=', 'CartBuy.UserId')
-                 -> select(['CartBuy.*', 'User.Name', 'User.id as UId'])
                  -> get();
 
         $plate = DB::table('OrderTable')->where('OrderId', $orderId)->first();
@@ -123,7 +127,8 @@ class OwnerUserController extends Controller
 
     public function orderViewSearch()
     {
-        $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where Name like ? ";
+        //$query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where Name like ? ";
+        $query = "select * from OrderTable where UserName like ? ";
         $param = '%' . $_POST['search'] . '%';
         $order = DB::select($query, array($param, $param));
         return view('orderView')->with('order', $order)->with('search', '1');
@@ -134,7 +139,8 @@ class OwnerUserController extends Controller
     {
         //$order = DB::table('CartBuy') -> where('id', $_POST['search']) -> first();
         if(preg_match("/^[0-9]*$/", $_POST['search'])){
-            $query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where OrderTable.OrderId = ?";
+            //$query = "select OrderTable.*, User.Name, User.id as UId from OrderTable Inner join User on User.id = OrderTable.UserId where OrderTable.OrderId = ?";
+            $query = "select * from OrderTable where OrderId = ?";
             $param = $_POST['search'];
             $order = DB::select($query, array($param));
             return view('orderView')->with('order', $order)->with('search', '1');
@@ -147,9 +153,12 @@ class OwnerUserController extends Controller
 
     public function orderViewSearchMer()
     {
-        $query = "select CartBuy.*, User.Name from CartBuy Inner join User on User.id = CartBuy.UserId where MerName like ?";
+        //$query = "select CartBuy.*, User.Name from CartBuy Inner join User on User.id = CartBuy.UserId where MerName like ?";
+        $query = "select CartBuy.*, OrderTable.UserName as Name from CartBuy Inner join OrderTable on OrderTable.OrderId = CartBuy.OrderId where MerName like ?";
+        //$query = "select CartBuy.*, User.Name from CartBuy where MerName like ?";
         $param = '%' . $_POST['search'] . '%';
         $order = DB::select($query, array($param));
+        //$user = DB::table('OrderTable')->where()
         return view('orderViewMer')->with('order', $order);
     }
 

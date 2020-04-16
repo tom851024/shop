@@ -57,7 +57,7 @@
 							<td>{{ $ord->Total }}</td>
 							<td>{{ $ord->RealPay }}</td>
 							<td>{{ $ord->Plate }}</td>
-							<td><a href="/admin/userDetail/<?php echo $ord->OrderId ?>/<?php echo $ord->UserId ?>">{{ $ord->Name }}</a></td>
+							<td><a href="/admin/userDetail/<?php echo $ord->OrderId ?>/<?php echo $ord->UserId ?>">{{ $ord->UserName }}</a></td>
 						</tr>
 					@endforeach
 

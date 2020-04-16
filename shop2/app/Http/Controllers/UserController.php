@@ -80,8 +80,10 @@ class UserController extends Controller
 
     public function Logout(Request $request)
     {
-        $request -> session()->forget('user');
+        DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->delete();
+        $request -> session()->forget('userId');
         $request -> session()->forget('userName');
+        $request -> session()->forget('level');
         $merchandise = DB::table('Merchandise')->get();
         return redirect('/');
     }

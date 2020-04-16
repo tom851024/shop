@@ -19,7 +19,7 @@
 					<td>{{ $ord->MerName }}</td>
 					<td>{{ $ord->Qty }}</td>
 					<td><a href="/admin/ownerOrderList/{{ $ord->OrderId }}">{{ $ord->OrderId }}</a></td>
-					<td>{{ $ord->Name }}</td>
+					<td><a href="/admin/userDetail/{{ $ord->OrderId }}/{{ $ord->UserId }}">{{ $ord->Name }}</a></td>
 				</tr>
 			@endforeach
 		</table>

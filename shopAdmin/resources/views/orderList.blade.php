@@ -76,7 +76,7 @@
 						<th>{{ trans('messages.price') }}</th>
 						<th>{{ trans('messages.qty') }}</th>
 						<th>{{ trans('messages.progress') }}</th>
-						<th>{{ trans('messages.orderMan') }}</th>
+						<!-- <th>{{ trans('messages.orderMan') }}</th> -->
 						<th>{{ trans('messages.sending') }}</th>
 					</tr>
 
@@ -86,7 +86,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td></td>
+						<!-- <td></td> -->
 						<td><input type="checkbox" id="chkAll" /></td>			
 					</tr>
 
@@ -113,7 +113,7 @@
 									{{ trans('messages.backingFail') }}
 								@endif
 							</td>
-							<td><a href="/admin/userDetail?UId=<?php echo $ord->UId ?>">{{ $ord->Name }}</a></td>
+							<!-- <td><a href="/admin/userDetail?UId=<?php //echo $ord->UId ?>"></a></td> -->
 							<td>
 								@if($ord->Progress == '0')
 									

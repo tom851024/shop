@@ -22,7 +22,7 @@
 						<td>{{ $ord->Total }}</td>
 						<td>{{ $ord->RealPay }}</td>
 						<td>{{ $ord->Plate }}</td>
-						<td><a href="/userView/{{ $ord->OrderId }}/{{ $user->id }}">{{ $user->Name }}</a></td>
+						<td><a href="/userView/{{ $ord->OrderId }}/{{ $user->id }}">{{ $ord->UserName }}</a></td>
 					</tr>
 
 				@endforeach

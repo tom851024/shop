@@ -10,7 +10,7 @@
 		<table width="80%" border="1">
 			<tr>
 				<th width="30%">{{ trans('messages.orderMan') }}</th>
-				<td width="70%">{{ $name->Name }}</td>
+				<td width="70%">{{ $user->UserName }}</td>
 			</tr>
 
 			<tr>

@@ -123,7 +123,7 @@ class MerchandiseController extends Controller
         }
 
         //插入訂單資料表
-        DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $total, '0', $request->session()->get('userId'), $account->Address, $account->Phone]);
+        DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, UserName, Address, Phone) values (?, ?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $total, '0', $request->session()->get('userId'), $account->Name, $account->Address, $account->Phone]);
 
         //加入優惠
 
@@ -212,7 +212,7 @@ class MerchandiseController extends Controller
                 $gold = $account->Gold - $_POST['plate'];
 
                 //插入訂單資料表
-                DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $realPay, $_POST['plate'], $request->session()->get('userId'), $account->Address, $account->Phone]);
+                DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, UserName, Address, Phone) values (?, ?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $realPay, $_POST['plate'], $request->session()->get('userId'), $account->Name, $account->Address, $account->Phone]);
 
 
 
@@ -288,7 +288,7 @@ class MerchandiseController extends Controller
 
             $gold = $account->Gold - $total;
             //插入訂單資料表
-            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, '0', $total, $request->session()->get('userId'), $account->Address, $account->Phone]);
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, UserName, Address, Phone) values (?, ?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, '0', $total, $request->session()->get('userId'), $account->Name, $account->Address, $account->Phone]);
              //更新使用者虛擬幣
             DB::update('update User set Gold = ? where id = ?', [$gold, $request->session()->get('userId')]);
         }else{
