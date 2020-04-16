@@ -67,8 +67,19 @@ class MerchandiseController extends Controller
     {
         $query = "select * from Merchandise where status = 0 AND Name like ? OR ShortDes like ?";
         $param = '%'.$_POST['search'].'%';
+        if(null !== $request->session()->get('userId')){
+            $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
+            
+            if(isset($user)){
+                $request->session()->put('level', $user->Level);
+            }else{
+                $request -> session()->forget('user');
+                $request -> session()->forget('userName');
+            }
+
+        }
         $merchandise = DB::select($query, array($param, $param));
-        return view('mainPageSearch')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'));
+        return view('mainPageSearch')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'))->with('level', $request->session()->get('level'));
     }
 
 

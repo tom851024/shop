@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>Report</title>
 	</head>
-
+	<?php $i = 0; ?>
 
 	<body>
 		<table width="80%" border="1">
@@ -14,8 +14,9 @@
 
 			@foreach($report as $r)
 				<tr>
-					<td><a href="/reportChat/{{ $r->RoomId }}">{{ $r->Date }}</a></td>
+					<td><a href="/reportChat/{{ $r->RoomId }}">{{ $date[$i] }}</a></td>
 				</tr>
+			<?php $i++; ?>
 			@endforeach
 		</table>
 

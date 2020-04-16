@@ -221,8 +221,18 @@ class UserController extends Controller
     public function reportView(Request $request)
     {
         if(null !== $request->session()->get('userId')){
-            $report = DB::table('Report')->where('UserId', $request->session()->get('userId'))->get();
-            return view('reportView')->with('report', $report);
+            $report = DB::table('Report')->select('RoomId')->where('UserId', $request->session()->get('userId'))->distinct('RoomId')->get();
+            $i = 0;
+
+            foreach($report as $rep){
+                $dd = DB::table('Report')->where('RoomId', $rep->RoomId)->first();
+                $date[$i] = $dd->Date;
+                $i++;
+            }
+            if(!isset($date)){
+                $date = null;
+            }
+            return view('reportView')->with('report', $report)->with('date', $date);
         }else{
             return redirect('/login');
         }
@@ -244,7 +254,8 @@ class UserController extends Controller
     {
         date_default_timezone_set('Asia/Taipei');
         $date = date("Y-m-d H:i:s");
-        DB::insert('insert into Report (UserId, Report, RoomId, Date) values (?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['report'], $_POST['roomId'], $date]);
+         DB::insert('insert into Report (UserId, Report, RoomId, Date) values (?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['report'], $_POST['roomId'], $date]);
+        //更新update
         return redirect('/reportChat/'.$_POST['roomId']);
     }
 

@@ -273,13 +273,32 @@ class OwnerUserController extends Controller
 
     public function reportView()
     {
-        $report = DB::table('Report')
+        // $report = DB::table('Report')
+        //         ->join('User', 'User.id', '=', 'Report.UserId')
+        //         ->select('Report.*', 'User.Name', 'User.UserName', 'User.id as UId')
+        //         ->orderBy('id', 'desc')
+        //         ->get();
+        $report = DB::table('Report')->select('RoomId')->distinct('RoomId')->get();
+        $i = 0;
+        foreach($report as $rep){
+           $dd = DB::table('Report')
                 ->join('User', 'User.id', '=', 'Report.UserId')
                 ->select('Report.*', 'User.Name', 'User.UserName', 'User.id as UId')
-                ->orderBy('id', 'desc')
-                ->get();
+                ->where('RoomId', $rep->RoomId)
+                ->where('User.id', '!=', '0')
+                ->first();
+           $date[$i] = $dd->Date;
+           $user[$i] = $dd->UserId;
+           $userName[$i] = $dd->UserName;
+           $i++;
+        }
+        if(!isset($date)){
+            $date = null;
+            $user = null;
+            $userName = null;
+        }
 
-        return view('cusReport')->with('report', $report);
+        return view('cusReport')->with('report', $report)->with('date', $date)->with('user', $user)->with('userName', $userName);
     }
 
 

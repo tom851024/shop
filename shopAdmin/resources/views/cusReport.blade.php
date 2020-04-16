@@ -5,6 +5,7 @@
 	</head>
 
 	<body>
+		<?php $i = 0; ?>
 		<p>
 			<a href="/admin/omain">{{ trans('messages.home') }}</a>
 		</p>
@@ -17,11 +18,11 @@
 
 			@foreach($report as $rep)
 				<tr>
-					<td>{{ $rep->UserName }}</td>
-					<td>{{ $rep->Date }}</td>
+					<td>{{ $userName[$i] }}</td>
+					<td>{{ $date[$i] }}</td>
 					<td><a href="/admin/reply/{{ $rep->RoomId }}">{{ trans('messages.reply') }}</a></td>
 				</tr>
-
+				<?php $i++; ?>
 			@endforeach
 		</table>
 
