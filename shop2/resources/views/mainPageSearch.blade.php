@@ -46,16 +46,10 @@
 				@endforeach
 			</table>
 
-			@if(!$merchandise->onFirstPage())
-				<a href="<?php echo $merchandise->previousPageUrl(); ?>">{{ trans('messages.previous') }}</a>
-			@endif
-
-			@if($merchandise->hasMorePages())
-				<a href="<?php echo $merchandise->nextPageUrl(); ?>">{{ trans('messages.next') }}</a>
-			@endif
+			
 		</p>
 
-		<!-- <a href="/">{{ trans('messages.home') }}</a> -->
+		<a href="/">{{ trans('messages.home') }}</a>
 
 		
 	</body>

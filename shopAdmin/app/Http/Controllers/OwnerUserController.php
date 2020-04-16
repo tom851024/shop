@@ -311,8 +311,15 @@ class OwnerUserController extends Controller
     {
         if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] < 6){
 
-            DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
-            return redirect('/admin/discountMan');
+            $ordCou = DB::table('Discount')->where('Level', $_POST['level'])->count();
+
+            if($ordCou == 0){
+
+                DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
+                return redirect('/admin/discountMan');
+            }else{
+                return redirect('/admin/discountCre')->with('mes', '2');
+            }
 
         }else{
             return redirect('/admin/discountCre')->with('mes', '1');

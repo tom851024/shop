@@ -22,7 +22,9 @@
 
 		@if(session() -> has('mes'))
 			@if(session()->get('mes') == '1')
-					{{ trans('messages.illegel') }}
+				{{ trans('messages.illegel') }}
+			@elseif(session()->get('mes') == '2')
+				{{ trans('messages.levelEx') }}
 			@endif
 		@endif
 		<br />

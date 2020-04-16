@@ -68,7 +68,7 @@ class MerchandiseController extends Controller
         $query = "select * from Merchandise where status = 0 AND Name like ? OR ShortDes like ?";
         $param = '%'.$_POST['search'].'%';
         $merchandise = DB::select($query, array($param, $param));
-        return view('mainPage')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'));
+        return view('mainPageSearch')->with('merchandise', $merchandise)->with('user', $request->session()->get('userName'));
     }
 
 
@@ -551,13 +551,14 @@ class MerchandiseController extends Controller
 
             //扣掉優惠
             $subTotal = 0;
-            $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('UserId', $request->session()->get('userId'))->get();
+            $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('Status', '0')->where('UserId', $request->session()->get('userId'))->get();
             $total = DB::table('OrderTable')->where('orderId', $_POST['orderId'])->first();
             $total->Total -=  $backTotal;
             foreach($disId as $dis){
                 $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
                 if($total->Total < $sub->ReachGold){
                     $subTotal += $sub->Discount;
+                    DB::update('update OrderDiscount set Status = ? where id = ?', [1, $dis->id]);
                 }
             }
             date_default_timezone_set('Asia/Taipei');
@@ -594,13 +595,14 @@ class MerchandiseController extends Controller
 
             //扣掉優惠
             $subTotal = 0;
-            $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('UserId', $request->session()->get('userId'))->get();
+            $disId = DB::table('OrderDiscount')->where('orderId', $_POST['orderId'])->where('Status', '0')->where('UserId', $request->session()->get('userId'))->get();
             $total = DB::table('OrderTable')->where('orderId', $_POST['orderId'])->first();
             $total->Total -=  $backTotal;
             foreach($disId as $dis){
                 $sub = DB::table('Discount')->where('id', $dis->DiscountId)->first();
                 if($total->Total < $sub->ReachGold){
                     $subTotal += $sub->Discount;
+                    DB::update('update OrderDiscount set Status = ? where id = ?', [1, $dis->id]);
                 }
             }
             date_default_timezone_set('Asia/Taipei');
