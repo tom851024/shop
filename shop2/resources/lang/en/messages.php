@@ -101,6 +101,8 @@
 		'reportMan' => 'Report man',
 		'admin' => 'Admin',
 		'user' => 'User',
+		'previous' => 'Last Page',
+		'next' => 'Next Page',
 		
 	];
 ?>

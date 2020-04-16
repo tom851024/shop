@@ -57,11 +57,24 @@
 				@endforeach
 
 			</table>
+
 			@if($count > 0)
 				<input type="submit" value="{{ trans('messages.delete') }}">
 			@endif
+			
+			<br />
+
+			@if(!$merchandise->onFirstPage())
+				<a href="<?php echo $merchandise->previousPageUrl(); ?>">{{ trans('messages.previous') }}</a>
+			@endif
+			@if($merchandise->hasMorePages())
+				<a href="<?php echo $merchandise->nextPageUrl(); ?>">{{ trans('messages.next') }}</a>
+			@endif
+			
 		</form>
 
+		<br /><br />
+		
 		<a href="/admin/omain">{{ trans('messages.home') }}</a>
 
 	</body>

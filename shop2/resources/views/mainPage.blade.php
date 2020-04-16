@@ -31,7 +31,7 @@
 		</form>
 
 		<p>
-			<table width="300" border="1">
+			<table width="70%" border="1">
 				<tr>
 					<th>{{ trans('messages.mername') }}</th>
 					<th>{{ trans('messages.shortdes') }}</th>
@@ -45,6 +45,14 @@
 					</tr>
 				@endforeach
 			</table>
+
+			@if(!$merchandise->onFirstPage())
+				<a href="<?php echo $merchandise->previousPageUrl(); ?>">{{ trans('messages.previous') }}</a>
+			@endif
+
+			@if($merchandise->hasMorePages())
+				<a href="<?php echo $merchandise->nextPageUrl(); ?>">{{ trans('messages.next') }}</a>
+			@endif
 		</p>
 
 		<a href="/">{{ trans('messages.home') }}</a>

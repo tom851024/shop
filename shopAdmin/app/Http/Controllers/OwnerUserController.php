@@ -98,10 +98,10 @@ class OwnerUserController extends Controller
         $order = DB::table('OrderTable')
                     ->join('User', 'User.id', '=', 'OrderTable.UserId')
                     ->select(['OrderTable.*', 'User.Name', 'User.id as UId'])
-                    //->simplePaginate(10);
-                    ->get();
+                    ->simplePaginate(10);
+                    //->get();
 
-        return view('orderView')->with('order', $order);
+        return view('orderViewAll')->with('order', $order);
     }
 
 
@@ -224,8 +224,8 @@ class OwnerUserController extends Controller
 
     public function listMerchandise()
     {
-        $merchandise = DB::table('Merchandise') -> get();
-        $count = DB::table('Merchandise') -> count();
+        $merchandise = DB::table('Merchandise')->simplePaginate(5);
+        $count = DB::table('Merchandise')->count();
         return view('warehouse')->with('merchandise', $merchandise)->with('count', $count);
     }
 

@@ -12,7 +12,7 @@ class MerchandiseController extends Controller
     public function ListMerchandise(Request $request)
     {
     	//$merchandise = DB::table('Merchandise')->where('status', '0') -> get();
-        $merchandise = DB::table('Merchandise')->where('status', '0') -> simplePaginate(10);
+        $merchandise = DB::table('Merchandise')->where('status', '0') -> simplePaginate(5);
         if(null !== $request->session()->get('userId')){
             $user = DB::table('User')->where('id', $request->session()->get('userId'))->first();
             
