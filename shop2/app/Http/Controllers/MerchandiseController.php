@@ -158,6 +158,9 @@ class MerchandiseController extends Controller
         DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), $plate, $date]);
 
 
+        //加入全等級優惠
+
+
         //等級提升
 
          $uLv = DB::table('Level')->where('Level', $account->Level)->first();
@@ -310,7 +313,7 @@ class MerchandiseController extends Controller
 
             $realpay = $total - $account->Gold;
             //插入訂單資料表
-            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, Address, Phone) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $realpay, $account->Gold, $request->session()->get('userId'), $account->Address, $account->Phone]);
+            DB::insert('insert into OrderTable (OrderId, Total, RealPay, Plate, UserId, UserName, Address, Phone) values (?, ?, ?, ?, ?, ?, ?, ?)', [$orderId, $total, $realpay, $account->Gold, $request->session()->get('userId'), $account->Name, $account->Address, $account->Phone]);
              //更新使用者虛擬幣
             DB::update('update User set Gold = ? where id = ?', ['0', $request->session()->get('userId')]);
         }

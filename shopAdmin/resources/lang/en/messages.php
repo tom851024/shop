@@ -113,5 +113,9 @@
 		'start' => 'Enable',
 		'stop' => 'Disable',
 		'totalMoney' => 'Total Money',
+		'levelNotEx' => 'Please create last level first',
+		'levelNotExist' => 'This level is not Exist',
+		'lvNoDiscountCre' => 'Create All level Discount',
+		'allDiscount' => 'All Discount',
 	];
 ?>

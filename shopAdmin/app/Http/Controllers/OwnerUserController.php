@@ -337,14 +337,19 @@ class OwnerUserController extends Controller
 
     public function disCreate()
     {
-        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] < 6){
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[1-9]*$/", $_POST['level'])){
 
             $ordCou = DB::table('Discount')->where('Level', $_POST['level'])->count();
+            $lv = DB::table('Level')->where('Level', $_POST['level'] - 1)->count();
 
             if($ordCou == 0){
 
-                DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
-                return redirect('/admin/discountMan');
+                if($lv != 0){
+                    DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
+                    return redirect('/admin/discountMan');
+                }else{
+                    return redirect('/admin/discountCre')->with('mes', '3');
+                }
             }else{
                 return redirect('/admin/discountCre')->with('mes', '2');
             }
@@ -355,20 +360,69 @@ class OwnerUserController extends Controller
     }
 
 
-    public function disCountEdit()
+    public function allDisCreate()
     {
-        $discount = DB::table('Discount') -> where('id', $_POST['id']) -> first();
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount'])){
+            $lv = DB::table('Discount')->where('Level', '0')->count();
+            if($lv == 0){
+                DB::insert('insert into Discount (Level, ReachGold, Discount) values (?, ?, ?)', [$_POST['level'], $_POST['reachMon'], $_POST['discount']]);
+                return redirect('/admin/discountMan');
+            }else{
+                return redirect('/admin/lvNoDiscountCre')->with('mes', '2');
+            }
+        }else{
+            return redirect('/admin/lvNoDiscountCre')->with('mes', '1');
+        }
+    }
+
+
+    public function disCountEdit($disId)
+    {
+        $discount = DB::table('Discount') -> where('id', $disId) -> first();
         return view('discountEdit')->with('discount', $discount);
+    }
+
+
+    public function allDiscountEdit($disId)
+    {
+        $discount = DB::table('Discount') -> where('id', $disId) -> first();
+        return view('allDiscountEdit')->with('discount', $discount);
     }
 
 
     public function disCountEditPost()
     {
-        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] < 6){
-            DB::update('update Discount set Level = ?, ReachGold = ?, Discount = ?  where id = ?', [$_POST['level'], $_POST['reachMon'], $_POST['discount'], $_POST['id']]);
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[1-9]*$/", $_POST['level'])){
+
+            $ordCou = DB::table('Discount')->where('Level', $_POST['level'])->count();
+            $lv = DB::table('Level')->where('Level', $_POST['level'] - 1)->count();
+
+            if($ordCou == 0){
+
+                if($lv != 0){
+
+                    DB::update('update Discount set Level = ?, ReachGold = ?, Discount = ?  where id = ?', [$_POST['level'], $_POST['reachMon'], $_POST['discount'], $_POST['id']]);
+                    return redirect('/admin/discountMan');
+                }else{
+                    return redirect('/admin/discountEdit/' . $_POST['id'])->with('mes', '3');
+                }
+            }else{
+                return redirect('/admin/discountEdit/' . $_POST['id'])->with('mes', '2');
+            }
+        }else{
+            return redirect('/admin/discountEdit/' . $_POST['id'])->with('mes', '1');
+        }
+    }
+
+
+
+    public function allDisCountEditPost()
+    {
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount'])){
+            DB::update('update Discount set ReachGold = ?, Discount = ? where id = ?', [$_POST['reachMon'], $_POST['discount'], $_POST['id']]);
             return redirect('/admin/discountMan');
         }else{
-            return redirect('/admin/discountMan')->with('mes', '1');
+            return redirect('/admin/allDiscountEdit/' . $_POST['id'])->with('mes', '1');
         }
     }
 
@@ -495,9 +549,14 @@ class OwnerUserController extends Controller
     {
         if(preg_match("/^[0-9]*$/", $_POST['reachMoney']) && preg_match("/^[0-9]*$/", $_POST['levelNow']) && preg_match("/^[0-9]*$/", $_POST['totalMoney'])){
             $lv = DB::table('Level')->where('Level', $_POST['levelNow'])->count();
+            $lvDown = DB::table('Level')->where('Level', $_POST['levelNow'] - 1)->count();
             if($lv == 0){
-                DB::insert('insert into Level (ReachGold, TotalGold, RStatus, TStatus, Level) values (?, ?, ?, ?, ?)', [$_POST['reachMoney'], $_POST['totalMoney'], $_POST['rStatus'], $_POST['tStatus'], $_POST['levelNow']]);
-                return redirect('/admin/level');
+                if($lvDown != 0){
+                    DB::insert('insert into Level (ReachGold, TotalGold, RStatus, TStatus, Level) values (?, ?, ?, ?, ?)', [$_POST['reachMoney'], $_POST['totalMoney'], $_POST['rStatus'], $_POST['tStatus'], $_POST['levelNow']]);
+                    return redirect('/admin/level');
+                }else{
+                    return redirect('/admin/levelCre')->with('mes', '3');
+                }
             }else{
                 return redirect('/admin/levelCre')->with('mes', '2');
             }
@@ -550,5 +609,11 @@ class OwnerUserController extends Controller
             return redirect('/admin/editLevel/' . $_POST['id'])->with('mes', '1');
         }
     }
+
+
+
+
+
+
 
 }

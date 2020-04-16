@@ -112,6 +112,10 @@
 		'start' => '啟用',
 		'stop' => '停用',
 		'totalMoney' => '累積金額',
+		'levelNotEx' => '請先創建上個等級',
+		'levelNotExist' => '此等級不存在',
+		'lvNoDiscountCre' => '新增全等級優惠',
+		'allDiscount' => '全站優惠',
 
 	];
 ?>

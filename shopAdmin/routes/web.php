@@ -108,6 +108,15 @@ Route::prefix('admin') -> group(function(){
 
 	Route::get('/editLevel/{levelId}', 'OwnerUserController@levelEditView');
 
+	Route::get('/lvNoDiscountCre', function(){
+		return view('lvNoDiscountCre');
+	});
+
+
+	Route::get('/discountEdit/{disId}', 'OwnerUserController@disCountEdit');
+
+	Route::get('/allDiscountEdit/{disId}', 'OwnerUserController@allDiscountEdit');
+
 
 	//--------post
 
@@ -136,7 +145,7 @@ Route::prefix('admin') -> group(function(){
 
 	Route::post('/disCountEditPost', 'OwnerUserController@disCountEditPost');
 
-	Route::post('/discountEdit', 'OwnerUserController@disCountEdit');
+	
 
 	Route::post('/discountDel', 'OwnerUserController@discountDel');
 
@@ -157,5 +166,10 @@ Route::prefix('admin') -> group(function(){
 	Route::post('/orderSearchMer', 'OwnerUserController@orderViewSearchMer');
 
 	Route::post('/editLevelPost', 'OwnerUserController@editLevelPost');
+
+	Route::post('/allDiscountPost', 'OwnerUserController@allDisCreate');
+
+	
+	Route::post('/allDisCountEditPost', 'OwnerUserController@allDisCountEditPost');
 
 });

@@ -45,6 +45,8 @@
 				<text style = "color:red;">{{ trans('messages.illegel') }}</text>
 			@elseif(session()->get('mes') == '2')
 				<text style = "color:red;">{{ trans('messages.levelEx') }}</text>
+			@elseif(session()->get('mes') == '3')
+				<text style = "color:red;">{{ trans('messages.levelNotEx') }}</text>
 			@endif
 
 
