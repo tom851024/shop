@@ -96,6 +96,8 @@ Route::get('/reportView', 'UserController@reportView');
 
 Route::get('/reportChat/{roomId}', 'UserController@reportChat');
 
+Route::get('/refreshCaptcha', 'UserController@refreshCaptcha');
+
 
 //--------post
 

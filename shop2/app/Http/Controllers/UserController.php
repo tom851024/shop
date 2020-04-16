@@ -11,8 +11,11 @@ class UserController extends Controller
 {
     //
 
-    public function Register()
+    public function Register(Request $request)
     {
+        $this->validate($request, [
+            'captcha' => 'required|captcha'
+        ]);
         if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWord']) && preg_match("/^[0-9]*$/", $_POST['tel']) && preg_match("/^\w+$/", $_POST['name'])){
         	$account = DB::table('User')
         					->where('Username', $_POST['userName'])
@@ -36,6 +39,10 @@ class UserController extends Controller
 
     public function Login(Request $request)
     {
+        $this->validate($request, [
+            'captcha' => 'required|captcha'
+        ]);
+
         if(preg_match("/^\w+$/", $_POST['userName']) && preg_match("/^\w+$/", $_POST['passWord'])){
             $account = DB::table('User')
                         ->where('Username', $_POST['userName'])
@@ -221,7 +228,8 @@ class UserController extends Controller
 
 
 
-    public function reportChat(Request $request, $roomId){
+    public function reportChat(Request $request, $roomId)
+    {
        $report = DB::table('Report')
                 ->where('RoomId', $roomId)
                 ->get();
@@ -230,11 +238,19 @@ class UserController extends Controller
 
 
 
-    public function reportReply(Request $request){
+    public function reportReply(Request $request)
+    {
         date_default_timezone_set('Asia/Taipei');
         $date = date("Y-m-d H:i:s");
         DB::insert('insert into Report (UserId, Report, RoomId, Date) values (?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['report'], $_POST['roomId'], $date]);
         return redirect('/reportChat/'.$_POST['roomId']);
+    }
+
+
+
+    public function refreshCaptcha()
+    {
+        return captcha_img('flat');
     }
 
 

@@ -3,6 +3,24 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Register Page</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			
+			function refreshCaptcha(){
+				$.ajax({
+					url: "/refreshCaptcha",
+					type: 'get',
+					dataType: 'html',
+					success: function(json){
+						$('.refresh').html(json);
+					},
+					error: function(data){
+						alert('Try Again');
+					}
+				});
+			}
+		</script>
 	</head>
 
 	<body>
@@ -21,8 +39,24 @@
 
 			<text>{{ trans('messages.address') }}: </text>
 			<input type="text" name="address" id="address" required="required" /><br />
+
+
+			<text>{{ trans('messages.auth') }}: </text>
+			<input class="tt" name="captcha">
+			<div class="form-group refresh">
+				{!! captcha_img() !!}
+			</div>
+			<a href="javascript:void(0)" onclick="refreshCaptcha()">{{ trans('messages.refresh') }}</a>
+			
+			<br />
+
+
 			
 			<input type="submit"  value="{{ trans('messages.confirm') }}" /><br />
+
+			@if(count($errors) > 0)
+				<text style = "color:red;">{{ trans('messages.authFail') }}</text>
+			@endif
 		
 			@if(session() -> has('err'))
 

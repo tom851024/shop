@@ -103,6 +103,9 @@
 		'user' => 'User',
 		'previous' => 'Last Page',
 		'next' => 'Next Page',
+		'authFail' => 'Auth Error',
+		'auth' => 'Auth',
+		'refresh' => 'Refresh',
 		
 	];
 ?>
