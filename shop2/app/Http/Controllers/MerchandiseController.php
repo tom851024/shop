@@ -589,6 +589,11 @@ class MerchandiseController extends Controller
                 DB::update('update CartBuy set Progress = ? where id = ?', [4, $chk[$i]]);
                 //$bk = DB::table('CartBuy')->where('id', $chk[$i])->first();
                 //$backTotal += $bk->Price * $bk->Qty;
+
+                //補回庫存
+                $merQty = DB::table('CartBuy')->where('id', $chk[$i])->first();
+                $mm = DB::table('Merchandise')->where('id', $merQty->MerId)->first();
+                DB::update('update Merchandise set Qty = ? where id = ?', [$merQty->Qty + $mm->Qty, $merQty->MerId]);
             }
 
             //扣掉優惠
@@ -621,6 +626,7 @@ class MerchandiseController extends Controller
             }else{
                 DB::update('update User set Gold = ? where id = ?', [0, $request->session()->get('userId')]);
             }
+
 
 
 
