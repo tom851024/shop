@@ -397,9 +397,10 @@ class OwnerUserController extends Controller
         if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] > 0){
 
             $ordCou = DB::table('Discount')->where('Level', $_POST['level'])->count();
+            $origin = DB::table('Discount')->where('id', $_POST['id'])->first();
             $lv = DB::table('Level')->where('Level', $_POST['level'] - 1)->count();
 
-            if($ordCou == 0){
+            if($ordCou == 0 || $_POST['level'] == $origin->Level){
 
                 if($lv != 0){
 

@@ -169,11 +169,12 @@ class MerchandiseController extends Controller
         if(isset($allDiscount)){
             if($total >= $allDiscount->ReachGold){
                 DB::insert('insert into OrderDiscount (OrderId, DiscountId, UserId, Status) values (?, ?, ?, ?)', [$orderId, $allDiscount->id, $request->session()->get('userId'), 0]);
-                DB::update('update User set Gold = ? where id = ?', [$allDiscount->Discount + $account->Gold, $request->session()->get('userId')]);
+                
                 date_default_timezone_set('Asia/Taipei');
                 $date = date("Y-m-d H:i:s");
                 DB::insert('insert into Plate (UserId, ChangeGold, Date) values (?, ?, ?)', [$request->session()->get('userId'), $allDiscount->Discount, $date]);
                 $plate += $allDiscount->Discount;
+                DB::update('update User set Gold = ? where id = ?', [$plate + $account->Gold, $request->session()->get('userId')]);
             }
         }
 
