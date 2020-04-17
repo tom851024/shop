@@ -105,6 +105,7 @@
 		'authFail' => '驗證碼錯誤',
 		'auth' => '驗證碼',
 		'refresh' => '刷新',
+		'reportTitle' => '回報標題',
 
 	];
 ?>

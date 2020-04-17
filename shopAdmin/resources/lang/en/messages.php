@@ -117,5 +117,6 @@
 		'levelNotExist' => 'This level is not Exist',
 		'lvNoDiscountCre' => 'Create All level Discount',
 		'allDiscount' => 'All Discount',
+		'reportTitle' => 'Report Title',
 	];
 ?>

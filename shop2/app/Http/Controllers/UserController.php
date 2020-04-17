@@ -166,7 +166,7 @@ class UserController extends Controller
         date_default_timezone_set('Asia/Taipei');
         $date = date("Y-m-d H:i:s");
         $roomId = date("YmdHis");
-        DB::insert('insert into Report (UserId, Report, RoomId, Date) values (?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['report'], $roomId, $date]);
+        DB::insert('insert into Report (UserId, Title, Report, RoomId, Date) values (?, ?, ?, ?, ?)', [$request->session()->get('userId'), $_POST['reTitle'], $_POST['report'], $roomId, $date]);
         return view('reportOk');
     }
 
@@ -189,11 +189,11 @@ class UserController extends Controller
     }
 
 
-    public function Reply(Request $request)
-    {
-        $reply = DB::table('Reply')->where('UserId', $request->session()->get('userId'))->orderby('Date', 'desc')->orderby('id', 'desc')->get();
-        return view('reply')->with('reply', $reply);
-    }
+    // public function Reply(Request $request)
+    // {
+    //     $reply = DB::table('Reply')->where('UserId', $request->session()->get('userId'))->orderby('Date', 'desc')->orderby('id', 'desc')->get();
+    //     return view('reply')->with('reply', $reply);
+    // }
 
 
     public function userView(Request $request, $orderId, $userId)
@@ -227,12 +227,13 @@ class UserController extends Controller
             foreach($report as $rep){
                 $dd = DB::table('Report')->where('RoomId', $rep->RoomId)->first();
                 $date[$i] = $dd->Date;
+                $title[$i] = $dd->Title;
                 $i++;
             }
             if(!isset($date)){
                 $date = null;
             }
-            return view('reportView')->with('report', $report)->with('date', $date);
+            return view('reportView')->with('report', $report)->with('date', $date)->with('title', $title);
         }else{
             return redirect('/login');
         }

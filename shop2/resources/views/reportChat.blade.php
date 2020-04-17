@@ -32,7 +32,7 @@
 			<form action="/reportReply" method="POST">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.report') }}：</text>
-			<textarea cols="50" rows="5" name="report" id="report" required="required"></textarea>
+			<textarea cols="50" rows="5" name="report" id="report" maxlength="50" required="required"></textarea>
 			<input type="hidden" name="roomId" value="{{ $r->RoomId }}">
 			<input type="submit" value="{{ trans('messages.reporting') }}">
 			</form>

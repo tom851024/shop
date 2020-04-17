@@ -106,6 +106,7 @@
 		'authFail' => 'Auth Error',
 		'auth' => 'Auth',
 		'refresh' => 'Refresh',
+		'reportTitle' => 'Report Title',
 		
 	];
 ?>

@@ -290,15 +290,17 @@ class OwnerUserController extends Controller
            $date[$i] = $dd->Date;
            $user[$i] = $dd->UserId;
            $userName[$i] = $dd->UserName;
+           $title[$i] = $dd->Title;
            $i++;
         }
         if(!isset($date)){
             $date = null;
             $user = null;
             $userName = null;
+            $title = null;
         }
 
-        return view('cusReport')->with('report', $report)->with('date', $date)->with('user', $user)->with('userName', $userName);
+        return view('cusReport')->with('report', $report)->with('date', $date)->with('user', $user)->with('userName', $userName)->with('title', $title);
     }
 
 
@@ -330,7 +332,7 @@ class OwnerUserController extends Controller
 
     public function discountView()
     {
-        $discount = DB::table('Discount')->get();
+        $discount = DB::table('Discount')->orderBy('Level')->get();
         return view('discountView')->with('discount', $discount);
     }
 

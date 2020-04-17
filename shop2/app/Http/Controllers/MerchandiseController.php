@@ -124,6 +124,10 @@ class MerchandiseController extends Controller
         $orderId = $request->session()->get('userId').date("YmdHis");
         foreach ($cartTmp as $car) {
             DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+
+            //扣除庫存數量
+            $merQty = DB::table('Merchandise')->select('Qty')->where('id', $car->MerId)->first();
+            DB::update('update Merchandise set Qty = ? where id = ?', [$merQty->Qty - $car->Qty, $car->MerId]);
         }
 
 
@@ -176,7 +180,7 @@ class MerchandiseController extends Controller
 
         //等級提升
 
-         $uLv = DB::table('Level')->where('Level', $account->Level)->first();
+        $uLv = DB::table('Level')->where('Level', $account->Level)->first();
         if(isset($uLv)){
             $orderTable = DB::table('OrderTable')->where('UserId', $account->id)->get();
             $costTotal = 0;
@@ -197,6 +201,9 @@ class MerchandiseController extends Controller
              }
            
         }
+
+
+
 
             
 
@@ -221,6 +228,10 @@ class MerchandiseController extends Controller
                 $orderId = $request->session()->get('userId').date("YmdHis");
                 foreach ($cartTmp as $car) {
                     DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+
+                    //扣除庫存數量
+                    $merQty = DB::table('Merchandise')->select('Qty')->where('id', $car->MerId)->first();
+                    DB::update('update Merchandise set Qty = ? where id = ?', [$merQty->Qty - $car->Qty, $car->MerId]);
                 }
 
 
@@ -301,6 +312,10 @@ class MerchandiseController extends Controller
         $orderId = $request->session()->get('userId').date("YmdHis");
         foreach ($cartTmp as $car){
              DB::insert('insert into CartBuy (OrderId, UserId, MerId, MerName, Price, Qty, Progress) values (?, ?, ?, ?, ?, ?, ?)', [$orderId, $car->UserId, $car->MerId, $car->MerName, $car->Price, $car->Qty, 0]);
+
+            //扣除庫存數量
+            $merQty = DB::table('Merchandise')->select('Qty')->where('id', $car->MerId)->first();
+            DB::update('update Merchandise set Qty = ? where id = ?', [$merQty->Qty - $car->Qty, $car->MerId]);
         }
         DB::table('tmpShop')->where('UserId', $request->session()->get('userId'))->delete();
         foreach($cartTmp as $tmp){

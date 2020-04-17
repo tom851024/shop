@@ -116,6 +116,7 @@
 		'levelNotExist' => '此等級不存在',
 		'lvNoDiscountCre' => '新增全等級優惠',
 		'allDiscount' => '全站優惠',
+		'reportTitle' => '回報標題',
 
 	];
 ?>
