@@ -232,6 +232,7 @@ class UserController extends Controller
             }
             if(!isset($date)){
                 $date = null;
+                $title = null;
             }
             return view('reportView')->with('report', $report)->with('date', $date)->with('title', $title);
         }else{
