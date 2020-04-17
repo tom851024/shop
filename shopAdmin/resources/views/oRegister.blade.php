@@ -8,11 +8,11 @@
 		<form action="/admin/oRegisterPost" method="POST">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.userName') }}</text>
-			<input type="text" name="userName" id="userName" required="required" /><br />
+			<input type="text" name="userName" maxlength="20" id="userName" required="required" /><br />
 			<text>{{ trans('messages.password') }}</text>
-			<input type="password" name="password" id="password" required="required" /><br />
+			<input type="password" name="password" maxlength="20" id="password" required="required" /><br />
 			<text>{{ trans('messages.confirmPass') }}</text>
-			<input type="password" name="repassword" id="repassword" required="required" /><br />
+			<input type="password" name="repassword" maxlength="20" id="repassword" required="required" /><br />
 
 			<text>{{ trans('messages.auth') }}</text>
 			<select name="auth" id="auth">

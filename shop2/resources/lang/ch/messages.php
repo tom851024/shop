@@ -106,6 +106,7 @@
 		'auth' => '驗證碼',
 		'refresh' => '刷新',
 		'reportTitle' => '回報標題',
+		'orderManData' => '訂貨人資料',
 
 	];
 ?>

@@ -12,17 +12,17 @@
 			<table width="80%" border="1">
 				<tr>
 					<th>{{ trans('messages.mername') }}</th>
-					<td><input type="text" name="name" id="name" value="{{ $mer->Name }}" required="required" /></td>
+					<td><input type="text" name="name" id="name" maxlength="20" value="{{ $mer->Name }}" required="required" /></td>
 				</tr>
 
 				<tr>
 					<th>{{ trans('messages.shortdes') }}</th>
-					<td><input type="text" name="sdes" id="sdes" value="{{ $mer->ShortDes }}" required="required" /></td>
+					<td><input type="text" name="sdes" id="sdes" maxlength="50" value="{{ $mer->ShortDes }}" required="required" /></td>
 				</tr>
 
 				<tr>
 					<th>{{ trans('messages.description') }}</th>
-					<td><input type="text" name="des" id="des" value="{{ $mer->Description }}" required="required" /></td>
+					<td><input type="text" name="des" id="des" maxlength="150" value="{{ $mer->Description }}" required="required" /></td>
 				</tr>
 
 				<tr>

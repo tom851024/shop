@@ -39,7 +39,7 @@
 			<form action="/buyWithPlate" method="POST">
 				{{ csrf_field() }}
 				<text>{{ trans('messages.insertPlate') }}:</text>
-				<input type="text" name="plate" required="required" />
+				<input type="text" name="plate" maxlength="10" required="required" />
 				<input type="submit" value="{{ trans('messages.confirm') }}">
 			</form>
 			@if(session()->has('mes'))

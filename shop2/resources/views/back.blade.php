@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<th>{{ trans('messages.backQty') }}</th>
-					<td><input type="text" name="qty" /></td>
+					<td><input type="text" maxlength="3" name="qty" /></td>
 				</tr>
 				<tr>
 					<td>

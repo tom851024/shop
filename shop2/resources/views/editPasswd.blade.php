@@ -11,13 +11,13 @@
 		<form method="POST" action="/edPassPost">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.oldPass') }}</text>
-			<input type="Password" name="passwd" required="required" /><br />
+			<input type="Password" name="passwd" maxlength="20" required="required" /><br />
 			
 			<text>{{ trans('messages.newPass') }}</text> 
-			<input type="Password" name="newPasswd" required="required" /><br />
+			<input type="Password" name="newPasswd" maxlength="20" required="required" /><br />
 
 			<text>{{ trans('messages.confirmPass') }}</text>
-			<input type="Password" name="reNewPasswd" required="required" /><br />
+			<input type="Password" name="reNewPasswd" maxlength="20" required="required" /><br />
 
 			
 

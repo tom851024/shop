@@ -125,12 +125,16 @@
 			@else
 				<text>{{ trans('messages.noBuy') }}</text>
 			@endif
-			<a href="/order">{{ trans('messages.lastPage') }}</a>
+			
 			</table>
+
 			<text>{{ trans('messages.plateBuy') }} : {{ $order->Plate}}</text>
 			<br />
 			<input type="hidden" name="orderId" id="orderId" value="<?php echo $c->OrderId ?>" />
 			<input type="submit" value="{{ trans('messages.confirm') }}" />
+			<br /><br />
+			<a href="/userView/{{ $order->OrderId }}/{{ $order->UserId }}">{{ trans('messages.orderManData') }}</a>
+			<a href="/order">{{ trans('messages.lastPage') }}</a>
 		</form>
 
 	</body>

@@ -8,9 +8,9 @@
 		<form action="/admin/postOLogin" method="POST">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.userName') }}</text>
-			<input type="text" name="userName" id="userName" required="required" /><br />
+			<input type="text" name="userName" maxlength="20" id="userName" required="required" /><br />
 			<text>{{ trans('messages.password') }}</text>
-			<input type="password" name="passWd" id="passWd" required="required" /><br />
+			<input type="password" name="passWd" maxlength="20" id="passWd" required="required" /><br />
 			<input type="submit" value="{{ trans('messages.login') }}" />
 
 		</form>

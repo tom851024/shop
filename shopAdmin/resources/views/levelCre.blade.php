@@ -39,7 +39,7 @@
 
 
 		<br />
-		@if(session() -> has('mes'))
+		@if(session()->has('mes'))
 
 			@if(session()->get('mes') == '1')
 				<text style = "color:red;">{{ trans('messages.illegel') }}</text>

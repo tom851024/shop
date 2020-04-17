@@ -339,7 +339,7 @@ class OwnerUserController extends Controller
 
     public function disCreate()
     {
-        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[1-9]*$/", $_POST['level'])){
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] > 0){
 
             $ordCou = DB::table('Discount')->where('Level', $_POST['level'])->count();
             $lv = DB::table('Level')->where('Level', $_POST['level'] - 1)->count();
@@ -394,7 +394,7 @@ class OwnerUserController extends Controller
 
     public function disCountEditPost()
     {
-        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[1-9]*$/", $_POST['level'])){
+        if(preg_match("/^[0-9]*$/", $_POST['reachMon']) && preg_match("/^[0-9]*$/", $_POST['discount']) && preg_match("/^[0-9]*$/", $_POST['level']) && $_POST['level'] > 0){
 
             $ordCou = DB::table('Discount')->where('Level', $_POST['level'])->count();
             $lv = DB::table('Level')->where('Level', $_POST['level'] - 1)->count();

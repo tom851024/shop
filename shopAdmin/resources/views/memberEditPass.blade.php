@@ -9,7 +9,7 @@
 			{{ csrf_field() }}
 			<text>{{ trans('messages.password') }}</text>
 			<input type="hidden" name="id" value="{{ $userId }}" />
-			<input type="text" name="passwd" required="required" /><br />
+			<input type="text" name="passwd" maxlength="20" required="required" /><br />
 			<input type="submit" value="{{ trans('messages.confirm') }}">
 		</form>
 

@@ -13,10 +13,10 @@
 			<input type="text" name="name" id="name" maxlength="20" value="{{ $account->Name }}" required="required" /><br />
 
 			<text>{{ trans('messages.phone') }}: </text>
-			<input type="text" name="tel" id="tel" value="{{ $account->Phone }}" required="required" /><br />
+			<input type="text" name="tel" id="tel" maxlength="10" value="{{ $account->Phone }}" required="required" /><br />
 
 			<text>{{ trans('messages.address') }}: </text>
-			<input type="text" name="address" id="address" value="{{ $account->Address }}" required="required" /><br />
+			<input type="text" name="address" id="address" maxlength="50" value="{{ $account->Address }}" required="required" /><br />
 
 			
 			

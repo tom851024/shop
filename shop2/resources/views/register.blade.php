@@ -29,16 +29,16 @@
 			<text>{{ trans('messages.userName') }}: </text> 
 			<input type="text" name="userName" maxlength="20" id="userName" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 			<text>{{ trans('messages.password') }}: </text> 
-			<input type="password" name="passWord" id="passWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<input type="password" name="passWord" maxlength="20" id="passWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 			<text>{{ trans('messages.confirmPass') }}: </text> 
-			<input type="password" name="repassWord" id="repassWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<input type="password" name="repassWord" maxlength="20" id="repassWord" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 			<text>{{ trans('messages.name') }}: </text>
 			<input type="text" name="name" id="name" maxlength="20" required="required" /><br />
 			<text>{{ trans('messages.phone') }}: </text>
-			<input type="text" name="tel" id="tel" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
+			<input type="text" name="tel" id="tel" maxlength="10" required="required" onkeyup="value=value.replace(/[\W]/g, '')" /><br />
 
 			<text>{{ trans('messages.address') }}: </text>
-			<input type="text" name="address" id="address" required="required" /><br />
+			<input type="text" name="address" id="address" maxlength="50" required="required" /><br />
 
 
 			<text>{{ trans('messages.auth') }}: </text>

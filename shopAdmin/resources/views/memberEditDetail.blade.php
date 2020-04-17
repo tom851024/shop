@@ -13,15 +13,15 @@
 			<!-- <text>{{ trans('messages.password') }}: </text>
 			<input type="text" name="passWd" id="passWd" value="" required="required" /><br /> -->
 			<text>{{ trans('messages.name') }}: </text>
-			<input type="text" name="name" id="name" value="{{ $member->Name }}" required="required" /><br />
+			<input type="text" name="name" id="name" maxlength="20" value="{{ $member->Name }}" required="required" /><br />
 			<text>{{ trans('messages.phone') }}: </text>
-			<input type="text" name="phone" id="phone" value="{{ $member->Phone }}" required="required" /><br />
+			<input type="text" name="phone" id="phone" maxlength="10" value="{{ $member->Phone }}" required="required" /><br />
 			<text>{{ trans('messages.address') }}: </text>
-			<input type="text" name="address" id="address" value="{{ $member->Address }}" required="required" /><br />
+			<input type="text" name="address" id="address" maxlength="50" value="{{ $member->Address }}" required="required" /><br />
 			<text>{{ trans('messages.level') }}: </text>
-			<input type="text" name="level" id="level" value="{{ $member->Level }}" required="required" /><br />
+			<input type="text" name="level" id="level" maxlength="2" value="{{ $member->Level }}" required="required" /><br />
 			<text>{{ trans('messages.plate') }}: </text>
-			<input type="text" name="gold" id="gold" value="{{ $member->Gold }}" required="required" /><br />
+			<input type="text" name="gold" id="gold" maxlength="15" value="{{ $member->Gold }}" required="required" /><br />
 
 			<input type="hidden" name="id" id="id" value="{{ $member->id }}" required="required" /><br />
 

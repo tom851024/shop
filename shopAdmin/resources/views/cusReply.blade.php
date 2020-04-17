@@ -35,7 +35,7 @@
 		<form action="/admin/replyPost" method="POST">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.reply') }}: </text>
-			<textarea cols="50" rows="5" name="reply" id="reply" required="required"></textarea>
+			<textarea cols="50" rows="5" name="reply" maxlength="150" id="reply" required="required"></textarea>
 			<input type="hidden" name="roomId" value="{{ $r->RoomId }}" />
 			<input type="submit" value="{{ trans('messages.confirm') }}">
 		</form>

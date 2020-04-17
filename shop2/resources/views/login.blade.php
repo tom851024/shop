@@ -28,9 +28,9 @@
 		<form method="POST" action="/postLogin">
 			{{ csrf_field() }}
 			<text>{{ trans('messages.userName') }}: </text>
-			<input type="text" name="userName" id="userName" /><br />
+			<input type="text" name="userName" maxlength="20" id="userName" /><br />
 			<text>{{ trans('messages.password') }}: </text>
-			<input type="Password" name="passWord" id="passWord"><br />
+			<input type="Password" name="passWord" maxlength="20" id="passWord"><br />
 
 
 			

@@ -107,6 +107,7 @@
 		'auth' => 'Auth',
 		'refresh' => 'Refresh',
 		'reportTitle' => 'Report Title',
+		'orderManData' => 'OrderMan Data',
 		
 	];
 ?>

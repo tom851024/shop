@@ -12,7 +12,7 @@
 			<form action="/admin/orderSearch" method="POST">
 				{{ csrf_field() }}
 				<text>{{ trans('messages.searchFromName') }}</text>
-				<input type="text" name="search" id="search" required="required" />
+				<input type="text" name="search" id="search" maxlength="50" required="required" />
 				<input type="submit" value="{{ trans('messages.search') }}" />
 			</form>
 			
@@ -20,7 +20,7 @@
 			<form action="/admin/orderSearchNum" method="POST">
 				{{ csrf_field() }}
 				<text>{{ trans('messages.searchFromOrder') }}</text>
-				<input type="text" name="search" id="search" required="required" onkeyup="value=value.replace(/[^\d]/g, '')" />
+				<input type="text" name="search" id="search" maxlength="50" required="required" onkeyup="value=value.replace(/[^\d]/g, '')" />
 				<input type="submit" value="{{ trans('messages.search') }}" />
 				@if(session() -> has('mes'))
 					@if(session()->get('mes') == '1')
@@ -33,7 +33,7 @@
 			<form action="/admin/orderSearchMer" method="POST">
 				{{ csrf_field() }}
 				<text>{{ trans('messages.searchFromMer') }}</text>
-				<input type="text" name="search" id="search" required="required" />
+				<input type="text" name="search" id="search" maxlength="50" required="required" />
 				<input type="submit" value="{{ trans('messages.search') }}" />
 			</form>
 
