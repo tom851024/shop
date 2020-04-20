@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Warehouse Page</title>	
+		<title>Warehouse Page</title>
+
+		<script type="text/javascript">
+			function edit(id){
+				window.location.href = 'http://localhostadmin/admin/warehouseDetail/'+id;
+			}
+		</script>	
 	</head>
 
 
@@ -21,7 +27,7 @@
 					<th>{{ trans('messages.price') }}</th>
 					<th>{{ trans('messages.qty') }}</th>
 					<th>{{ trans('messages.postOrNot') }}</th>
-					<th></th>
+					<th>{{ trans('messages.edit') }}</th>
 					<th>{{ trans('messages.delete') }}</th>
 				</tr>
 
@@ -41,12 +47,13 @@
 							@endif
 						</td>
 						<td>
-							<form action="/admin/warehouseDetail/<?php echo $mer->id ?>" method="get">	
+							<!-- <form action="/admin/warehouseDetail/<?php echo $mer->id ?>" method="get">	
 											
 								
 								<input type="submit" value="{{ trans('messages.edit') }}" />
-							</form>
+							</form> -->
 							
+							<input type="button" onclick="edit(<?php echo $mer->id ?>)" value="{{ trans('messages.edit') }}">
 
 						</td>
 						<td>
