@@ -602,8 +602,13 @@ class OwnerUserController extends Controller
             $lvv = DB::table('Level')->where('id', $_POST['id'])->first();
 
             if($lv == 0 || $_POST['levelNow'] == $lvv->Level){
-                DB::update('update Level set ReachGold = ?, TotalGold = ?, RStatus = ?, TStatus = ?, Level = ? where id = ?', [$_POST['reachMoney'], $_POST['totalMoney'], $_POST['rStatus'], $_POST['tStatus'], $_POST['levelNow'], $_POST['id']]);
-                return redirect('/admin/level');
+                $lvDown = DB::table('Level')->where('Level', $_POST['levelNow'] - 1)->count();
+                if($lvDown == 0 || $_POST['levelNow'] == $lvv->Level){
+                    DB::update('update Level set ReachGold = ?, TotalGold = ?, RStatus = ?, TStatus = ?, Level = ? where id = ?', [$_POST['reachMoney'], $_POST['totalMoney'], $_POST['rStatus'], $_POST['tStatus'], $_POST['levelNow'], $_POST['id']]);
+                    return redirect('/admin/level');
+                }else{
+                    return redirect('/admin/editLevel/' . $_POST['id'])->with('mes', '3');
+                }
             }else{
                 return redirect('/admin/editLevel/' . $_POST['id'])->with('mes', '2');
             }
